@@ -2,6 +2,16 @@
   margin: 0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f3eee4;
+}
+
 .header {
   display: flex;
   justify-content: space-evenly;
@@ -24,6 +34,7 @@
 
   .nav-link {
     color: white;
+    text-decoration: none;
   }
 }
 
@@ -76,6 +87,105 @@
     background-color: #1D3447;
     border-style: none;
     cursor: pointer;
+  } 
+}
+
+.shop {
+  font-family: Founders Grotesk, Arial Black, sans-serif;
+
+  .shop__categories {
+    display: flex;
+    background-color: white;
+    width: 100%;
+    justify-content: space-evenly;
   }
-  
+
+  .shop__category-wrapper {
+    padding: 0.5em 0.2em;
+  }
+
+  .shop__category {
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.5em 0.5em;
+  }
+
+  .shop__category:hover {
+    background-color: rgba(45,45,45,.65);
+  }
+
+  .shop__category.active {
+    background-color: rgba(45,45,45,.65);
+  }
+
+  .shop__current-category-wrapper {
+    background-color: #1a1c1f;
+  }
+
+  .shop__current-category {
+    text-align: center;
+    margin-top: 1em;
+    color: white;
+    font-weight: 100;
+    padding: 2.2em 0;
+  }
+
+  .shop__albums {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    margin: auto;
+    width: 95%;
+  }
+
+  .shop__album {
+    height: 80%;
+    width: 85%;
+    margin: auto;
+    margin-bottom: 2em;
+    cursor: pointer;
+  }
+
+  .album__img-wrapper {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+  }
+
+  .album__img {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    font-family: "object-fit:contain", 'object-fit: contain;';
+    -o-object-fit: contain;
+    object-fit: contain;
+    display: block;
+    position: absolute;
+    width: 100%;
+  }
+
+  .album__overview {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    font-size: 0.75em;
+    min-height: 10em;
+    padding: 1em;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .album__title {
+    margin-bottom: 0.5em;
+  }
+
+  .album__label {
+    margin-bottom: 0.5em;
+  }
 }
