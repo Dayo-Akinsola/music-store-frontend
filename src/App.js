@@ -1,6 +1,7 @@
 import Header from './components/Header';
 import Home from './components/Home';
-import Shop from './components/Shop';
+import Shop from './components/ShopPage/Shop';
+import AlbumDetails from './components/AlbumDetailsPage/AlbumDetails';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -36,6 +37,12 @@ const App = () => {
 
     const setInitialState = async () => {
       const allAlbums = await getAllAlbums();
+      allAlbums.map((album) => {
+        const price = ((album.community.want + album.community.have) * 0.25).toFixed(2);
+        album['price'] = price;
+        return album;
+      })
+      console.log(allAlbums);
       setAlbums(
         {
           all: allAlbums.map(album => album),
@@ -57,7 +64,15 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/Shop' element={<Shop />}></Route>
+          <Route path='/shop'>
+            <Route path='all' element={<Shop albums={albums.all} category='All' />}></Route>
+            <Route path='pop' element={<Shop albums={albums.pop} category='Pop' />}></Route>
+            <Route path='rock' element={<Shop albums={albums.rock} category='Rock' />}></Route>
+            <Route path='electronic' element={<Shop albums={albums.electronic} category='Electronic' />}></Route>
+            <Route path='hip-hop' element={<Shop albums={albums.hiphop} category='Hip Hop' />}></Route>
+            <Route path='jazz' element={<Shop albums={albums.jazz} category='Jazz' />}></Route>
+            <Route path=':uri/:id' element={<AlbumDetails albums={albums.all}/>}></Route>
+          </Route>
         </Routes>
       </Router>
     </>
