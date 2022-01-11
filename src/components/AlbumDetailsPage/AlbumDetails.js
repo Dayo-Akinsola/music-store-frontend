@@ -3,29 +3,55 @@ import { useParams } from "react-router-dom";
 
 const AlbumDetails = ({ albums }) => {
 
+  const [albumDetails, setAlbumDetails] = useState(null);
   const urlParams = useParams();
-  
-  const [albumDetails, setAlbumDetails] = useState( albums.filter(album => album.id === parseInt(urlParams.id))[0] );
 
+  const getAlbumSet = async (style) => {
+    const response = await fetch(`http://localhost:3001/${style}`, { mode: 'cors' });
+    const data = await response.json()
+    const albums = data.results; 
+    return albums;
+  }
+  
+  const getAllAlbums = async () => {
+    const popStyleAlbums = await getAlbumSet('pop');
+    const hiphopStyleAlbums = await getAlbumSet('hiphop');
+    const jazzStyleAlbums = await getAlbumSet('jazz');
+
+    return [].concat(popStyleAlbums, hiphopStyleAlbums, jazzStyleAlbums);
+  }
 
   useEffect(() => {
-    const getAlbumInfo = async () => {
-      const response = await fetch(albumDetails.master_url, { mode: 'cors' });
-      const albumInfo = await response.json();
-      setAlbumDetails(
-        {
-          ...albumDetails,
-          artist: albumInfo.artists[0].name,
-          tracklist: albumInfo.tracklist,
-          albumTitle: albumInfo.title,
-          relatedAlbums: albums.filter(album => album.genre.includes(albumDetails.genre[0])),
-        }
-      );
-    };
+    const setInitialAlbumDetails = async () => {
+      const albums = await getAllAlbums();
+      // setAlbumDetails(albums.filter(album => album.id === parseInt(urlParams.id))[0]);
+      const chosenAlbum = albums.filter(album => album.id === parseInt(urlParams.id))[0];
+      try {
+        const response = await fetch(chosenAlbum.resource_url, { mode: 'cors' });
+        const albumInfo = await response.json();
+        setAlbumDetails(
+          {
+            ...chosenAlbum,
+            artist: albumInfo.artists[0].name,
+            tracklist: albumInfo.tracklist,
+            albumTitle: albumInfo.title,
+            relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0])),        
+          }
+        )
+      }
+      catch(err) {
+        console.log(err);
+      }
+     
+    }
 
-    getAlbumInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setInitialAlbumDetails();
   }, []);
+
+
+  if (!albums || !albumDetails) {
+    return null;
+  }
 
   return (
     <div className="album-page">
@@ -34,8 +60,16 @@ const AlbumDetails = ({ albums }) => {
           <img src={albumDetails.cover_image} alt={albumDetails.albumTitle} className="album-page__album-img" />
         </div>
         <div className="album-page__details--main-info-wrapper">
-          <span className="album-page__details--album-name">{albumDetails.albumTitle}</span>
-          <span className="album-page__details--artist-name">{albumDetails.artist}</span>
+          {
+            albumDetails.albumTitle ? 
+            <span className="album-page__details--album-name">{albumDetails.albumTitle}</span>
+            : <></>
+          }
+          {
+            albumDetails.artist ?
+            <span className="album-page__details--artist-name">{albumDetails.artist}</span>
+            : <></>
+          }
         </div>
         <div className="album-page__details--album-purchase-wrapper">
           <div className="album-page__details--quantity">
