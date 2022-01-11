@@ -189,3 +189,19 @@ body {
     margin-bottom: 0.5em;
   }
 }
+
+.album-page {
+  
+  .album-page__details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .album-page__details--album-img-wrapper {
+    margin: auto;
+  }
+
+  .album-page__album-img {
+    max-width: 80%;
+  }
+}
