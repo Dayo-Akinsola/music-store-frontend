@@ -191,17 +191,161 @@ body {
 }
 
 .album-page {
-  
-  .album-page__details {
-    display: flex;
-    flex-direction: column;
-  }
+  font-family: Founders Grotesk,Arial Black,sans-serif;
 
   .album-page__details--album-img-wrapper {
-    margin: auto;
+    text-align: center;
+    margin-top: 3.8em;
   }
 
   .album-page__album-img {
     max-width: 80%;
+  }
+
+  .album-page__details--text {
+    margin-top: 1em;
+  }
+
+  .album-page__details--main-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .album-page__details--artist-name {
+    font-weight: 100;
+    margin-top: 0.2em;
+  }
+
+  .album-page__details--price-wrapper {
+    margin: 1.5em 0 0 0.5em;
+    font-weight: 600;
+  }
+
+  .album-page__details--sub-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0 0 0.5em;
+    font-size: 0.8em;
+  }
+
+  .album-page__details--generes {
+    margin-bottom: 0.2em;
+  }
+
+  .album-page__details--album-purchase-wrapper {
+    display: flex;
+    margin-top: 2em;
+    justify-content: space-evenly;
+  }
+}
+
+.cart-sidebar {
+  background-color: #fff;
+  font-family: Founders Grotesk,Arial Black,sans-serif;
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  padding: 1.2em;
+  border-left: 10px solid #1D3447;
+
+  .cart-sidebar__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+  }
+
+  .cart-sidebar__header--close {
+    cursor: pointer;
+  }
+
+  .cart-sidebar__cart-album {
+    display: flex;
+    margin-top: 0.5em;
+    border-top: 1px solid #d4d6d9;
+    padding: 0.8em;
+  }
+
+  .cart-sidebar__cart-album--img {
+    max-width: 6em;
+  }
+  
+  .cart-sidebar__total {
+    border-top: 1px solid #d4d6d9;
+    padding: 0.8em;
+    border-bottom: 1px solid #d4d6d9;
+    margin-top: 1.4em;
+  }
+
+  .cart-sidebar__cart-album--text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5em;
+    font-size: 0.9em
+  }
+
+  .cart-sidebar__cart-album--title {
+    font-size: 1.1em;
+  }
+
+  .cart-sidebar__cart-album--unit {
+    margin-top: 0.5em;
+  }
+
+  .cart-sidebar__cart-album--quantity {
+    margin-top: 0.4em;
+  }
+
+  .cart-sidebar__proceed-btn{
+    align-items: center;
+    appearance: none;
+    background-color: #3EB2FD;
+    background-image: linear-gradient(1deg, #4F58FD, #149BF3 99%);
+    background-size: calc(100% + 20px) calc(100% + 20px);
+    border-radius: 100px;
+    border-width: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: CircularStd,sans-serif;
+    font-size: 1rem;
+    height: auto;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 6px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s,background-position .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100%;
+    margin-top: 2em;
+  }
+
+  .cart-sidebar__proceed-btn:active,
+  .cart-sidebar__proceed-btn:focus {
+    outline: none;
+  }
+
+  .cart-sidebar__proceed-btn:hover {
+    background-position: -20px -20px;
+  }
+
+  .cart-sidebar__proceed-btn:focus:not(:active) {
+    box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
+  }
+
+  .cart-sidebar__proceed-btn::after {
+    content: '>>';
+    position: absolute;
+    right: 1em;
   }
 }
