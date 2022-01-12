@@ -14,7 +14,10 @@ const CartSidebar = ({ cart, hideCart }) => {
         {cart.map(album => <CartAlbum cartAlbum={album} key={album.id} />)}
       </div>
       <div className="cart-sidebar__total">
-        <span className="cart-sidebar__total--text"><b>Total ({cart.length} items):</b> £{cart.reduce(priceReducer)}</span>
+        <span className="cart-sidebar__total--text">
+          <b>Total ({cart.length} items):</b> 
+          £{cart.length === 1 ? (cart[0].price * cart[0].quantity) : cart.reduce(priceReducer)}
+        </span>
       </div>
       <button className="cart-sidebar__proceed-btn">Proceed</button>
     </div>
