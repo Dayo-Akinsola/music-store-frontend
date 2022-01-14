@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import QuantityInput from './QuantityInput';
 
-const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityChange, addAlbumToCart }) => {
+const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityChange, addAlbumToCart, incrementQuantity, decrementQuantity }) => {
 
   const [albumDetails, setAlbumDetails] = useState(null);
   const urlParams = useParams();
@@ -71,14 +72,13 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
             <span className="album-page__details--styles"><b>Styles:</b> {albumDetails.style.map(style => categoryMap(albumDetails.style, style) )}</span>
           </div>
           <div className="album-page__details--album-purchase-wrapper">
-            <div className="album-page__details--quantity">
-              <input 
-                type="number" step="1" min="1" 
-                name="quantity" 
-                value={quantity} onChange={handleQuantityChange} 
-                className="album-page__details--purchase-quantity" 
-              />
-            </div>
+            <QuantityInput 
+              quantity={quantity} 
+              incrementQuantity={incrementQuantity} 
+              decrementQuantity={decrementQuantity} 
+              handleQuantityChange={handleQuantityChange} 
+              classNamePrefix='album-page__details'
+            />
             <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">Add To Cart</button>
           </div>
         </div>
