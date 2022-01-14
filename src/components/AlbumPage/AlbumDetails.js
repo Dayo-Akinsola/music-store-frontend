@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import QuantityInput from './QuantityInput';
+import QuantityInput from '../QuantityInput';
+import RelatedAlbums from './RelatedAlbums';
 
 const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityChange, addAlbumToCart, incrementQuantity, decrementQuantity }) => {
 
@@ -32,7 +33,6 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   if (!albumDetails) {
     return null;
@@ -82,6 +82,7 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
             <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">Add To Cart</button>
           </div>
         </div>
+        <RelatedAlbums relatedAlbums={albumDetails.relatedAlbums} />
       </div>
     </div>
   );
