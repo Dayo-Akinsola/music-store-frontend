@@ -21,6 +21,7 @@ const App = () => {
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [totalQuantity, setTotalQuantity] = useState(0);
   
   const getAlbumSet = async (style) => {
     const response = await fetch(`http://localhost:3001/${style}`, { mode: 'cors' });
@@ -39,7 +40,6 @@ const App = () => {
 
   const setAlbumPrices = async () => {
     const allAlbums = await getAllAlbums();
-    console.log(allAlbums);
     return allAlbums.map((album) => {
       const price = ((album.community.want + album.community.have) * 0.25).toFixed(2);
       album['price'] = price;
@@ -49,9 +49,29 @@ const App = () => {
 
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value) {
+    if (value && value <= 20) {
       setQuantity(value);
     }
+  }
+
+  const incrementQuantity = () => {
+    if (quantity <= 19) {
+      setQuantity(quantity + 1);
+    }
+  }
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  }
+
+  const hideCart = () => {
+    setShowCart(false);
+  }
+
+  const displayCart = () => {
+    setShowCart(true);
   }
 
   const addAlbumToCart = (album) => {
@@ -75,13 +95,10 @@ const App = () => {
       }));
       setQuantity(1);
     }
-    console.log(cart);
-    setShowCart(true);
+    displayCart();
   }
 
-  const hideCart = () => {
-    setShowCart(false);
-  }
+
 
   useEffect(() => {
     setAlbumPrices()
@@ -100,10 +117,23 @@ const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const quantityReducer = (previousValue, currentValue) => previousValue + currentValue;
+
+    const getTotalQuantity = () => {
+      const quantities = cart.map(item => item.quantity);
+      const total = cart.length > 0 ? quantities.reduce(quantityReducer) : 0;
+      return total;
+    }
+
+    const total = getTotalQuantity();
+    setTotalQuantity(total);
+  }, [cart]);
+
   return (
     <>
       <Router>
-        <Header />
+        <Header totalQuantity={totalQuantity} displayCart={displayCart} />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/shop'>
@@ -121,11 +151,13 @@ const App = () => {
               setQuantity={setQuantity}
               handleQuantityChange={handleQuantityChange}
               addAlbumToCart={addAlbumToCart}
+              incrementQuantity={incrementQuantity}
+              decrementQuantity={decrementQuantity}
               cart={cart}
             />}></Route>
           </Route>
         </Routes>
-        {showCart ? <CartSidebar cart={cart} hideCart={hideCart} /> : <></>}
+        {showCart ? <CartSidebar cart={cart} setCart={setCart} hideCart={hideCart} totalQuantity={totalQuantity} /> : <></>}
       </Router>
     </>
   );
