@@ -1,9 +1,17 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import Nav from './Nav';
 
-const Header = () => {
+const Header = ({ displayCart, totalQuantity }) => {
   return (
     <div className="header">
-      <h2 className="header__heading">Album Store</h2>
+      <div className="header__top">
+        <h2 className="header__top--heading">Album Store</h2>
+        <div onClick={displayCart} className="header__top--cart-icon-container">
+          <span className="header__top--cart-count">{totalQuantity}</span>
+          <FontAwesomeIcon className="header__top--cart-icon" icon={faShoppingCart} />
+        </div>
+      </div> 
       <Nav />
     </div>
   )
