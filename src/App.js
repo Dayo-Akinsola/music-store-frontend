@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import Home from './components/Home';
 import Shop from './components/ShopPage/Shop';
-import AlbumDetails from './components/AlbumDetails';
+import AlbumDetails from './components/AlbumPage/AlbumDetails';
 import CartSidebar from './components/CartSidebar/CartSidebar';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

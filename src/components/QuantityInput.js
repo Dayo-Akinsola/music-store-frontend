@@ -1,12 +1,11 @@
 const QuantityInput = ({ quantity, decrementQuantity, incrementQuantity, handleQuantityChange, classNamePrefix}) => {
 
 	const quantityStyle = {
-			position: 'relative',
-			width: '100%',
-			maxWidth: '9.3rem',
-			padding: 0,
-			margin: '30px 0',
-			border: 0,
+		position: 'relative',
+		width: '100%',
+		maxWidth: '9.3rem',
+		padding: 0,
+		border: 0,
 	}
 	const btnStyles = {
 		plusBtn: {
@@ -36,7 +35,7 @@ const QuantityInput = ({ quantity, decrementQuantity, incrementQuantity, handleQ
     boxShadow: '2px 5px 16px 0px #1A3D645E',
     textAlign: 'center',
     boxSizing: 'border-box',
-    fontWeight: 'lighter',
+    fontWeight: 400,
     outline: 'none',
     width: '100%',
 	}
