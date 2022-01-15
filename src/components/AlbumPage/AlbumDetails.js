@@ -20,7 +20,7 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
           artist: albumInfo.artists[0].name,
           tracklist: albumInfo.tracklist,
           albumTitle: albumInfo.title,
-          relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0])),        
+          relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0]) && chosenAlbum.id !== album.id),        
         }
       )
     }
@@ -32,7 +32,7 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
     )
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [urlParams]);
 
   if (!albumDetails) {
     return null;
@@ -82,7 +82,9 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
             <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">Add To Cart</button>
           </div>
         </div>
-        <RelatedAlbums relatedAlbums={albumDetails.relatedAlbums} />
+        <div className="album-page__extra">
+          <RelatedAlbums relatedAlbums={albumDetails.relatedAlbums} albumDetails={albumDetails} setAlbumDetails={setAlbumDetails} urlParams={urlParams} />
+        </div>
       </div>
     </div>
   );

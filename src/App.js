@@ -157,7 +157,7 @@ const App = () => {
             />}></Route>
           </Route>
         </Routes>
-        {showCart ? <CartSidebar cart={cart} setCart={setCart} hideCart={hideCart} totalQuantity={totalQuantity} /> : <></>}
+        {showCart ? <CartSidebar cart={cart} setCart={setCart}  hideCart={hideCart} totalQuantity={totalQuantity} /> : <></>}
       </Router>
     </>
   );
