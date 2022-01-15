@@ -204,6 +204,11 @@ body {
   cursor: pointer;
 }
 
+.album-page .shop__album {
+  max-width: 9em;
+  margin: 0 auto;
+}
+
 .album__img-wrapper {
   display: block;
   position: relative;
@@ -229,7 +234,7 @@ body {
   flex-direction: column;
   background-color: white;
   font-size: 0.75em;
-  min-height: 10em;
+  min-height: 13em;
   padding: 1em;
 }
 
@@ -296,11 +301,40 @@ a {
     align-items: center;
   }
 
-  .album-page__details--related-albums {
+  .album-page__extra--related-wrapper {
+    margin-top: 2em;
     display: flex;
-    margin: auto;
-    width: 95%;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .album-page__extra--related-heading {
+    text-align: center;
+    margin-bottom: 1.2em;
+  }
+
+  .album-page__extra--related-albums {
+    display: flex;
+    min-width: 20em;    
+  }
+
+  .album-page__extra--nav-arrows {
+    display: flex;
+    font-size: 1.9em;
+    width: 10em;
+    justify-content: space-evenly;
+    margin-top: 0.4em;
+  }
+
+  .album-page__extra--left-arrow {
+    cursor: pointer;
+  }
+
+  .album-page__extra--right-arrow {
+    cursor: pointer;
+  }
+
+
 }
 
 .cart-sidebar {
