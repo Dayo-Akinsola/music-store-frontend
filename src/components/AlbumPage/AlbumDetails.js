@@ -12,7 +12,7 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
     const setInitialAlbumDetails = async () => {
       const albums = await setAlbumPrices();
       const chosenAlbum = albums.filter(album => album.id === parseInt(urlParams.id))[0];
-      const response = await fetch(`http://localhost:3001/${chosenAlbum.type}s/${chosenAlbum.id}`, { mode: 'cors'});
+      const response = await fetch(`http://localhost:3001/discogs/${chosenAlbum.type}s/${chosenAlbum.id}`, { mode: 'cors'});
       const albumInfo = await response.json();
       setAlbumDetails(
         {

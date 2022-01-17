@@ -24,7 +24,7 @@ const App = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   
   const getAlbumSet = async (style) => {
-    const response = await fetch(`http://localhost:3001/${style}`, { mode: 'cors' });
+    const response = await fetch(`http://localhost:3001/discogs/${style}`, { mode: 'cors' });
     const data = await response.json()
     const albums = data.results; 
     return albums;
