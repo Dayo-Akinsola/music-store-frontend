@@ -1,77 +1,123 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPauseCircle, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router';
 
-const TrackList = ({ albumDetails }) => {
+
+const TrackList = ({ albumDetails, urlParams }) => {
   const [tracks, setTracks] = useState({tracklist: [], hasFullInfo: false});
-  const [audio, setAudio] = useState(new Audio('https://p.scdn.co/mp3-preview/cb0aaa8d8e7cfd2391a6383e1b4be3bccea77d71?cid=d8652ef9c7f14c1a85aaec080a91e083'));
-  const [playing, setPlaying] = useState(false);
+  const activeTrack = useRef();
 
-  const togglePlaying = () => setPlaying(!playing);
+  const { pathname } = useLocation();
 
-  const convertToMinutesAndSeconds = (duration) => {
-    const time = new Date(duration);
-    const convertedTime = `${time.getMinutes()}:${time.getSeconds()}`;
-    return convertedTime;
+  const playTrack = (track) => {
+    track.isPlaying = true;
+    track.preview.play();
+  }
+  const pauseTrack = (track) => {
+    track.isPlaying = false;
+    track.preview.pause()
+  }
+
+  const togglePlaying = (clickedTrackID) => {
+    setTracks({
+      tracklist: tracks.tracklist.map((track) => {
+        if (track.isPlaying && clickedTrackID === track.id) {
+          pauseTrack(track);
+        } else if (clickedTrackID === track.id) {
+          playTrack(track);
+          activeTrack.current = track.preview;
+        } else {
+          pauseTrack(track);
+        }
+        return track;
+      }),
+      hasFullInfo: true,
+    })
   }
 
   useEffect(() => {
 
-  const getAlbumTracks = async () => {
-    const response = await fetch(`http://localhost:3001/spotify/${albumDetails.albumTitle}`, {mode: 'cors'});
-    const data = await response.json();
-    const { items } = data.albums;
-    const matchingAlbum = items.filter((album) => {
-      if (album.artists[0].name === albumDetails.artist && album.name === albumDetails.albumTitle) {
-        return true;
+    const convertToMinutesAndSeconds = (duration) => {
+      const time = new Date(duration);
+      const convertedTime = `${time.getMinutes()}:${time.getSeconds()}`;
+      return convertedTime;
+    }
+  
+    const removePunctuationAndWhiteSpace = (str) => {
+      // eslint-disable-next-line no-useless-escape
+      const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+      const cleanedString = str.replace(regex, '');
+      return cleanedString.replace(/\u2013|\u2014/g, '').split(' ').join('').toLowerCase();
+    }
+
+    const getAlbumTracks = async () => {
+      const response = await fetch(`http://localhost:3001/spotify/${albumDetails.albumTitle}`, {mode: 'cors'});
+      const data = await response.json();
+      const { items } = data.albums;
+      const matchingAlbum = items.filter((album) => {
+        const spotifyArtistName = removePunctuationAndWhiteSpace(album.artists[0].name);
+        const discogsArtistName = removePunctuationAndWhiteSpace(albumDetails.artist);
+        const spotifyAlbumName = removePunctuationAndWhiteSpace(album.name);
+        const discogsAlbumName = removePunctuationAndWhiteSpace(albumDetails.albumTitle);   
+        if (spotifyArtistName === discogsArtistName && spotifyAlbumName === discogsAlbumName) {
+          return true;
+        }
+        return false;
+      });
+      if (matchingAlbum.length === 0) {
+        setTracks({
+          tracklist: albumDetails.tracklist,
+          hasFullInfo: false,
+        });
+      } else {
+        const albumSpotifyId = matchingAlbum[0].id
+        const tracklistResponse = await fetch(`http://localhost:3001/spotify/${albumSpotifyId}/tracks`, {mode: 'cors'});
+        const tracklistData = await tracklistResponse.json();
+        setTracks({
+          tracklist: tracklistData.items.map((track) => {
+            const trackDetails = {
+              id: track.id,
+              name: track.name,
+              preview: new Audio(track.preview_url),
+              duration: convertToMinutesAndSeconds(track.duration_ms),
+              artists: track.artists.map((artist) => {
+                return {
+                  name: artist.name, id: artist.id
+                }
+              }),
+              isPlaying: false,
+            }
+            return trackDetails;
+          }),
+          hasFullInfo: true,
+        });
       }
-      return false;
+    }
+    getAlbumTracks();
+
+    return (
+      console.log('hello')
+    )
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setTracks({
+      tracklist: tracks.tracklist.map((track) => {
+        if (track.isPlaying) {
+          pauseTrack(track);
+        }
+        return track;
+      }),
+      hasFullInfo: tracks.hasFullInfo,
     });
 
-    if (matchingAlbum.length === 0) {
-      setTracks({
-        tracklist: albumDetails.tracklist,
-        hasFullInfo: false,
-      });
-    } else {
-      const albumSpotifyId = matchingAlbum[0].id
-      const tracklistResponse = await fetch(`http://localhost:3001/spotify/${albumSpotifyId}/tracks`, {mode: 'cors'});
-      const tracklistData = await tracklistResponse.json();
-      setTracks({
-        tracklist: tracklistData.items.map((track) => {
-          const trackDetails = {
-            id: track.id,
-            name: track.name,
-            preview: new Audio(track.preview_url),
-            duration: convertToMinutesAndSeconds(track.duration_ms),
-            artists: track.artists.map((artist) => {
-              return {
-                name: artist.name, id: artist.id
-              }
-            }),
-            isPlaying: false,
-          }
-          return trackDetails;
-        }),
-        hasFullInfo: true,
-      });
-    }
-  }
-  getAlbumTracks();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [urlParams.id]);
 
-  useEffect(() => {
-    playing ? audio.play() : audio.pause();
 
-  }, [playing]);
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
 
 
   if (tracks.hasFullInfo) {
@@ -88,11 +134,10 @@ const TrackList = ({ albumDetails }) => {
                 </div>
               </div>
             </div>
-            <button onClick={togglePlaying} className="album-page__extra--track-preview-btn">
-              {playing ? "Pause" : "Play"}
-              <FontAwesomeIcon onClick icon={faPlayCircle} />
+            <button onClick={(event) => togglePlaying(track.id, event)} className="album-page__extra--track-preview-btn">
+              {track.isPlaying ? <FontAwesomeIcon icon={faPauseCircle} /> : <FontAwesomeIcon icon={faPlayCircle} /> }               
             </button>
-            <audio className="album-page__extra--track-preview-audio" > 
+            <audio onEnded={(event) => togglePlaying(track.id, event)} className="album-page__extra--track-preview-audio" > 
             </audio>
           </div>
         ))}          
