@@ -23,7 +23,7 @@ const QuantityInput = ({ quantity, decrementQuantity, incrementQuantity, handleQ
 	}
 
 	const purchaseQuantityStyle = {
-		'WebkitAppearance': 'none',
+	'WebkitAppearance': 'none',
     'MozAppearance': 'textfield',
     fontSize: '18px',
     height: '2rem',
