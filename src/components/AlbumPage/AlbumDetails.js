@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import QuantityInput from '../QuantityInput';
 import RelatedAlbums from './RelatedAlbums';
+import TrackList  from './TrackList';
 
 const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityChange, addAlbumToCart, incrementQuantity, decrementQuantity }) => {
 
@@ -22,17 +23,22 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
           albumTitle: albumInfo.title,
           relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0]) && chosenAlbum.id !== album.id),        
         }
-      )
+      );
+    }
+
+    const resetState = () => {
+      setAlbumDetails(null);
+      setQuantity(1);
     }
 
     setInitialAlbumDetails();
 
     return (
-      setQuantity(1)
+      resetState()
     )
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [urlParams]);
+  }, [urlParams.id]);
 
   if (!albumDetails) {
     return null;
@@ -83,7 +89,8 @@ const AlbumDetails = ({ setAlbumPrices, quantity, setQuantity, handleQuantityCha
           </div>
         </div>
         <div className="album-page__extra">
-          <RelatedAlbums relatedAlbums={albumDetails.relatedAlbums} albumDetails={albumDetails} setAlbumDetails={setAlbumDetails} urlParams={urlParams} />
+          <TrackList albumDetails={albumDetails} urlParams={urlParams}  />
+          <RelatedAlbums albumDetails={albumDetails} />
         </div>
       </div>
     </div>
