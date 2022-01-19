@@ -1,4 +1,4 @@
-import NavLink from './NavLink';
+import NavLink from '../Shared/NavLink';
 import { Link } from 'react-router-dom';
 
 const Nav = () => {
