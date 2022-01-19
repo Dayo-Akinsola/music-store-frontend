@@ -58,14 +58,16 @@ body {
 
   .header__top--heading {
     font-weight: 400;
+    font-size: 1.3em;
+    margin: auto;
   }
 
   .header__top--cart-count {
     position: absolute;
     color: black;
     font-weight: 600;
-    right: 2em;
-    top: 1.55em;
+    right: 1.8em;
+    top: 1.35em;
     font-size: 1em;
   }
 
@@ -74,18 +76,18 @@ body {
   }
 
   .header__top--cart-icon {
-    font-size: 2.5em;
+    font-size: 2em;
   }
 
   .header__nav {
     list-style: none;
     display: flex;
-    width: 100%;
     justify-content: space-evenly;
     cursor: pointer;
-    background-color: black;
-    padding: 0.2em;
+    padding: 0.4em;
     margin-top: 0.4em;
+    border-top: solid 1px white;
+    width: 100%;
   }
 
   .nav-link {
@@ -95,12 +97,12 @@ body {
 }
 
 .home {
-  height: 100vh;
+  height: 36em;
   width: 100%;
   position: absolute;
   left: 0;
   top: 0;
-  background-image: url('./assets/images/albums.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('./assets/images/music-symbol.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -113,15 +115,9 @@ body {
     text-align: center;
     color: white;
     margin-top: 20em;
-    font-family: Founders Grotesk,Arial Black,sans-serif;
-  }
-
-  .home__text--heading {
-    position: relative;
-    bottom: 0.5em;
-    margin-bottom: 1em;
-    font-size: 2.5em;
-    font-weight: 900;
+    font-family: Founders Grotesk, Arial Black, sans-serif;
+    margin: 17em auto;
+    width: 87%;
   }
 
   .home__text--main {
@@ -143,7 +139,13 @@ body {
     background-color: #1D3447;
     border-style: none;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
   } 
+
+  .home__text--shop-btn:hover {
+    color: #1D3447;
+    background-color: #fff;
+  }
 }
 
 .shop {
@@ -334,8 +336,79 @@ a {
     cursor: pointer;
   }
 
+  .album-page__extra--tracks-wrapper {
+    margin-top: 3em;
+    padding: 1em;
+    background-color: #fff;
+  }
+
+  .album-page__extra--tracks-heading {
+    text-align: center;
+    margin-bottom: 1.5em;
+    border-bottom: solid 1px #d4d6d9;
+  }
+
+  .album-page__extra--track-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2em;
+    border-bottom: solid 1px #d4d6d9;
+    padding: 0.5em;
+  }
+
+  .album-page__extra--track-details {
+    padding-right: 1em;
+    font-size: 0.85em;
+  }
+
+  .album-page__extra--track-artists {
+    display: flex;
+  }
+
+  .album-page__extra--artists-name {
+    margin-left: 0.2em;
+  }
+
   .album-page__extra--track-preview {
     cursor: pointer;
+  }
+
+  .album-page__extra--play-btn {
+    width: 1em;
+    height: 1em;
+    border-style: solid;
+    border-color: #202020;
+    box-sizing: border-box;
+    border-width: 8px 0px 8px 15px;
+    border-color: transparent transparent transparent #202020;
+  }
+
+  .album-page__extra--pause-btn {
+    width: 1em;
+    height: 1em;
+    border-style: solid;
+    border-style: double;
+    border-width: 0px 0px 0px 37px;
+    border-color: #202020;
+    text-align: center;
+  }
+
+  .preview-btn {
+    box-sizing: border-box;
+    background-color: #fff;
+    
+    border-color: transparent transparent transparent #202020;
+    transition: 0.2s ease-in-out;
+    will-change: border-width;
+    cursor: pointer;
+  
+    border-style: solid;
+  
+    &.album-page__extra--pause-btn{
+      border-style: double;
+      border-width: 0px 0 0px 15px;
+    }
   }
 
 
