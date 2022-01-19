@@ -1,5 +1,5 @@
-import Header from './components/Header';
-import Home from './components/Home';
+import Header from './components/Shared/Header';
+import Home from './components/HomePage/Home';
 import Shop from './components/ShopPage/Shop';
 import AlbumDetails from './components/AlbumPage/AlbumDetails';
 import CartSidebar from './components/CartSidebar/CartSidebar';
@@ -135,17 +135,19 @@ const App = () => {
       <Router>
         <Header totalQuantity={totalQuantity} displayCart={displayCart} />
         <Routes>
-          <Route path='/' element={<Home />}></Route>
+          <Route path='/' element={<Home totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
           <Route path='/shop'>
-            <Route path='all' element={<Shop albums={albums.all} category='All' />}></Route>
-            <Route path='pop' element={<Shop albums={albums.pop} category='Pop' />}></Route>
-            <Route path='rock' element={<Shop albums={albums.rock} category='Rock' />}></Route>
-            <Route path='electronic' element={<Shop albums={albums.electronic} category='Electronic' />}></Route>
-            <Route path='hip-hop' element={<Shop albums={albums.hiphop} category='Hip Hop' />}></Route>
-            <Route path='jazz' element={<Shop albums={albums.jazz} category='Jazz' />}></Route>
+            <Route path='all' element={<Shop albums={albums.all} category='All' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='pop' element={<Shop albums={albums.pop} category='Pop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='rock' element={<Shop albums={albums.rock} category='Rock' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='electronic' element={<Shop albums={albums.electronic} category='Electronic' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='hip-hop' element={<Shop albums={albums.hiphop} category='Hip Hop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='jazz' element={<Shop albums={albums.jazz} category='Jazz' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
             <Route 
               path=':uri/:type/:id' 
               element={<AlbumDetails 
+              totalQuantity={totalQuantity}
+              displayCart={displayCart}
               setAlbumPrices={setAlbumPrices} 
               quantity={quantity}
               setQuantity={setQuantity}

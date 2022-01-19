@@ -10,7 +10,7 @@ const RelatedAlbums = ({  albumDetails }) => {
   const [displayedAlbums, setDisplayedAlbums] = useState([]);
 
   useEffect(() => {
-    const setInitialShownAlbums = () => {
+    const setShownAlbums = () => {
       const nextShownAlbums = [];
       albumDetails.relatedAlbums.map((album, index) => {
         if (index === currentIndex || index === currentIndex + 1) {
@@ -21,7 +21,7 @@ const RelatedAlbums = ({  albumDetails }) => {
       setDisplayedAlbums(nextShownAlbums);
     }
 
-    setInitialShownAlbums();
+    setShownAlbums();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
