@@ -1,27 +1,8 @@
-import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import Nav from './Nav';
 
-const Header = ({ displayCart, totalQuantity, albumDetails, setAlbumDetails, history}) => {
-  console.log(history.location);
-
-  useEffect(() => {
-    const stopAllAudio = () => {
-      if (albumDetails !== null) {
-        setAlbumDetails({
-          ...albumDetails,
-          tracklist: albumDetails.tracklist.map((track) => {
-            if (track.isPlaying === true) {
-              track.preview.pause();
-              track.isPlaying = false;
-            }
-            return track;
-          })
-        })
-      }
-    }
-  }, [])
+const Header = ({ displayCart, totalQuantity }) => {
 
   return (
     <div className="header">

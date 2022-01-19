@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import QuantityInput from "../QuantityInput";
+import QuantityInput from "../Shared/QuantityInput";
 
 
 const CartAlbum = ({ cartAlbum, cart, setCart }) => {
