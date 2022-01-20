@@ -1,17 +1,17 @@
 import Albums from "./Albums";
 import { NavLink } from 'react-router-dom';
 
-const Shop = ({ albums, category }) => {
-  const setClassName = (isActive, category) => {
+const Shop = ({ albums, genre }) => {
+  const setClassName = (isActive, genre) => {
     const activeStatus = isActive ? ' active' : '';
-    const className = `shop__category shop__categories--${category}${activeStatus}`;
+    const className = `shop__genre shop__genres--${genre}${activeStatus}`;
     return className;
   }
 
   return (
     <>
       <div className="shop">
-        <div className="shop__categories">
+        <div className="shop__genres">
           <NavLink className={({ isActive }) => setClassName(isActive, 'all')} to='/shop/all'>
             All
           </NavLink> 
@@ -31,8 +31,8 @@ const Shop = ({ albums, category }) => {
             Jazz
           </NavLink>
         </div>
-        <div className="shop__current-category-wrapper">
-          <h2 className="shop__current-category">{category}</h2>
+        <div className="shop__current-genre-wrapper">
+          <h2 className="shop__current-genre">{genre}</h2>
         </div>
         <Albums albums={albums} />
       </div>
