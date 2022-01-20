@@ -135,7 +135,7 @@ const App = () => {
       <Router>
         <Header totalQuantity={totalQuantity} displayCart={displayCart} />
         <Routes>
-          <Route path='/' element={<Home totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+          <Route path='/' element={<Home totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
           <Route path='/shop'>
             <Route path='all' element={<Shop albums={albums.all} category='All' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
             <Route path='pop' element={<Shop albums={albums.pop} category='Pop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
