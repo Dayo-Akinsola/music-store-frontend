@@ -155,7 +155,7 @@ body {
     background-color: #fff;
   }
 
-  .home__categories--pop-btn:after {
+  .home__genres--pop-btn:after {
     content: '\203A';
   }
 }
@@ -163,18 +163,18 @@ body {
 .shop {
   font-family: Founders Grotesk, Arial Black, sans-serif;
 
-  .shop__categories {
+  .shop__genres {
     display: flex;
     background-color: white;
     width: 100%;
     justify-content: space-evenly;
   }
 
-  .shop__category-wrapper {
+  .shop__genre-wrapper {
     padding: 0.5em 0.2em;
   }
 
-  .shop__category {
+  .shop__genre {
     color: black;
     font-weight: 600;
     cursor: pointer;
@@ -182,19 +182,19 @@ body {
     padding: 0.5em 0.5em;
   }
 
-  .shop__category:hover {
+  .shop__genre:hover {
     background-color: rgba(45,45,45,.65);
   }
 
-  .shop__category.active {
+  .shop__genre.active {
     background-color: rgba(45,45,45,.65);
   }
 
-  .shop__current-category-wrapper {
+  .shop__current-genre-wrapper {
     background-color: #1a1c1f;
   }
 
-  .shop__current-category {
+  .shop__current-genre {
     text-align: center;
     margin-top: 1em;
     color: white;
