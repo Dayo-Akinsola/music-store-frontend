@@ -97,31 +97,38 @@ body {
 }
 
 .home {
-  height: 36em;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('./assets/images/music-symbol.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
+  height: 100vh;
+
+  .home__bg-img {
+    height: 36em;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('http://localhost:3000/static/media/music-symbol.0000ebfcd3b8f19ac961.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 22em;
+    z-index: -1;
+  }
 
   .home__text-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     color: white;
-    margin-top: 20em;
     font-family: Founders Grotesk, Arial Black, sans-serif;
-    margin: 17em auto;
+    align-items: center;
     width: 87%;
+    text-align: center;
+    padding-top: 4em;
+    padding-left: 1em;
   }
 
   .home__text--main {
     margin-bottom: 1em;
+  }
+
+  .home__text--shop-link {
+    width: 12em;
   }
 
   .home__text--shop-btn {
@@ -139,12 +146,17 @@ body {
     background-color: #1D3447;
     border-style: none;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    width: 100%;
   } 
 
   .home__text--shop-btn:hover {
     color: #1D3447;
     background-color: #fff;
+  }
+
+  .home__categories--pop-btn:after {
+    content: '\203A';
   }
 }
 
