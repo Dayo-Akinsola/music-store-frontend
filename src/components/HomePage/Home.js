@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import AlbumOfTheWeek from './AlbumOfTheWeek';
 import Genres from './Genres';
 
 const Home = ({ albums }) => {
@@ -15,6 +16,7 @@ const Home = ({ albums }) => {
         </div>
       </div>
       <Genres albums={albums} />
+      <AlbumOfTheWeek albums={albums.all} />
     </div>  
   );
 }
