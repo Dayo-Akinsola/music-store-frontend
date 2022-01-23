@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Album = ({ album }) => {
   return (
       <div className="shop__album" >
-        <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/${album.type}/${album.id}`} state={album}>
+        <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/${album.type}/${album.id}`}>
           <div className="album__img-wrapper">
             <img src={album.cover_image} alt={album.title} className="album__img" />
           </div>
