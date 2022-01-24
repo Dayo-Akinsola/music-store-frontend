@@ -1,30 +1,8 @@
 import { Link } from "react-router-dom";
 
-const AlbumOfTheWeek = ({ albums }) => {
+const AlbumOfTheWeek = ({ getMostPopularAlbum }) => {
 
-  const getMostPopularAlbum = () => {
-    console.log(albums);
-    const albumsPopularity = albums.map((album) => {
-      const [artist, title] = album.title.split('-');
-      return {
-        title,
-        artist,
-        fullTitle: album.title,
-        image: album.cover_image,
-        albumPopularity: album.community.want + album.community.have,
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore ad placeat nihil, ducimus omnis excepturi corrupti velit provident nam architecto magnam deserunt officiis neque libero, dolorem facere sapiente repudiandae qui.',
-        type: 'release',
-        id: album.id,
-      }
-    });
-    const albumsSorted = albumsPopularity.sort((a, b) => b.albumPopularity - a.albumPopularity);
-    return {
-      bestAlbum: albumsSorted[0],
-      runnersUp: albumsSorted.slice(1, 11)
-    }
-  }
-
-  const  { bestAlbum, runnersUp  } = getMostPopularAlbum();
+  const  { bestAlbum } = getMostPopularAlbum();
   
   if (bestAlbum) {
     return (
@@ -46,23 +24,6 @@ const AlbumOfTheWeek = ({ albums }) => {
                 <span className="home__best--featured-album-artist">{bestAlbum.artist}</span>
               </Link>
               <p className="home__best--features-album--description">{bestAlbum.description}</p>
-            </div>
-          </div>
-          <div className="home__best--popular-albums">
-            <div className="home__best--carousel-wrapper">
-              <div className="home__best--carousel">
-                {runnersUp.map((album) => (
-                  <div className="home__best--popular-album" key={album.id}>
-                    <div className="home__best--popular-album-img-wrapper">
-                      <img src={album.image} alt={album.title} className="home__best--popular-album-img" />
-                    </div>
-                    <div className="home__best--popular-album-info">
-                      <h5 className="home__best--popular-album-title">{album.title}</h5>
-                      <span className="home__best--popular-album-artist">{album.artist}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
       </div>
