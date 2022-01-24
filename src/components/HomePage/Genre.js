@@ -1,34 +1,79 @@
-import { Link } from "react-router-dom"
-import firstLetterUpper from "./helpers/firstLetterUpper"
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import firstLetterUpper from "./helpers/firstLetterUpper";
 
+const importGenreImages = (r) => {
+  let images = {};
+  r.keys().map((imageUrl) => images[imageUrl.replace('./', '')] = r(imageUrl));  
+  return images;
+}
+const genreImages = importGenreImages(require.context('../../assets/genre-images', false, /\.(png|jpe?g|svg)$/));
 const Genre = ({ topAlbums, genre, bgColor, top}) => {
 
+  const [ attribution, setAttribution ] = useState(null);
+
+  console.log(genreImages);
+  useEffect(() => {
+    const setMessage = () => {
+      if (genre === 'pop') {
+        setAttribution(
+          <span>Photo by <a href="https://unsplash.com/@ninjason?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jason Leung</a> on <a href="https://unsplash.com/s/photos/pop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></span>
+        );
+      } else if (genre === 'rock') {
+        setAttribution(
+          <span>
+            Photo by <a href="https://unsplash.com/@rocinante_11?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mick Haupt</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+          </span>
+        )
+      } else if (genre === 'hiphop') {
+        setAttribution(
+          <span>
+            Photo by <a href="https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Erik Mclean</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+          </span>
+        )
+      } else if (genre === 'electronic') {
+        setAttribution(
+          <span>
+            Photo by <a href="https://unsplash.com/@blockerphoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Phillip Blocker</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+          </span>
+        )
+      } else if (genre === 'jazz') {
+        setAttribution(
+          <span>
+            Photo by <a href="https://unsplash.com/@florenciaviadana?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Florencia Viadana</a> on <a href="https://unsplash.com/s/photos/jazz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+          </span>
+        )
+      }
+    }
+
+    setMessage();
+  }, [genre]);
+  
   const genreContainer = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     margin: '1.5em auto',
-    width: '28em',
-    position: 'relative',
+    // width: '28em',
+    // position: 'relative',
     marginBottom: '2em',
   }
   
   const imagesContainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
     margin: 'auto',
-    borderWidth: '2px 2px 2px 34px',
-    borderStyle: 'solid',
-    borderColor: `white white white ${bgColor}`,
-    padding: '0.3em',
+    //borderWidth: '2px 2px 2px 34px',
+    //borderStyle: 'solid',
+    borderColor: `${bgColor}`,
+    //padding: '0.3em',
     backgroundColor: `${bgColor}`,
   }
   const imageStyle = {
-    width: '8em',
-    height: '8em',
+    width: '19em',
+    height: '19em',
   }
 
   const labelStyle = {
+    display: 'none',
     fontWeight: 600,
     fontFamily: 'Founders Grotesk, Arial Black, sans-serif',
     fontSize: '1.2em',
@@ -43,18 +88,18 @@ const Genre = ({ topAlbums, genre, bgColor, top}) => {
     color: '#1D3447',
   }
 
+
   return (
   <div className={`home__genres--${genre} genre`} style={genreContainer}  >
     <span className={`home__genres--${genre}-label genre-label`} style={labelStyle}>{genre === 'hiphop' ? 'Hip Hop' : firstLetterUpper(genre)}</span>
     <div className={`home__genres--${genre}-imgs genre-imgs`} style={imagesContainerStyle}>
-      {topAlbums[`${genre}`].map((album) => (
-        <img src={album.image} alt={album.title} key={album.id} className={`home__genres--${genre}-img`} style={imageStyle} />
-      ))}
+        <img src={genreImages[`${genre}.jpg`]} alt={genre} className={`home__genres--${genre}-img`} style={imageStyle} />
     </div>
     <div className={`home__genres--${genre}-btn-container genre-btn-container`} >
       <Link className={`home__genres--${genre}-link genre-link`} to={genre === 'hiphop' ? '/shop/hip-hop' : `/shop/${genre}`}>
-        <button className={`home__genres--${genre}-btn genre-btn`}>View {genre.toUpperCase()}</button>
+        <button className={`home__genres--${genre}-btn genre-btn`}>View {genre.toUpperCase()}</button>  
       </Link>
+      <span className={`home--genres--${genre}-img-credit`}>{attribution}</span>
     </div>
   </div>
   )
