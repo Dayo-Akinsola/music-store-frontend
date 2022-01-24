@@ -22,6 +22,8 @@ const App = () => {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [ hidden, setHidden ] = useState(true);
+
   
   const getAlbumSet = async (style) => {
     const response = await fetch(`http://localhost:3001/discogs/${style}`, { withCredentials: true, mode: 'cors' });
@@ -130,19 +132,28 @@ const App = () => {
     setTotalQuantity(total);
   }, [cart]);
 
+  const toggleNavDisplay = () => setHidden(!hidden);
+
+  const hideMobileNav = () =>  {
+    if (!hidden) {
+      setHidden(true);
+    }
+  }
+
+
   return (
-    <>
+    <div className="container" onClick={hideMobileNav}>
       <Router>
-        <Header totalQuantity={totalQuantity} displayCart={displayCart} />
+        <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
         <Routes>
           <Route path='/' element={<Home totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
           <Route path='/shop'>
-            <Route path='all' element={<Shop albums={albums.all} category='All' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='pop' element={<Shop albums={albums.pop} category='Pop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='rock' element={<Shop albums={albums.rock} category='Rock' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='electronic' element={<Shop albums={albums.electronic} category='Electronic' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='hip-hop' element={<Shop albums={albums.hiphop} category='Hip Hop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='jazz' element={<Shop albums={albums.jazz} category='Jazz' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='all' element={<Shop albums={albums.all} genre='All' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
             <Route 
               path=':uri/:type/:id' 
               element={<AlbumDetails 
@@ -161,7 +172,7 @@ const App = () => {
         </Routes>
         {showCart ? <CartSidebar cart={cart} setCart={setCart}  hideCart={hideCart} totalQuantity={totalQuantity} /> : <></>}
       </Router>
-    </>
+    </div>
   );
 }
 
