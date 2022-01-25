@@ -32,7 +32,7 @@ const NavMenu = ({ hidden, toggleNavDisplay }) => {
           <NavLink className="header__nav-menu--link"to='/shop/jazz'>
             <li className="header__nav-menu--option">Jazz</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/'>
+          <NavLink className="header__nav-menu--link"to='/shop/popular'>
             <li className="header__nav-menu--option">Popular</li>
           </NavLink>
           <NavLink className="header__nav-menu--link"to='/'>
