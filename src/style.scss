@@ -203,21 +203,40 @@ body {
     background-color: #fff;
   }
 
-  .home--genres--pop-img-credit {
+  .img-credit {
+    font-size: 0.6em;
     margin-top: 1em;
   }
 
-  .home--genres--pop-img-credit a {
+  .img-credit a {
     text-decoration: underline;
+    color: #0d6efd;
+  }
+  
+  .img-credit a:hover {
+    color: #b02a37
+  }
+
+  .img-credit a:visited {
+    color: #4B0082;
+  }
+
+  .img-credit a:visited:hover {
+    color: #b02a37
+  }
+
+  .genre-link {
+    width: 9em;
   }
 
   .genre-btn-container {
     display: flex;
     flex-direction: column;
-    width: 19em;
+    width: 14em;
     text-align: center;
     background-color: #fff;
-    padding: 1em 1.5em;
+    padding: 0.5em 1em;
+    align-items: center;
   }
 
   .home__genres {
@@ -263,7 +282,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1em 1.2em;
+    padding: 0.9em 0.7em;
     border: 2px solid #1D3447;
     background-color: #dadadb;
     color: black;
@@ -275,7 +294,7 @@ body {
     text-transform: uppercase;
     -webkit-tap-highlight-color: rgba(237,6,119,0.5);
     cursor: pointer;
-    width: 14em;
+    width: 12em;
   }
 
   .genre-btn:after {
@@ -345,14 +364,42 @@ body {
     margin-top: 1.8em;
     display: flex;
     flex-direction: column;
+    margin-bottom: 5em;
     align-items: center;
     position: relative;
+    background-color: #e5e5f7;
+    background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-size: 20px 20px;
+    padding-top: 2em;
+    background-position: 0 0, 10px 10px;
   }
 
   .home__popular-albums--carousel-wrapper {
     max-width: 17em;
     margin: auto;
     overflow: hidden;
+    border-bottom: solid 2px mediumpurple;
+  }
+
+  .home__popular-albums--btn {
+    border-radius: 9px;
+    margin-top: 2em;
+    background-color: rgb(255 255 255 / 0%);
+    padding: 0.6em;
+    font-size: 1.1em;
+    letter-spacing: 2px;
+    margin-bottom: 1em;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid mediumpurple;
+    color: #141618;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .home__popular-albums--btn:hover {
+    color: mediumpurple;
+    background-color: #141618;
+    border-color: #141618
   }
 
   .home__popular-albums--carousel {
@@ -412,33 +459,7 @@ body {
 
 .shop {
   font-family: Founders Grotesk, Arial Black, sans-serif;
-
-  .shop__genres {
-    display: flex;
-    background-color: white;
-    width: 100%;
-    justify-content: space-evenly;
-  }
-
-  .shop__genre-wrapper {
-    padding: 0.5em 0.2em;
-  }
-
-  .shop__genre {
-    color: black;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 0.5em 0.5em;
-  }
-
-  .shop__genre:hover {
-    background-color: rgba(45,45,45,.65);
-  }
-
-  .shop__genre.active {
-    background-color: rgba(45,45,45,.65);
-  }
+  padding-top: 2.2em;
 
   .shop__current-genre-wrapper {
     background-color: #1a1c1f;
@@ -801,4 +822,60 @@ a {
     position: absolute;
     right: 1em;
   }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: #212529;
+  text-align: center;
+  font-family: Founders Grotesk, Arial Black, sans-serif;
+  font-weight: 100;
+  font-size: 0.8em;
+  padding: 0.4em;
+  margin-top: 4em;
+
+  .footer__about {
+    max-width: 32em;
+  }
+
+  .footer__about--heading {
+    margin: 1em auto;
+    font-size: 1.6em;
+  }
+
+  .footer__about--text {
+    opacity: 0.5;
+  }
+
+  .footer__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em auto;
+  }
+
+  .footer__contact--subheading {
+    margin: 0.2em auto;
+    font-size: 1.5em;
+  }
+
+  .footer__contact--github {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+    cursor: pointer;
+    color: white;
+  }
+
+  .footer__contact--github:hover {
+    color: mediumpurple;
+    transition: color 0.2s ease-in-out;
+  }
+
+  .footer__contact--email {
+    font-size: 1.2em;
+  }
+
 }
