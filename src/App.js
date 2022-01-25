@@ -1,4 +1,5 @@
 import Header from './components/Shared/Header';
+import Footer from './components/Shared/Footer';
 import Home from './components/HomePage/Home';
 import Shop from './components/ShopPage/Shop';
 import AlbumDetails from './components/AlbumPage/AlbumDetails';
@@ -100,8 +101,6 @@ const App = () => {
     displayCart();
   }
 
-
-
   useEffect(() => {
     setAlbumPrices()
       .then((allAlbums) => {
@@ -140,20 +139,43 @@ const App = () => {
     }
   }
 
+  const getPopularAlbums = () => {
+    const albumsPopularity = albums.all.map((album) => {
+      const [artist, title] = album.title.split('-');
+      return {
+        title,
+        artist,
+        fullTitle: album.title,
+        image: album.cover_image,
+        albumPopularity: album.community.want + album.community.have,
+        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore ad placeat nihil, ducimus omnis excepturi corrupti velit provident nam architecto magnam deserunt officiis neque libero, dolorem facere sapiente repudiandae qui.',
+        type: 'release',
+        id: album.id,
+        ...album,
+      }
+    });
+    const albumsSorted = albumsPopularity.sort((a, b) => b.albumPopularity - a.albumPopularity);
+    return {
+      bestAlbum: albumsSorted[0],
+      runnersUp: albumsSorted.slice(1, 11),
+      popularAlbums: albumsSorted.slice(0, 20),
+    }
+  };
 
   return (
     <div className="container" onClick={hideMobileNav}>
       <Router>
         <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
         <Routes>
-          <Route path='/' element={<Home totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
+          <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
           <Route path='/shop'>
-            <Route path='all' element={<Shop albums={albums.all} genre='All' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
-            <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' totalQuantity={totalQuantity} displayCart={displayCart} />}></Route>
+            <Route path='all' element={<Shop albums={albums.all} genre='All' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='popular' element={<Shop albums={albums.all} genre='Popular' getPopularAlbums={getPopularAlbums} />}></Route>
             <Route 
               path=':uri/:type/:id' 
               element={<AlbumDetails 
@@ -172,6 +194,7 @@ const App = () => {
         </Routes>
         {showCart ? <CartSidebar cart={cart} setCart={setCart}  hideCart={hideCart} totalQuantity={totalQuantity} /> : <></>}
       </Router>
+      <Footer />
     </div>
   );
 }

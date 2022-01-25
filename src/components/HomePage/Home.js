@@ -5,28 +5,9 @@ import PopularAlbums from './PopularAlbums';
 
 
 
-const Home = ({ albums }) => {
+const Home = ({ getPopularAlbums }) => {
 
-  const getMostPopularAlbum = () => {
-    const albumsPopularity = albums.all.map((album) => {
-      const [artist, title] = album.title.split('-');
-      return {
-        title,
-        artist,
-        fullTitle: album.title,
-        image: album.cover_image,
-        albumPopularity: album.community.want + album.community.have,
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore ad placeat nihil, ducimus omnis excepturi corrupti velit provident nam architecto magnam deserunt officiis neque libero, dolorem facere sapiente repudiandae qui.',
-        type: 'release',
-        id: album.id,
-      }
-    });
-    const albumsSorted = albumsPopularity.sort((a, b) => b.albumPopularity - a.albumPopularity);
-    return {
-      bestAlbum: albumsSorted[0],
-      runnersUp: albumsSorted.slice(1, 11)
-    }
-  }
+  const {bestAlbum, runnersUp} = getPopularAlbums();
 
   return (
     <div className="home">
@@ -39,9 +20,9 @@ const Home = ({ albums }) => {
           </Link>
         </div>
       </div>
-      <Genres albums={albums} />
-      <AlbumOfTheWeek  getMostPopularAlbum={getMostPopularAlbum}/>
-      <PopularAlbums getMostPopularAlbums={getMostPopularAlbum}/>
+      <Genres />
+      <AlbumOfTheWeek  bestAlbum={bestAlbum}/>
+      <PopularAlbums runnersUp={runnersUp}/>
     </div>  
   );
 }

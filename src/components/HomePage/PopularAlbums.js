@@ -3,13 +3,11 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-const PopularAlbums = ({ getMostPopularAlbums }) => {
+const PopularAlbums = ({ runnersUp }) => {
 
   const [ counter, setCounter ] = useState(0);
   const [ carouselTransform, setCarouselTransform ] = useState({});
   const carousel = useRef(null);
-
-  const { runnersUp } = getMostPopularAlbums();
 
   const incrementCounter = () => setCounter((counter + 1) % runnersUp.length);
   const decrementCounter = () =>  setCounter((((counter - 1) % runnersUp.length) + runnersUp.length) % runnersUp.length);
@@ -55,6 +53,11 @@ const PopularAlbums = ({ getMostPopularAlbums }) => {
             ))}
           </div>
         </div>
+        <Link to="/shop/popular">
+          <div className="home__popular-albums--btn-wrapper">
+            <button className="home__popular-albums--btn">Top Albums</button>
+          </div>
+        </Link>
         <div className="home__popular-albums--nav-arrows">
           <span className="home__popular-albums--left-arrow" onClick={decrementCounter} >
             <FontAwesomeIcon icon={faAngleLeft} />

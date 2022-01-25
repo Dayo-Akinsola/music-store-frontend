@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
-const AlbumOfTheWeek = ({ getMostPopularAlbum }) => {
-
-  const  { bestAlbum } = getMostPopularAlbum();
+const AlbumOfTheWeek = ({ bestAlbum }) => {
   
   if (bestAlbum) {
     return (
