@@ -5,7 +5,7 @@ import RelatedAlbums from './RelatedAlbums';
 import TrackList  from './TrackList';
 
 const AlbumDetails = ({ 
-    setAlbumPrices, 
+    getAllAlbums, 
     quantity, 
     setQuantity, 
     handleQuantityChange, 
@@ -31,7 +31,7 @@ const AlbumDetails = ({
   }
 
   const getAlbumTracks = async (albumInfo) => {
-    let tracksInfo;
+    let tracksInfo; 
     const response = await fetch(`http://localhost:3001/spotify/${albumInfo.title}`, {mode: 'cors'});
     const data = await response.json();
     const { items } = data.albums;
@@ -90,7 +90,7 @@ const AlbumDetails = ({
 
   useEffect(() => {
     const setInitialAlbumDetails = async () => {
-      const albums = await setAlbumPrices();
+      const albums = await getAllAlbums();
       const chosenAlbum = albums.filter(album => album.id === parseInt(urlParams.id))[0];
       const response = await fetch(`http://localhost:3001/discogs/${chosenAlbum.type}s/${chosenAlbum.id}`, { mode: 'cors'});
       const albumInfo = await response.json();
@@ -102,7 +102,7 @@ const AlbumDetails = ({
           tracklist: tracksInfo.tracklist,
           tracklistOrigin: tracksInfo.tracklistOrigin,
           albumTitle: albumInfo.title,
-          relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0]) && chosenAlbum.id !== album.id),        
+          relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0]) && chosenAlbum.id !== album.id).slice(0, 10),        
         }
       );
     }
@@ -153,9 +153,13 @@ const AlbumDetails = ({
     });
   };
 
+  const emptyDivStyle = {
+    height: '100em',
+  }
+
 
   if (!albumDetails) {
-    return null;
+    return <div style={emptyDivStyle} className="empty-div"></div>
   }
 
   return (

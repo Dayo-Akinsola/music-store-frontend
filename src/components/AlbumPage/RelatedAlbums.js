@@ -11,14 +11,14 @@ const RelatedAlbums = ({  albumDetails }) => {
 
   useEffect(() => {
     const setShownAlbums = () => {
-      const nextShownAlbums = [];
+      const nextAlbums = [];
       albumDetails.relatedAlbums.map((album, index) => {
         if (index === currentIndex || index === currentIndex + 1) {
-          nextShownAlbums.push(album);
+          nextAlbums.push(album);
         }
         return album;
       });
-      setDisplayedAlbums(nextShownAlbums);
+      setDisplayedAlbums(nextAlbums);
     }
 
     setShownAlbums();

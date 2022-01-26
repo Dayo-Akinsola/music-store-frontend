@@ -3,7 +3,6 @@ const Shop = ({ albums, genre, getPopularAlbums }) => {
 
   const { popularAlbums } = getPopularAlbums();
 
-
   if (albums || popularAlbums) {
     return (
       <>
