@@ -23,21 +23,21 @@ const QuantityInput = ({ quantity, decrementQuantity, incrementQuantity, handleQ
 	}
 
 	const purchaseQuantityStyle = {
-	'WebkitAppearance': 'none',
-    'MozAppearance': 'textfield',
-    fontSize: '18px',
-    height: '2rem',
-    padding: '0 4rem',
-    borderRadius: '2rem',
-    border: 0,
-    background: '#fff',
-    color: '#222',
-    boxShadow: '2px 5px 16px 0px #1A3D645E',
-    textAlign: 'center',
-    boxSizing: 'border-box',
-    fontWeight: 400,
-    outline: 'none',
-    width: '100%',
+	  'WebkitAppearance': 'none',
+	  'MozAppearance': 'textfield',
+    margin: 0,
+	  fontSize: '18px',
+	  height: '2rem',
+	  borderRadius: '2rem',
+	  border: 0,
+	  background: '#fff',
+	  color: '#222',
+	  boxShadow: '2px 5px 16px 0px #1A3D645E',
+	  textAlign: 'center',
+	  boxSizing: 'border-box',
+	  fontWeight: 400,
+	  outline: 'none',
+	  width: '100%',
 	}
 
 	return (

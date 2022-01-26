@@ -8,6 +8,12 @@
   box-sizing: border-box;
 }
 
+@mixin pageStyling() {
+  padding-top: 6em;
+  overflow: auto;
+  padding-bottom: 21em;
+}
+
 @mixin btnStyling() {
   font-size: 12px;
   line-height: 12px;
@@ -34,6 +40,19 @@
   background-color: #18162e;
   color: white;
   padding: 0.25em;
+}
+
+html, body {
+  height: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.container {
+  min-height: 100%;
 }
 
 .increment-btn {
@@ -92,18 +111,20 @@ body {
     margin: auto;
   }
 
+  .header__top--cart-icon-container {
+    cursor: pointer;
+    position: relative;
+  }
+
   .header__top--cart-count {
     position: absolute;
     color: black;
     font-weight: 600;
-    right: 1.8em;
-    top: 1.45em;
-    font-size: 1em;
+    right: 0.7em;
+    top: 0.18em;
+    font-size: 0.95em;
   }
 
-  .header__top--cart-icon-container {
-    cursor: pointer;
-  }
 
   .header__top--cart-icon {
     font-size: 2em;
@@ -159,6 +180,8 @@ body {
 .home {
   font-family: Founders Grotesk, Arial Black, sans-serif;
   overflow-x: hidden;
+  @include pageStyling();
+  padding-top: 3em;
 
   .home__bg-img {
     width: 100%;
@@ -459,7 +482,9 @@ body {
 
 .shop {
   font-family: Founders Grotesk, Arial Black, sans-serif;
-  padding-top: 2.2em;
+  @include pageStyling();
+  padding-top: 2em;
+  min-height: 100em;
 
   .shop__current-genre-wrapper {
     background-color: #1a1c1f;
@@ -538,7 +563,7 @@ a {
 
 .album-page {
   font-family: Founders Grotesk,Arial Black,sans-serif;
-  padding-top: 6em;
+  @include pageStyling();
 
   .album-page__details--album-img-wrapper {
     text-align: center;
@@ -835,7 +860,8 @@ a {
   font-weight: 100;
   font-size: 0.8em;
   padding: 0.4em;
-  margin-top: 4em;
+  height: 21em;
+  margin-top: -21em;
 
   .footer__about {
     max-width: 32em;
@@ -877,5 +903,59 @@ a {
   .footer__contact--email {
     font-size: 1.2em;
   }
+}
 
+.order-summary {
+  @include pageStyling();
+
+  .order-summary__table-container {
+    width: 90%;
+    margin: auto;
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 100;
+    text-align: center;
+  }
+
+  .order-summary__table {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    column-count: 6;
+  }
+
+  .order-summary__table--head {
+    background-color: #212529;
+    color: white;
+  }
+
+  .table-head {
+    padding: 0.5em;
+    border-color: #212529;
+    border-style: solid;
+    font-weight: 100;
+  }
+
+  .order-summary__table--albums {
+    display: table-row-group;
+    vertical-align: middle;
+  }
+
+  .order-summary__table--album {
+    border-top: 1px solid #d4d6d9;
+    margin-top: 2em;
+  }
+
+  .order-summary__table--album td {
+    padding: 0.5em;
+    font-weight: 600;
+  }
+
+  .order-summary__table--album-img {
+    width: 6em;
+  }
+
+  .order-summary__table--title {
+    font-size: 0.95em;
+  }
 }
