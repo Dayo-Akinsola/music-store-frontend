@@ -4,6 +4,8 @@ import Home from './components/HomePage/Home';
 import Shop from './components/ShopPage/Shop';
 import AlbumDetails from './components/AlbumPage/AlbumDetails';
 import CartSidebar from './components/CartSidebar/CartSidebar';
+import OrderSummary from './components/Order/OrderSummary';
+import ScrollToTop from './components/Shared/ScrollToTop';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -33,7 +35,7 @@ const App = () => {
     return albums;
   }
   
-  const getAllAlbums = async () => {
+  const requestAlbums = async () => {
     const popStyleAlbums = await getAlbumSet('pop');
     const hiphopStyleAlbums = await getAlbumSet('hiphop');
     const jazzStyleAlbums = await getAlbumSet('jazz');
@@ -41,13 +43,40 @@ const App = () => {
     return [].concat(popStyleAlbums, hiphopStyleAlbums, jazzStyleAlbums);
   }
 
-  const setAlbumPrices = async () => {
-    const allAlbums = await getAllAlbums();
-    return allAlbums.map((album) => {
+  const removeDuplicateAlbums = (requestedAlbums) => {
+    const albumsByTitle = {}
+    const duplicates = [];
+    requestedAlbums.forEach((album) => {
+      const albumPopularity = album.community.have + album.community.want;
+      if (!albumsByTitle[album.title]) {
+        albumsByTitle[album.title] = {'id': album.id, 'popularity': albumPopularity};
+      } else {
+
+        if (albumsByTitle[album.title].popularity < albumPopularity) {
+          duplicates.push(albumsByTitle[album.title].id);
+          albumsByTitle[album.title] = {'id': album.id, 'popularity': albumPopularity};
+        } else {
+          duplicates.push(album.id);
+        }
+      }
+    });
+    const filteredAlbums = requestedAlbums.filter(album => !duplicates.includes(album.id));
+    return filteredAlbums;
+  }
+
+  const setAlbumPrices = async (albums) => {
+    return albums.map((album) => {
       const price = ((album.community.want + album.community.have) * 0.25).toFixed(2);
       album['price'] = price;
       return album;
     });
+  }
+
+  const getAllAlbums = async () => {
+    const requestedAlbums = await requestAlbums();
+    const filteredAlbums = removeDuplicateAlbums(requestedAlbums);
+    const allAlbums = setAlbumPrices(filteredAlbums);
+    return allAlbums;
   }
 
   const handleQuantityChange = (event) => {
@@ -102,7 +131,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    setAlbumPrices()
+    getAllAlbums()
       .then((allAlbums) => {
         setAlbums(
           {
@@ -162,9 +191,54 @@ const App = () => {
     }
   };
 
+  const incrementAlbumQuantity = (cartAlbum) => {
+    if (cartAlbum.quantity <= 20) {
+      setCart(cart.map(album => {
+        if (album.id === cartAlbum.id) {
+          album.quantity += 1;
+        }
+        return album;
+      }));
+    }
+  }
+
+  const decrementAlbumQuantity = (cartAlbum) => {
+    if (cartAlbum.quantity > 1) {
+      setCart(cart.map(album => {
+        if (album.id === cartAlbum.id) {
+          album.quantity -= 1;
+        }
+        return album;
+      }));
+    }
+  }
+
+  const handleAlbumQuantityChange = (event, cartAlbum) => {
+    const value = parseInt(event.target.value);
+    if (value && value <= 20) {
+      setCart(cart.map(album => {
+        if (album.id === cartAlbum.id) {
+          album.quantity = value;
+        }
+        return album;
+      }));
+    }
+  }
+
+  const albumQuantityControl = {
+    handleAlbumQuantityChange,
+    incrementAlbumQuantity, 
+    decrementAlbumQuantity
+  }
+
+  const removeCartAlbum = (cartAlbum) => {
+    setCart(cart.filter(album => album.id !== cartAlbum.id));
+  }
+
   return (
     <div className="container" onClick={hideMobileNav}>
       <Router>
+        <ScrollToTop />
         <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
         <Routes>
           <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
@@ -181,7 +255,7 @@ const App = () => {
               element={<AlbumDetails 
               totalQuantity={totalQuantity}
               displayCart={displayCart}
-              setAlbumPrices={setAlbumPrices} 
+              getAllAlbums={getAllAlbums} 
               quantity={quantity}
               setQuantity={setQuantity}
               handleQuantityChange={handleQuantityChange}
@@ -191,8 +265,28 @@ const App = () => {
               cart={cart}
             />}></Route>
           </Route>
+          <Route 
+            path='/order' 
+            element={<OrderSummary 
+            cart={cart} 
+            albumQuantityControl={albumQuantityControl} 
+            removeCartAlbum={removeCartAlbum} 
+            totalQuantity={totalQuantity} />}
+          >
+          </Route>
         </Routes>
-        {showCart ? <CartSidebar cart={cart} setCart={setCart}  hideCart={hideCart} totalQuantity={totalQuantity} /> : <></>}
+        {
+        showCart 
+          ? 
+          <CartSidebar 
+            cart={cart} hideCart={hideCart} 
+            totalQuantity={totalQuantity} 
+            albumQuantityControl={albumQuantityControl}
+            removeCartAlbum={removeCartAlbum}
+          /> 
+          : 
+          <></>
+        }
       </Router>
       <Footer />
     </div>
