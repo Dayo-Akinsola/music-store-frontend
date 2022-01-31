@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
-const RemoveAlbumBtn = ({ removeCartAlbum, cartAlbum }) => {
+const RemoveAlbumBtn = ({ removeCartAlbum, cartAlbum, classNamePrefix }) => {
   return (
-    <span onClick={() => removeCartAlbum(cartAlbum)} className="cart-sidebar__cart-album--remove">
+    <span onClick={() => removeCartAlbum(cartAlbum)} className={`${classNamePrefix}--remove`}>
       <FontAwesomeIcon icon={faTimesCircle} />
     </span>
   )

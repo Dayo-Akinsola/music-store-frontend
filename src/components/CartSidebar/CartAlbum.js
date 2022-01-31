@@ -19,7 +19,7 @@ const CartAlbum = ({ cartAlbum, albumQuantityControl, removeCartAlbum }) => {
             classNamePrefix='cart-sidebar__cart-album'
           />
       </div>
-      <RemoveAlbumBtn removeCartAlbum={removeCartAlbum} cartAlbum={cartAlbum}/>
+      <RemoveAlbumBtn removeCartAlbum={removeCartAlbum} cartAlbum={cartAlbum} classNamePrefix="cart-sidebar__cart-album"/>
     </div>
   );
 }
