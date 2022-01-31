@@ -44,6 +44,7 @@
 
 html, body {
   height: 100%;
+  background-color: #fff;
 }
 
 input::-webkit-outer-spin-button,
@@ -80,10 +81,6 @@ input::-webkit-inner-spin-button {
 
 .increment-btn:active {
   box-shadow: inset 0 2px 12px -4px #c5d1d9;
-}
-
-body {
-  background-color: #f3eee4;
 }
 
 .header {
@@ -718,8 +715,6 @@ a {
       border-width: 0px 0 0px 15px;
     }
   }
-
-
 }
 
 .cart-sidebar {
@@ -753,6 +748,7 @@ a {
     margin-top: 0.5em;
     border-top: 1px solid #d4d6d9;
     padding: 0.8em;
+    align-items: flex-start;
   }
 
   .cart-sidebar__cart-album--img {
@@ -907,12 +903,18 @@ a {
 
 .order-summary {
   @include pageStyling();
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  .order-summary__heading {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 2em; 
+  }
 
   .order-summary__table-container {
     width: 90%;
     margin: auto;
     color: black;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 100;
     text-align: center;
   }
@@ -957,5 +959,410 @@ a {
 
   .order-summary__table--title {
     font-size: 0.95em;
+  }
+
+  .order-summary__table--title a:hover {
+    color: #1D3447;
+    text-decoration: underline;
+  }
+
+  .order-summary__table--no-albums {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .order-summary__table--no-albums-btn {
+    @include btnStyling();
+    margin-top: 1.4em;
+    width: 20em;
+  }
+
+  .order-summary__table--no-albums-btn:hover {
+    color: #1D3447;
+    background-color: #fff;
+  }
+
+  .order-summary__table--no-albums-message-wrapper {
+    padding: 1.4em;
+    color: white;
+    background-color: #212529;
+    width: 100%;
+  }
+
+  .order-summary__purchase--order-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .order-summary__purchase--total-wrapper {
+    margin: 1em auto 1em 1.2em;
+    padding: 1em 0;
+    border: 1px solid #aeb1b4;
+    border-left: none;
+    border-right: none;
+  }
+
+  .order-summary__purchase--order {
+    text-align: center;
+    margin-top: 2.2em;
+  }
+
+  .order-summary__purchase--order-btn {
+    @include btnStyling();
+    max-width: 30em;
+  }
+
+  .order-summary__purchase--guest-order-btn {
+    @include btnStyling();
+    max-width: 30em;
+    margin-top: 2em;
+    color: #1D3447;
+    background-color: white;
+    border: 2px solid #1D3447;
+  }
+
+  .order-summary__purchase--order-btn:hover {
+    background-color: #0b151e;
+  }
+
+  .order-summary__purchase--guest-order-btn:hover {
+    background-color: #1D3447;
+    color: white;
+    border-color: white;
+  }
+
+  .order-summary__purchase--order-info {
+    font-size: 0.8em;
+    margin-top: 0.1em;
+  }
+
+  .order-summary__table--remove {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 1.4em;
+    color: #1D3447;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .order-summary__table--remove:hover {
+    color: crimson;
+  }
+}
+
+.checkout {
+  @include pageStyling();
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  .checkout__heading {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 2em;   
+  }
+
+  .checkout__details--fill-form {
+    margin-bottom: 1.2em;
+    width: 15em;
+  }
+
+  .checkout__details--fill-form-btn {
+    @include btnStyling();
+    padding: 0.8em;
+    width: 50%;
+    border-radius: 8px;
+  }
+
+  .checkout__details--fill-form-btn:hover {
+    background-color: #0f1e2a;
+  }
+
+  .checkout__details {
+    width: 90%;
+    margin: auto;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.8em;
+  }
+
+  .form-section input {
+    height: 2.2em;
+    font-size: 1em;
+    border: 1px solid #d3d6d9;
+  }
+
+  .form-section label {
+    margin-bottom: 0.3em;
+    font-size: 0.95em;
+  }
+
+  .form-section label::after {
+    position: relative;
+    color: crimson;
+    content: " *";
+  }
+
+  .form-section .error-message {
+    color: crimson;
+    font-size: 0.8em;
+  }
+
+  .form__submit-btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .form__submit-btn {
+    @include btnStyling();
+    width: 20em;
+  }
+
+  .form__submit-btn:hover {
+    background-color: #0f1e2a;
+  }
+}
+
+.checkout__summary {
+  margin: auto;
+  padding: 1.2em;
+  margin-top: 3em;
+  width: 80%;
+  min-width: 21em;
+  background-color: #f1f1f1;
+}
+
+.checkout__summary--heading {
+  margin-left: 0.8em;
+  font-size: 1.2em;
+  margin-bottom: 2em;
+}
+
+.checkout__summary--album-product {
+  display: flex;
+  padding: 0.8em;
+  align-items: center;
+}
+
+.checkout__summary--album-img-wrapper {
+  margin-right: 3.2em;
+}
+
+.checkout__summary--album-title {
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+.checkout__summary--album-img {
+  width: 6.5em;
+}
+
+.checkout__summary--album-price-wrapper {
+  font-size: 0.8em;
+  margin: 0.85em auto;
+}
+
+.checkout__summary--album-price-label {
+  margin-right: 0.8em;
+}
+
+.checkout__summary--album-price-value {
+  font-weight: 600;
+}
+
+.checkout__summary--album-quantity-wrapper {
+  font-size: 0.8em;
+  margin: 0.85em auto;
+}
+
+.checkout__summary--album-quantity-label {
+  margin-right: 1.2em;
+}
+
+.checkout__summary--album-quantity-value {
+  font-weight: 600;
+}
+
+.checkout__summary--subtotal-wrapper {
+  padding: 0.8em;
+  font-size: 0.8em;
+  border: 1px solid #d4d6d9;
+  border-right: none;
+  border-left: none;
+}
+
+.checkout__summary--subtotal-label {
+  margin-right: 8.75em;
+}
+
+.checkout__summary--subtotal {
+  margin-right: 5em;
+  font-weight: 600;
+}
+
+.checkout__summary--total-wrapper {
+  padding: 0.8em;
+  border-bottom: 1px solid #d4d6d9;
+  margin-top: 0.5em;
+  font-weight: 600;
+}
+
+.checkout__summary--total-label {
+  margin-right: 7.4em;
+}
+
+.payment {
+  @include pageStyling();
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  --logo-size: 3em;
+
+  .payment__heading {
+    margin-bottom: 1.2em;
+    font-size: 1.4em;
+    
+  }
+
+  .payment__details {
+    padding: 0.8em;
+    margin: auto;
+  }
+
+  .payment__details--accepted-cards {
+    display: flex;
+    align-items: center;
+  }
+
+  .payment__accepted-cards--label {
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  .payment__accepted-cards--logos {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    justify-content: space-evenly;
+    max-width: 12em;
+  }
+
+  .payment__accepted-cards--mastercard {
+    width: var(--logo-size);
+  }
+
+  .payment__accepted-cards--visa {
+    background-color: rgb(26, 31, 113);
+    color: #fff;
+    width: var(--logo-size);
+  }
+
+  .payment__accepted-cards--amex {
+    color: #4c6ef5;
+    font-size: 1.8em;
+  }
+
+  .payment__accepted-cards--maestro {
+    width: var(--logo-size);
+  }
+
+  .payment__form {
+    margin-top: 0.8em;
+    width: 95%;
+    max-width: 23em;
+  }
+
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.8em;
+    position: relative;
+  }
+
+  .payment__form--expiry-date {
+    display: flex;
+  }
+
+  .payment__form--expiry-month {
+    max-width: 5em;
+  }
+
+  .payment__form--expiry-year {
+    max-width: 5em;
+  }
+
+  .payment__form label {
+    margin-bottom: 0.2em;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  .payment__form label::after {
+    position: relative;
+    color: crimson;
+    content: " *";  
+  }
+
+  .payment-input {
+    padding: 0.4em;
+  }
+
+  .payment__form--slash {
+    font-size: 1.7em;
+    margin: auto 0.4em;
+  }
+
+  .error-wrapper {
+    position: absolute;
+    top: 2.7em;
+  }
+
+  .error-message {
+    color: crimson;
+    font-size: 0.8em;
+  }
+
+  .payment__form--expiry-security-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .payment__form--security-wrapper {
+    max-width: 10.165em;
+  }
+
+  .payment__form--expiry-error {
+    top: 3em;
+  }
+
+  .payment__form--expiry-date-wrapper {
+    display: flex;
+  }
+
+  .payment__form--submit-active {
+    @include btnStyling();
+  }
+
+  .payment__form--submit-active:hover {
+    background-color: #0b151e;
+  }
+
+  .payment__form--submit-disabled {
+    @include btnStyling();
+    opacity: 0.5;
+    background-color: #f2f2f2;
+    color: #212529;
+    border: solid 1px #212529;
+  }
+
+  @media (max-width: 470px) {
+    .payment__form--expiry-security-container {
+      flex-direction: column;
+    }
+    
+    .payment__form--security-wrapper {
+      margin-left: 0;
+    }
   }
 }
