@@ -8,6 +8,8 @@ import OrderSummary from './components/Order/OrderSummary';
 import ScrollToTop from './components/Shared/ScrollToTop';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CheckoutPage from './components/Order/Checkout/CheckoutPage';
+import Payment from './components/Order/Checkout/Payment/Payment';
 
 const App = () => {
 
@@ -274,6 +276,8 @@ const App = () => {
             totalQuantity={totalQuantity} />}
           >
           </Route>
+          <Route path='/checkout' element={<CheckoutPage cart={cart}/>}></Route>
+          <Route path='/payment' element={<Payment cart={cart} />}></Route>
         </Routes>
         {
         showCart 
