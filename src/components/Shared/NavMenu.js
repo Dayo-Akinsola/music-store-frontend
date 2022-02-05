@@ -43,6 +43,9 @@ const NavMenu = ({ hidden, toggleNavDisplay }) => {
             <li className="header__nav-menu--option">Popular</li>
           </NavLink>
             <li className="header__nav-menu--option" onClick={scrollToBottom}>About</li>
+          <NavLink className="header__nav-menu--link login" to="/login">
+            <li className="header__nav-menu--option login-option">Login/Register</li>
+          </NavLink>
         </ul>
       </nav>
     </div>
