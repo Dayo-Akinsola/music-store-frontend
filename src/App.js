@@ -10,6 +10,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CheckoutPage from './components/Order/Checkout/CheckoutPage';
 import Payment from './components/Order/Checkout/Payment/Payment';
+import Login from './components/User/Login';
+import Register from './components/User/Register';
 
 const App = () => {
 
@@ -278,6 +280,8 @@ const App = () => {
           </Route>
           <Route path='/checkout' element={<CheckoutPage cart={cart}/>}></Route>
           <Route path='/payment' element={<Payment cart={cart} />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register />}></Route>
         </Routes>
         {
         showCart 
