@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const PaymentForm = () => {
+const PaymentForm = ({ inputInvalidStyle, inputValidStyle }) => {
 	const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: '',
     expiryMonth: '',
@@ -179,16 +179,6 @@ const PaymentForm = () => {
     if (!errorFound) {
       console.log('Finalising payment');
     }
-  }
-
-  const inputInvalidStyle = {
-    backgroundColor: '#ffdddd',
-    border: '1px solid crimson',
-  }
-
-  const inputValidStyle = {
-    backgroundColor: '#fff',
-    border: '1px solid black',
   }
 
 	return (

@@ -1418,9 +1418,11 @@ a {
     width: 100%;
     position: relative;
     border-radius: 3px;
+    margin-bottom: 2.5em;
   }
 
   .register-input {
+    position: relative;
     color: #212529;
     line-height: 1.2;
     font-size: 18px;
@@ -1429,8 +1431,18 @@ a {
     background: #e6e6e6;
     height: 62px;
     padding: 0 1em 0 1.5em;
-    margin-bottom: 1.5em;
     border-style: none;
     font-weight: 600;
+  }
+
+  .error-wrapper {
+    position: absolute;
+    top: 3.9em;
+    margin-left: 0.2em;
+  }
+
+  .register-error {
+    color: crimson;
+    font-size: 0.8em;
   }
 }

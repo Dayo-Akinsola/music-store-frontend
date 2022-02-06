@@ -239,6 +239,16 @@ const App = () => {
     setCart(cart.filter(album => album.id !== cartAlbum.id));
   }
 
+  const inputInvalidStyle = {
+    backgroundColor: '#ffdddd',
+    border: '1px solid crimson',
+  }
+
+  const inputValidStyle = {
+    backgroundColor: '#fff',
+    border: '1px solid black',
+  }
+
   return (
     <div className="container" onClick={hideMobileNav}>
       <Router>
@@ -279,9 +289,9 @@ const App = () => {
           >
           </Route>
           <Route path='/checkout' element={<CheckoutPage cart={cart}/>}></Route>
-          <Route path='/payment' element={<Payment cart={cart} />}></Route>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/register' element={<Register />}></Route>
+          <Route path='/payment' element={<Payment cart={cart} inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
+          <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
+          <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
         </Routes>
         {
         showCart 
