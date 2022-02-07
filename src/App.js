@@ -12,6 +12,7 @@ import CheckoutPage from './components/Order/Checkout/CheckoutPage';
 import Payment from './components/Order/Checkout/Payment/Payment';
 import Login from './components/User/Login';
 import Register from './components/User/Register';
+import { cartUpdate } from './sevices/userService';
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
   const [showCart, setShowCart] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [ hidden, setHidden ] = useState(true);
+  const [ user, setUser ] = useState({ token: null, username: null, password: null});
 
   
   const getAlbumSet = async (style) => {
@@ -110,29 +112,55 @@ const App = () => {
     setShowCart(true);
   }
 
-  const addAlbumToCart = (album) => {
-    const albumInCart = cart.filter(item => item.id === album.id);
-    if (albumInCart.length === 0) {
-      setCart(
-        cart.concat({
-          title: album.albumTitle,
-          price: parseFloat(album.price),
-          thumb: album.thumb,
-          id: album.id,
-          quantity,
-        })
-      );
-    } else {
-      setCart(cart.map(item => {
-        if (item.id === album.id) {
-          item.quantity += quantity;
-        }
-        return item;
-      }));
-      setQuantity(1);
-    }
+  const addAlbumToCart = async (album) => {
+    const albumData = {
+      title: album.albumTitle,
+      price: parseFloat(album.price),
+      thumb: album.thumb,
+      id: album.id,
+      quantity
+    };
+    const response = await cartUpdate('http://localhost:3001/users/cart', albumData, user.token);
+    const cartData = await response.json();
+    setCart(cartData);
+    setQuantity(1);
     displayCart();
   }
+
+  // const addAlbumToCart = (album) => {
+  //   const albumInCart = cart.filter(item => item.id === album.id);
+  //   if (albumInCart.length === 0) {
+  //     setCart(
+  //       cart.concat({
+  //         title: album.albumTitle,
+  //         price: parseFloat(album.price),
+  //         thumb: album.thumb,
+  //         id: album.id,
+  //         quantity,
+  //       })
+  //     );
+  //   } else {
+  //     setCart(cart.map(item => {
+  //       if (item.id === album.id) {
+  //         item.quantity += quantity;
+  //       }
+  //       return item;
+  //     }));
+  //     setQuantity(1);
+  //   }
+  //   displayCart();
+  // }
+
+  useEffect(() => {
+    const retriveUserFromLocalStorage = () => {
+      const loggedInUser = window.localStorage.getItem('loggedInUser');
+      if (loggedInUser) {
+        const userInfoParsed = JSON.parse(loggedInUser);
+        setUser(userInfoParsed);
+      }
+    }
+    retriveUserFromLocalStorage();
+  }, [user.token]);
 
   useEffect(() => {
     getAllAlbums()
@@ -253,7 +281,7 @@ const App = () => {
     <div className="container" onClick={hideMobileNav}>
       <Router>
         <ScrollToTop />
-        <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
+        <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} user={user} />
         <Routes>
           <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
           <Route path='/shop'>
@@ -290,7 +318,7 @@ const App = () => {
           </Route>
           <Route path='/checkout' element={<CheckoutPage cart={cart}/>}></Route>
           <Route path='/payment' element={<Payment cart={cart} inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
-          <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
+          <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} user={user} setUser={setUser} />}></Route>
           <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
         </Routes>
         {
