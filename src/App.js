@@ -12,7 +12,9 @@ import CheckoutPage from './components/Order/Checkout/CheckoutPage';
 import Payment from './components/Order/Checkout/Payment/Payment';
 import Login from './components/User/Login';
 import Register from './components/User/Register';
-import { cartUpdate } from './sevices/userService';
+import { getRequest, dataChangeRequest } from './sevices/service';
+import Account from './components/AccountPage/Account';
+import AccountOrders from './components/AccountPage/AccountViews/Orders/AccountOrders';
 
 const App = () => {
 
@@ -32,7 +34,15 @@ const App = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [ hidden, setHidden ] = useState(true);
   const [ user, setUser ] = useState({ token: null, username: null, password: null});
-
+  const [ deliveryDetails, setDeliveryDetails ] = useState({
+    firstName: '', 
+    lastName: '', 
+    address: '', 
+    city: '', 
+    postCode: '', 
+    phone: '', 
+    email: '',
+  });
   
   const getAlbumSet = async (style) => {
     const response = await fetch(`http://localhost:3001/discogs/${style}`, { withCredentials: true, mode: 'cors' });
@@ -112,44 +122,25 @@ const App = () => {
     setShowCart(true);
   }
 
+  const updateCart = async (albumData, token) => {
+    const response = await dataChangeRequest('http://localhost:3001/users/cart', albumData, token, 'PUT');
+    const cartData = await response.json();
+    setCart(cartData);  
+  }
+
   const addAlbumToCart = async (album) => {
     const albumData = {
       title: album.albumTitle,
       price: parseFloat(album.price),
       thumb: album.thumb,
       id: album.id,
-      quantity
+      quantity, 
+      replace: false,
     };
-    const response = await cartUpdate('http://localhost:3001/users/cart', albumData, user.token);
-    const cartData = await response.json();
-    setCart(cartData);
+    updateCart(albumData, user.token);
     setQuantity(1);
     displayCart();
   }
-
-  // const addAlbumToCart = (album) => {
-  //   const albumInCart = cart.filter(item => item.id === album.id);
-  //   if (albumInCart.length === 0) {
-  //     setCart(
-  //       cart.concat({
-  //         title: album.albumTitle,
-  //         price: parseFloat(album.price),
-  //         thumb: album.thumb,
-  //         id: album.id,
-  //         quantity,
-  //       })
-  //     );
-  //   } else {
-  //     setCart(cart.map(item => {
-  //       if (item.id === album.id) {
-  //         item.quantity += quantity;
-  //       }
-  //       return item;
-  //     }));
-  //     setQuantity(1);
-  //   }
-  //   displayCart();
-  // }
 
   useEffect(() => {
     const retriveUserFromLocalStorage = () => {
@@ -157,9 +148,21 @@ const App = () => {
       if (loggedInUser) {
         const userInfoParsed = JSON.parse(loggedInUser);
         setUser(userInfoParsed);
+        return userInfoParsed;
+      }
+      return null;
+    }
+
+    const getUserCartAlbums = async (userInfo) => {
+      if (userInfo) {
+        const response = await getRequest('http://localhost:3001/users/cart', userInfo.token);
+        const cartItems = await response.json();
+        setCart(cartItems);
       }
     }
-    retriveUserFromLocalStorage();
+    const userInfo = retriveUserFromLocalStorage();
+    getUserCartAlbums(userInfo);
+
   }, [user.token]);
 
   useEffect(() => {
@@ -223,37 +226,46 @@ const App = () => {
     }
   };
 
-  const incrementAlbumQuantity = (cartAlbum) => {
+  const incrementAlbumQuantity = async (cartAlbum) => {
+    const albumData = {
+      title: cartAlbum.albumTitle,
+      price: parseFloat(cartAlbum.price),
+      thumb: cartAlbum.thumb,
+      id: cartAlbum.id,
+      quantity: 1,
+      replace: false,
+    };
     if (cartAlbum.quantity <= 20) {
-      setCart(cart.map(album => {
-        if (album.id === cartAlbum.id) {
-          album.quantity += 1;
-        }
-        return album;
-      }));
+      updateCart(albumData, user.token);
     }
   }
 
   const decrementAlbumQuantity = (cartAlbum) => {
+    const albumData = {
+      title: cartAlbum.albumTitle,
+      price: parseFloat(cartAlbum.price),
+      thumb: cartAlbum.thumb,
+      id: cartAlbum.id,
+      quantity: -1,
+      replace: false,
+    };
     if (cartAlbum.quantity > 1) {
-      setCart(cart.map(album => {
-        if (album.id === cartAlbum.id) {
-          album.quantity -= 1;
-        }
-        return album;
-      }));
+      updateCart(albumData, user.token);
     }
   }
 
   const handleAlbumQuantityChange = (event, cartAlbum) => {
     const value = parseInt(event.target.value);
+    const albumData = {
+      title: cartAlbum.albumTitle,
+      price: parseFloat(cartAlbum.price),
+      thumb: cartAlbum.thumb,
+      id: cartAlbum.id,
+      quantity: value,
+      replace: true,
+    };
     if (value && value <= 20) {
-      setCart(cart.map(album => {
-        if (album.id === cartAlbum.id) {
-          album.quantity = value;
-        }
-        return album;
-      }));
+      updateCart(albumData, user.token);
     }
   }
 
@@ -263,8 +275,10 @@ const App = () => {
     decrementAlbumQuantity
   }
 
-  const removeCartAlbum = (cartAlbum) => {
-    setCart(cart.filter(album => album.id !== cartAlbum.id));
+  const removeCartAlbum = async (id) => {
+    const response = await dataChangeRequest(`http://localhost:3001/users/cart`, { id }, user.token, 'DELETE');
+    const newCart = await response.json();
+    setCart(newCart);
   }
 
   const inputInvalidStyle = {
@@ -313,13 +327,29 @@ const App = () => {
             cart={cart} 
             albumQuantityControl={albumQuantityControl} 
             removeCartAlbum={removeCartAlbum} 
-            totalQuantity={totalQuantity} />}
+            totalQuantity={totalQuantity} 
+            user={user}
+            />}
           >
           </Route>
-          <Route path='/checkout' element={<CheckoutPage cart={cart}/>}></Route>
-          <Route path='/payment' element={<Payment cart={cart} inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
+          <Route path='/checkout' element={<CheckoutPage cart={cart} user={user} deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails}/>}></Route>
+          <Route
+            path='/payment' 
+            element={
+              <Payment 
+                cart={cart}
+                setCart={setCart}
+                inputInvalidStyle={inputInvalidStyle} 
+                inputValidStyle={inputValidStyle} 
+                deliveryDetails={deliveryDetails}
+                user={user} 
+              />}>
+            </Route>
           <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} user={user} setUser={setUser} />}></Route>
           <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
+          <Route path='account' element={<Account user={user} />}>
+            <Route path='orders' element={<AccountOrders user={user} />}></Route>
+          </Route>
         </Routes>
         {
         showCart 

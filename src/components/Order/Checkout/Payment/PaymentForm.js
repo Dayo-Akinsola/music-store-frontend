@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { dataChangeRequest } from '../../../../sevices/service';
 
-const PaymentForm = ({ inputInvalidStyle, inputValidStyle }) => {
+const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, deliveryDetails, user }) => {
+
 	const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: '',
     expiryMonth: '',
@@ -18,6 +21,8 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle }) => {
   });
 
   const [btnActive, setBtnActive] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const toggleSubmitBtn = () => {
@@ -167,7 +172,7 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle }) => {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const inputNames = Object.keys(paymentDetails);
     let errorFound = false;
@@ -177,11 +182,34 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle }) => {
       }
     });
     if (!errorFound) {
-      console.log('Finalising payment');
+      const dateToday = Date.now();
+      const orderData = {
+        orderDate: dateToday,
+        deliveryAddress: deliveryDetails.address,
+        deliveryPostCode: deliveryDetails.postCode,
+        albums: cart,
+      }
+      await dataChangeRequest('http://localhost:3001/orders/', orderData, user.token, 'POST');
+      await dataChangeRequest('http://localhost:3001/users/cart/clear', null, user.token, 'DELETE');
+      setCart([]);
+      console.log('Thank you for your purchase');
+      navigate('/');
     }
   }
 
+  const fillForm = () => {
+    setPaymentDetails({
+      cardNumber: '4242424242424242',
+      expiryMonth: '03',
+      expiryYear: '99',
+      name: 'Mr Joe Bloggs',
+      security: '123',
+    });
+  }
+
 	return (
+    <>
+    <button className="payment__auto-fill" onClick={fillForm}>Auto Fill Form</button>
 		<form className="payment__form" noValidate>
 			<div className="payment__form--card-number-wrapper form-wrapper">
 				<label htmlFor="cardNumber" className="payment__form--card-number-label">Card Number</label>
@@ -272,7 +300,8 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle }) => {
         btnActive ? <button className="payment__form--submit-active" onClick={handleSubmit}>Complete Purchase</button>
           : <button className="payment__form--submit-disabled" onClick={(event) => event.preventDefault()}>Complete Purchase</button>
       }
-		</form>	
+		</form>
+    </>	
 	)
 }
 
