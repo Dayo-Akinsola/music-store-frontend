@@ -2,7 +2,7 @@ import OrderItem from "./OrderItem";
 import PurchaseSection from "./PurchaseSection";
 import { Link } from "react-router-dom";
 
-const OrderSummary = ({ cart, albumQuantityControl, removeCartAlbum, totalQuantity }) => {
+const OrderSummary = ({ cart, albumQuantityControl, removeCartAlbum, totalQuantity, user }) => {
 
   return (
     <div className="order-summary">
@@ -42,7 +42,7 @@ const OrderSummary = ({ cart, albumQuantityControl, removeCartAlbum, totalQuanti
             </div>
         }
       </div>
-      {cart.length >= 1 ? <PurchaseSection cart={cart} /> : null}
+      {cart.length >= 1 ? <PurchaseSection cart={cart} user={user} /> : null}
     </div>
   )
 }

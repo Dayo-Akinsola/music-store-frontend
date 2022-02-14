@@ -6,7 +6,7 @@ import { faCcAmex } from "@fortawesome/free-brands-svg-icons"
 import PaymentForm from './PaymentForm';
 import CheckoutSummary from '../CheckoutSummary';
 
-const Payment = ({ cart, inputInvalidStyle, inputValidStyle }) => {
+const Payment = ({ cart, setCart, inputInvalidStyle, inputValidStyle, deliveryDetails, user }) => {
   return (
     <div className="payment">
       <div className="payment__details">
@@ -20,7 +20,14 @@ const Payment = ({ cart, inputInvalidStyle, inputValidStyle }) => {
             <img src={maestroLogo} alt="maestro" className="payment__accepted-cards--maestro payment-logo" />
           </div>
         </div>
-        <PaymentForm inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />
+        <PaymentForm 
+          inputInvalidStyle={inputInvalidStyle} 
+          inputValidStyle={inputValidStyle} 
+          cart={cart} 
+          setCart={setCart} 
+          deliveryDetails={deliveryDetails} 
+          user={user} 
+        />
       </div>
       <div className="payment__order-summary">
         <CheckoutSummary cart={cart} />

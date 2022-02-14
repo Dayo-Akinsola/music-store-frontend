@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-const NavMenu = ({ hidden, toggleNavDisplay }) => {
+const NavMenu = ({ hidden, toggleNavDisplay, user }) => {
+
   const navDisplay = {
     display: `${hidden ? 'none' : 'block'}`,
   }
@@ -18,6 +19,16 @@ const NavMenu = ({ hidden, toggleNavDisplay }) => {
       </button>
       <nav>
         <ul className="header__nav-menu--options" style={navDisplay}>
+          {
+            !user.token ?
+            <NavLink className="header__nav-menu--link" to="/login">
+              <li className="header__nav-menu--option login-option">Login/Register</li>
+            </NavLink>
+            :
+            <NavLink className="header__nav-menu--link" to="/account">
+              <li className="header__nav-menu--option logged-option">Account</li>
+            </NavLink>
+          }       
           <NavLink className="header__nav-menu--link"to='/'>
             <li className="header__nav-menu--option">Home</li>
           </NavLink>
@@ -42,10 +53,7 @@ const NavMenu = ({ hidden, toggleNavDisplay }) => {
           <NavLink className="header__nav-menu--link"to='/shop/popular'>
             <li className="header__nav-menu--option">Popular</li>
           </NavLink>
-            <li className="header__nav-menu--option" onClick={scrollToBottom}>About</li>
-          <NavLink className="header__nav-menu--link login" to="/login">
-            <li className="header__nav-menu--option login-option">Login/Register</li>
-          </NavLink>
+          <li className="header__nav-menu--option" onClick={scrollToBottom}>About</li>
         </ul>
       </nav>
     </div>
