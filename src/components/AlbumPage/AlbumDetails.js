@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import QuantityInput from '../Shared/QuantityInput';
 import RelatedAlbums from './RelatedAlbums';
 import TrackList  from './TrackList';
+import { dataChangeRequest } from '../../sevices/service';
 
 const AlbumDetails = ({ 
     getAllAlbums, 
@@ -11,7 +12,8 @@ const AlbumDetails = ({
     handleQuantityChange, 
     addAlbumToCart, 
     incrementQuantity, 
-    decrementQuantity, 
+    decrementQuantity,
+    user,
   }) => {
 
   const [albumDetails, setAlbumDetails] = useState(null);
@@ -153,10 +155,23 @@ const AlbumDetails = ({
     });
   };
 
+  const addAlbumToWishlist = async (albumDetails, token) => {
+    const albumData = {
+      title: albumDetails.albumTitle,
+      price: parseFloat(albumDetails.price),
+      thumb: albumDetails.thumb,
+      albumId: albumDetails.id,
+      dateAdded: Date.now(),
+      comment: '',
+      image: albumDetails.cover_image,
+      artist: albumDetails.artist,
+    }
+    await dataChangeRequest('http://localhost:3001/wishlist', albumData, token, 'POST');
+  }
+
   const emptyDivStyle = {
     height: '100em',
   }
-
 
   if (!albumDetails) {
     return <div style={emptyDivStyle} className="empty-div"></div>
@@ -196,7 +211,10 @@ const AlbumDetails = ({
               handleQuantityChange={handleQuantityChange} 
               classNamePrefix='album-page__details'
             />
-            <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">Add To Cart</button>
+            <div className="album-page__details--album-btns-wrapper">
+              <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">Add To Cart</button>
+              <button onClick={() => addAlbumToWishlist(albumDetails, user.token)} className="album-page__details--wishlist-btn">Add To Wishlist</button>
+            </div>
           </div>
         </div>
         <div className="album-page__extra">
