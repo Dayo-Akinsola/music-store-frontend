@@ -15,6 +15,8 @@ import Register from './components/User/Register';
 import { getRequest, dataChangeRequest } from './sevices/service';
 import Account from './components/AccountPage/Account';
 import AccountOrders from './components/AccountPage/AccountViews/Orders/AccountOrders';
+import AccountWishlist from './components/AccountPage/AccountViews/Wishlist/AccountWishlist';
+import AccountWishlistAlbumModal from './components/AccountPage/AccountViews/Wishlist/AccountWishlistAlbumModal';
 
 const App = () => {
 
@@ -130,10 +132,10 @@ const App = () => {
 
   const addAlbumToCart = async (album) => {
     const albumData = {
-      title: album.albumTitle,
+      title: albums.albumTitle ? album.albumTitle: album.title,
       price: parseFloat(album.price),
       thumb: album.thumb,
-      id: album.id,
+      id: album.id ? album.id : album.albumId,
       quantity, 
       replace: false,
     };
@@ -319,6 +321,7 @@ const App = () => {
               incrementQuantity={incrementQuantity}
               decrementQuantity={decrementQuantity}
               cart={cart}
+              user={user}
             />}></Route>
           </Route>
           <Route 
@@ -349,6 +352,9 @@ const App = () => {
           <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
           <Route path='account' element={<Account user={user} />}>
             <Route path='orders' element={<AccountOrders user={user} />}></Route>
+            <Route path='wishlist' element={<AccountWishlist user={user} />}>
+              <Route path=':albumId' element={<AccountWishlistAlbumModal addAlbumToCart={addAlbumToCart} user={user} />}></Route>
+            </Route>
           </Route>
         </Routes>
         {
