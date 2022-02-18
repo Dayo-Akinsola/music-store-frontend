@@ -17,6 +17,9 @@ import Account from './components/AccountPage/Account';
 import AccountOrders from './components/AccountPage/AccountViews/Orders/AccountOrders';
 import AccountWishlist from './components/AccountPage/AccountViews/Wishlist/AccountWishlist';
 import AccountWishlistAlbumModal from './components/AccountPage/AccountViews/Wishlist/AccountWishlistAlbumModal';
+import AccountDetails from './components/AccountPage/AccountViews/Details/AccountDetails';
+import AccountFriends from './components/AccountPage/AccountViews/Friends/AccountFriends';
+import AccountFriendList from './components/AccountPage/AccountViews/Friends/AccountFriendList';
 
 const App = () => {
 
@@ -38,6 +41,15 @@ const App = () => {
   const [ user, setUser ] = useState({ token: null, username: null, password: null});
   const [ deliveryDetails, setDeliveryDetails ] = useState({
     firstName: '', 
+    lastName: '', 
+    address: '', 
+    city: '', 
+    postCode: '', 
+    phone: '', 
+    email: '',
+  });
+  const [ errorMessages, setErrorMessages ] = useState({
+    firstName: '',
     lastName: '', 
     address: '', 
     city: '', 
@@ -293,6 +305,67 @@ const App = () => {
     border: '1px solid black',
   }
 
+  const formErrorCheck = () => {
+    const inputNames = Object.keys(deliveryDetails);
+    let isFormValid = false;
+    const formattedNames = {
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      address: 'Address',
+      city: 'City / Town',
+      postCode: 'Post Code',
+      email: 'Email Address',
+      phone: 'Phone Number',
+    }
+
+    let errorCaught = false;
+    inputNames.forEach(name => {
+      if (name === 'postCode') {
+        const postCodeCheck = /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$/.test(deliveryDetails.postCode);
+        const invalidPostCodeMessage = 'You must enter a valid UK Post Code';
+        if (!postCodeCheck) {
+          setErrorMessages(messages => ({...messages, [name]: invalidPostCodeMessage}));
+          errorCaught = true;        
+        } 
+      }
+
+      if (name === 'phone') {
+        const value = deliveryDetails[name];
+        const invalidNumberMessage = 'You must enter a valid UK Phone Number.';
+        if (value.length !== 10 && value.length !== 11) {
+          setErrorMessages(messages => ({...messages, [name]: invalidNumberMessage}));
+          errorCaught = true;
+        }
+      }
+
+      if (name === 'email') {
+        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryDetails.email);
+        const invalidEmailMessage = 'You must enter a valid Email Address';
+        if (!emailCheck) {
+          setErrorMessages(messages => ({...messages, [name]: invalidEmailMessage}));
+          errorCaught = true;
+        }
+      }
+
+      if (deliveryDetails[name].length === 0) {
+        const errorMessage = `Please enter your ${formattedNames[name]}.`;
+        setErrorMessages((messages) => ({...messages, [name]: errorMessage}));
+        errorCaught = true;
+      }
+      
+      if (errorCaught) {
+        isFormValid = false;
+      }
+
+      if (!errorCaught) {
+        setErrorMessages(messages => ({...messages, [name]: ''}));
+        isFormValid = true;
+      }
+    });
+    
+    return isFormValid;
+  }
+
   return (
     <div className="container" onClick={hideMobileNav}>
       <Router>
@@ -335,7 +408,16 @@ const App = () => {
             />}
           >
           </Route>
-          <Route path='/checkout' element={<CheckoutPage cart={cart} user={user} deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails}/>}></Route>
+          <Route path='/checkout' 
+            element={
+            <CheckoutPage 
+            cart={cart} 
+            user={user} 
+            deliveryDetails={deliveryDetails} 
+            formErrorCheck={formErrorCheck} 
+            errorMessages={errorMessages}
+            setDeliveryDetails={setDeliveryDetails}
+          />}></Route>
           <Route
             path='/payment' 
             element={
@@ -354,6 +436,19 @@ const App = () => {
             <Route path='orders' element={<AccountOrders user={user} />}></Route>
             <Route path='wishlist' element={<AccountWishlist user={user} />}>
               <Route path=':albumId' element={<AccountWishlistAlbumModal addAlbumToCart={addAlbumToCart} user={user} />}></Route>
+            </Route>
+            <Route path='details' 
+              element={
+              <AccountDetails 
+                user={user} 
+                deliveryDetails={deliveryDetails}
+                formErrorCheck={formErrorCheck}
+                errorMessages={errorMessages}
+                setDeliveryDetails={setDeliveryDetails}
+              />}>
+            </Route>
+            <Route path='friends' element={<AccountFriends user={user} />}>
+              <Route path='friendlist' element={<AccountFriendList user={user} />}></Route>
             </Route>
           </Route>
         </Routes>
