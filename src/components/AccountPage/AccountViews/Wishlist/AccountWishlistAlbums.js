@@ -4,7 +4,6 @@ const AccountWishlistAlbums = ({ wishlist }) => {
 
   return (
     <div className="account__wishlist-albums">
-      <h3 className="account__wishlist-albums--heading">My Wishlist</h3>
       <div className="account__wishlist-albums--container">
         {
           wishlist.map((album) => (
