@@ -19,7 +19,8 @@ import AccountWishlist from './components/AccountPage/AccountViews/Wishlist/Acco
 import AccountWishlistAlbumModal from './components/AccountPage/AccountViews/Wishlist/AccountWishlistAlbumModal';
 import AccountDetails from './components/AccountPage/AccountViews/Details/AccountDetails';
 import AccountFriends from './components/AccountPage/AccountViews/Friends/AccountFriends';
-import AccountFriendList from './components/AccountPage/AccountViews/Friends/AccountFriendList';
+import AccountFriendList from './components/AccountPage/AccountViews/Friends/Friendlist/AccountFriendList';
+import AccountFriendRequests from './components/AccountPage/AccountViews/Friends/AccountFriendRequests';
 
 const App = () => {
 
@@ -449,6 +450,7 @@ const App = () => {
             </Route>
             <Route path='friends' element={<AccountFriends user={user} />}>
               <Route path='friendlist' element={<AccountFriendList user={user} />}></Route>
+              <Route path='requests' element={<AccountFriendRequests user={user} />}></Route>
             </Route>
           </Route>
         </Routes>
