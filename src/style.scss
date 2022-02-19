@@ -1472,6 +1472,56 @@ a {
     font-size: 1.6em;
   }
 
+  @mixin modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+  }
+
+  @mixin modalContent {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    max-width: 30em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+  }
+
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+
+  @mixin messageWrapper {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    margin-top: 1.2em;
+    padding: 0.8em;
+    width: 80%;
+    max-width: 22.5em;
+    align-items: center;
+    font-size: 0.9em;
+  }
+
   $icon-font-size: 1.5em;
 
   .account__header {
@@ -1760,41 +1810,11 @@ a {
     }
 
     .account__wishlist--album-modal {
-      position: fixed;
-      z-index: 1;
-      padding-top: 100px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0,0,0);
-      background-color: rgba(0,0,0,0.4); 
+      @include modal();
     }
 
     .account__wishlist--album-modal-content {
-      position: relative;
-      background-color: #fefefe;
-      margin: auto;
-      padding: 0;
-      width: 80%;
-      max-width: 30em;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-      -webkit-animation-name: animatetop;
-      -webkit-animation-duration: 0.4s;
-      animation-name: animatetop;
-      animation-duration: 0.4s;
-    }
-
-    @-webkit-keyframes animatetop {
-      from {top:-300px; opacity:0} 
-      to {top:0; opacity:1}
-    }
-    
-    @keyframes animatetop {
-      from {top:-300px; opacity:0}
-      to {top:0; opacity:1}
+      @include modalContent();
     }
 
     .account__wishlist--album-modal-bg-img {
@@ -1983,16 +2003,8 @@ a {
     }
 
     .account__details--save-confirmation-wrapper {
-      display: flex;
-      margin: auto;
-      justify-content: center;
-      margin-top: 1.2em;
-      padding: 0.8em;
+      @include messageWrapper();
       background-color: #d7f3e1;
-      width: 80%;
-      max-width: 22.5em;
-      align-items: center;
-      font-size: 0.9em;
     }
 
     .account__details--save-confirmation-text {
@@ -2072,6 +2084,315 @@ a {
 
     .account__friend-list--send-request-icon {
       margin-right: 0.3em;
+    }
+
+    .account__friends--friend-request-modal {
+      @include modal();
+    }
+
+    .account__friends--friend-request-modal-content {
+      @include modalContent();
+      border-radius: 0;
+    }
+
+    .account__friend-request-modal--header {
+      padding: 0.8em 0.5em;
+      background-color: #F0F2F2;
+      background: linear-gradient(to bottom,#f7f7f7,#eaeaea);
+      border-bottom: 1px solid #D5D9D9;
+      font-weight: 600;
+      display: flex;
+    }
+
+    .account__friend-request-modal--header-text {
+      width: 100%;
+      margin-right: auto;
+    }
+
+    .account__friend-request-modal--header-close {
+      cursor: pointer;
+      width: 2.5em;
+      margin-right: 1.2em;
+      font-size: 0.3em;
+
+    }
+
+    .account__friend-request-modal--main {
+      padding: 1.2em 0.5em;
+      width: 80%;
+      margin: auto;
+    }
+
+    .form-section {
+      margin-bottom: 0.8em;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form__account__friend-request-modal--name--input {
+      padding: 0.2em;
+      font-size: 1.05em;
+    }
+
+    .form__account__friend-request-modal--name--label {
+      margin-bottom: 0.2em;
+    }
+
+    .account__friend-request-modal--info-wrapper {
+      margin-bottom: 1.2em;
+    }
+
+    .account__friend-request-modal--info {
+      font-size: 0.9em;
+      color: #565959;
+    }
+
+    .account__friend-request-modal--submit-message-error-wrapper {
+      @include messageWrapper();
+      background-color: #fae7ec;
+    }
+
+    .account__friend-request-modal--submit-error-icon {
+      color: crimson;
+    }
+
+    .account__friend-request-modal--submit-error-message {
+      margin-left: 0.8em;
+    }
+
+    .account__friend-request-modal--submit-message-success-wrapper {
+      @include messageWrapper();
+      background-color: #d7f3e1;
+    }
+
+    .account__friend-request-modal--submit-success-icon {
+      color: forestgreen;
+    }
+
+    .account__friend-request-modal--submit-success-message {
+      margin-left: 0.8em;
+    }
+
+    .account__friends--requests {
+      width: 80%;
+      margin: auto;
+      min-width: 20em;
+      max-width: 42em;
+    }
+
+    .account__friends--requests-header {
+      display: flex;
+      padding: 1.2em 1.2em 0.9em 1.2em; 
+      align-items: center;
+      border-bottom: solid 1px #d4d6d9;
+    }
+
+    .account__friends--requests-heading {
+      font-size: 1.3em;
+      margin-right: 1em;
+    }
+
+    .account__friend-requests--request {
+      display: flex;
+      align-items: center;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      border-bottom: solid 1px #d4d6d9;
+      transition: background-color 0.3s ease-in-out;
+      padding-left: 3em;
+    }
+
+    .account__friend-requests--request.rejected {
+      background-color: #fae7ec;
+    }
+
+    .account__friend-requests--request.accepted {
+      background-color: #d7f3e1;
+    } 
+
+    .account__request--user-profile {
+      border: 4px solid #747474;
+      border-radius: 50%;
+      letter-spacing: 0.28rem;
+      text-align: center;
+      text-indent: 0.4rem;
+      vertical-align: middle;
+      width: 2.8em;
+      height: 2.8em;
+      line-height: 2.3em;
+      background: #2d2d2d;
+      color: white;
+      margin-right: 1.4em;
+    }
+
+    .account__request--user-profile-text {
+      display: block;
+      font-size: 1em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .account__request--user-name-wrapper {
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-right: 1.2em;
+      width: 6em;
+    }
+
+    .account__request--options {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 40%;
+    }
+
+    .account__request--accept-wrapper {
+      cursor: pointer;
+      padding: 0.4em;
+      border-radius: 50%; 
+      border: solid 4px #d4d6d9;
+      color: forestgreen;
+    }
+
+    .account__request--accept-wrapper:hover {
+      background-color: #d7f3e1;
+    }
+
+    .account__request--reject-wrapper {
+      width: 2.1em;
+      height: 2.1em;
+      cursor: pointer;
+      padding-bottom: 3em;
+      border: solid 4px #d4d6d9;
+      padding: 0.4em;
+      border-radius: 50%;
+      padding-bottom: 1.6em;
+    }
+
+    .account__request--reject-wrapper:hover {
+      background-color: #fae7ec;
+    }
+
+    .account__request--reject path {
+      fill: crimson; 
+    }
+
+    .account__friends--request-response-message {
+      color: #007bff;
+      font-size: 0.9em;
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    .account__friend-request-modal--search-bar {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 22px;
+      height: 100%;
+      outline: none;
+      height: 2em;
+      padding-inline-start: 2em;
+      position: relative;
+      width: 100%;
+      box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+      font-size: 1.05em;
+    }
+
+    .account__friend-request-modal--results-heading-wrapper {
+      padding: 1.4em 0 0.2em 0;
+      border-bottom: solid 1px #d4d6d9;
+      font-size: 0.9em;
+    }
+
+    .account__friend-request-modal--results-heading {
+      color: #212529;
+    }
+
+    .account__friend-request-modal--results {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account__friend-request-modal--result {
+      display: flex;
+      padding: 0.7em 0.4em 0.75em 0.4em;
+      border-bottom: solid 1px #d4d6d9;
+      align-items: center;
+      overflow-y: hidden;
+    }
+
+    .account__friend-request-modal--result-profile-pic {
+      border: 4px solid #747474;
+      border-radius: 50%;
+      letter-spacing: 0.28rem;
+      text-align: center;
+      text-indent: 0.4rem;
+      vertical-align: middle;
+      width: 2.8em;
+      height: 2.8em;
+      line-height: 2.3em;
+      background: #2d2d2d;
+      color: white;
+      margin-right: 1.4em;
+    }
+
+    .account__friend-request-modal--result-profile-text {
+      display: block;
+      font-size: 1em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .account__friend-request-modal--result-name-wrapper {
+      width: 9em;
+      overflow-wrap: anywhere;
+  
+    }
+
+    .account__friend-request-modal--result-name {
+      font-weight: 600;
+    }
+
+    .account__friend-request-modal--request-icon-wrapper {
+      cursor: pointer;
+      border-radius: 50%;
+      padding-left: 1em;
+      margin-right: 1em;
+    }
+
+    .account__friend-request-modal--request-icon-wrapper:hover {
+      color: #007bff;
+    }
+
+    .account__friend-request-modal--sent-request-wrapper {
+      display: flex;
+      background-color: #d7f3e1;
+      padding: 0.35em;
+      font-size: 0.95em;
+      align-items: center;
+      margin-left: 0.5em;
+      -webkit-animation-name: slidein;
+      -webkit-animation-duration: 0.4s;
+      animation-name: slidein;
+      animation-duration: 0.4s;    
+    }
+
+    @-webkit-keyframes slidein {
+      from {transform: translateY(5em)} 
+      to {transform: translateY(0em)}
+    }
+    
+    @keyframes slidein {
+      from {transform: translateY(5em)} 
+      to {transform: translateY(0em)}
+    }
+
+    .account__friend-request-modal--sent-request-icon {
+      color: forestgreen;
+    }
+
+    .account__friend-request-modal--sent-request-text {
+      margin-left: 0.3em;
     }
   }
 }
