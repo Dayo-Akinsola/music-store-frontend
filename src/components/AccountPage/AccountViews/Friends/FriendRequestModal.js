@@ -1,74 +1,49 @@
-import { useState } from 'react';
-import { dataChangeRequest } from '../../../../sevices/service';
-import FormSection from "../../../Shared/FormSection";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamation, faCheck } from '@fortawesome/free-solid-svg-icons';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
+import { getRequest } from '../../../../sevices/service';
+import FriendSearchResult from './FriendSearchResult';
 
-const FriendRequestModal = ({ user, setModalOpen }) => {
+const FriendSearch = ({ user, setModalOpen}) => {
 
-  const [requestDetails, setRequestDetails] = useState({
-    requestName: '',
-    requestUsername: '',
-  });
+  const [users, setUsers] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
-  const [submitMessage, setSubmitMessage] = useState({
-    message: '',
-    error: true,
-    showMessage: false,
-  });
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    setRequestDetails({
-      ...requestDetails,
-      [name]: value,
-    });
-  }
-
-  const formErrorCheck = async () => {
-    const requestData = {
-      name: requestDetails.requestName,
-      username: requestDetails.requestUsername,
+  useEffect(() => {
+    const getAllUsers = async () => {
+      const response = await getRequest('http://localhost:3001/friends/all', user.token);
+      const allUsers = await response.json();
+      const selfRemovedFromUsers = allUsers.filter(searchUser => searchUser.id !== user.id);
+      setUsers(selfRemovedFromUsers.map(userInfo => {
+        const info = {
+          ...userInfo,
+          shown: false,
+          sentRequest: false,
+        }
+        return info;
+      }));
     }
-    const response = await dataChangeRequest('http://localhost:3001/friends/request', requestData, user.token, 'POST');
-    if (response.status !== 200) {
-      const error = await response.json();
-      const errorMessage = error.error;
-      setSubmitMessage({
-        message: errorMessage,
-        error: true,
-        showMessage: true,
-      });
-      return true;
-    } else {
-      const data = await response.json();
-      const { message }  = data;
-      setSubmitMessage({
-        message,
-        error: false,
-        showMessage: true,
-      });
-      return false;
-    }
-  }
+    getAllUsers();
+  }, [user.token]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const errorFound = await formErrorCheck();
-    if (!errorFound) {
-      setRequestDetails({
-        requestName: '',
-        requestUsername: '',
+  useEffect(() => {
+    const searchMatcher = () => {
+      const usersToShow = users.map(user => {
+        if (searchText.length !== 0 && user.name.toLowerCase().includes(searchText.toLowerCase())) {
+          user.shown = true;
+        } else {
+          user.shown = false;
+        }
+        return user;
       });
-      setTimeout(() => {
-        setSubmitMessage({
-          ...submitMessage,
-          showMessage: false,
-        })
-      }, 3000)
-    }  
-  }
+      setUsers(usersToShow);
+    }
+
+    searchMatcher();
+  }, [searchText]);
+
+  const searchInputHandler = (event) => {
+    setSearchText(event.target.value);
+  } 
 
   return (
     <div className="account__friends--friend-request-modal">
@@ -80,52 +55,36 @@ const FriendRequestModal = ({ user, setModalOpen }) => {
           </svg>
         </div>
         <div className="account__friend-request-modal--main">
-          <div className="account__friend-request-modal--info-wrapper">
-            <span className="account__friend-request-modal--info">Type in a user's name and username to send them a request.</span>
+          <div className="account__friend-request-modal--search-bar-wrapper">
+            <input 
+              type="text" 
+              placeholder="Search for a user" 
+              className="account__friend-request-modal--search-bar" 
+              value={searchText} 
+              onChange={searchInputHandler} 
+            />
           </div>
-          <form className="account__friend-request-modal--form" onSubmit={handleSubmit} noValidate>
-            <FormSection 
-              name='requestName'
-              className='account__friend-request-modal--name'
-              label='Name'
-              detail={requestDetails.requestName}
-              errorMessage={null}
-              handleInputChange={handleInputChange}
-              type='text'
-            />
-            <FormSection 
-              name='requestUsername'
-              className='account__friend-request-modal--name'
-              label='Username'
-              detail={requestDetails.requestUsername}
-              errorMessage={null}
-              handleInputChange={handleInputChange}
-              type='text'
-            />
-            <button type='submit' className="account__friend-request-modal--submit-btn">Send Request</button>
-          </form>
-          { 
-          submitMessage.showMessage ?
-            (
-            submitMessage.error ?
-              <div className="account__friend-request-modal--submit-message-error-wrapper">
-                <FontAwesomeIcon className="account__friend-request-modal--submit-error-icon" icon={faExclamation} />
-                <span className="account__friend-request-modal--submit-error-message">{submitMessage.message}</span>
-              </div>
-              :
-              <div className="account__friend-request-modal--submit-message-success-wrapper">
-                <FontAwesomeIcon className="account__friend-request-modal--submit-success-icon" icon={faCheck} />
-                <span className="account__friend-request-modal--submit-success-message">{submitMessage.message}</span>
-              </div>
-            )
-            :
-            null
-          }
-          
+          <div className="account__friend-request-modal--results-container">
+            <div className="account__friend-request-modal--results-heading-wrapper">
+              <span className="account__friend-request-modal--results-heading">Users</span>
+            </div>
+            <div className="account__friend-request-modal--results">
+              {
+                users.map((searchResultUser) => {
+                  if (searchResultUser.shown) {
+                    return (
+                      <FriendSearchResult key={searchResultUser.id} user={user} searchResultUser={searchResultUser} users={users} setUsers={setUsers} />
+                    )
+                  }
+                  return null;
+                })
+              }
+            </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default FriendRequestModal;
+export default FriendSearch;
