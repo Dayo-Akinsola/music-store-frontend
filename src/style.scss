@@ -42,6 +42,70 @@
   padding: 0.25em;
 }
 
+@mixin accountSectionHeadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin accountSectionHeading {
+  margin: 1.2em;
+  font-size: 1.6em;
+}
+
+@mixin modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4); 
+}
+
+@mixin modalContent {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 80%;
+  max-width: 30em;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@mixin messageWrapper {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  margin-top: 1.2em;
+  padding: 0.8em;
+  width: 80%;
+  max-width: 22.5em;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+$icon-font-size: 1.5em;
+
+
 html, body {
   height: 100%;
   background-color: #fff;
@@ -81,6 +145,23 @@ input::-webkit-inner-spin-button {
 
 .increment-btn:active {
   box-shadow: inset 0 2px 12px -4px #c5d1d9;
+}
+
+.notification-wrapper {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px 0 rgba(0,0,0,.3);
+  box-sizing: border-box;
+  display: flex;
+  min-height: 52px;
+  padding: 1em;
+  position: fixed;
+  transition: padding .3s;
+  z-index: 99;
+  top: 7em;
+  background-color: black;
+  color: white;
+  width: 50%;
 }
 
 .header {
@@ -733,6 +814,191 @@ a {
       border-width: 0px 0 0px 15px;
     }
   }
+
+  .album-page__review-form-modal {
+    @include modal();
+  }
+
+  .album-page__review-form-modal-content {
+    @include modalContent();
+    padding: 1em;
+    min-width: 20em;
+    border-radius: 0;
+  }
+
+  .album-page__review-form-modal--close {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #212529;
+  }
+
+  .album-page__review-form-modal--close:hover {
+    color: #42484e;
+  }
+
+  .album-page__review-form-modal--album {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5em;
+    padding-bottom: 0.8em;
+    border-bottom: 1px solid #d4d6d9;
+  }
+
+  .album-page__review-form-modal--album-img {
+    width: 6em;
+    margin-right: 1.3em;
+  }
+
+  .album-page__review-form-modal--album-title {
+    font-weight: 600;
+  }
+
+  .album-page__review-form--rating-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: flex-start;
+    margin: 1.4em 0;
+    border-bottom: 1px solid #d4d6d9;
+    padding-bottom: 0.6em;
+  }
+
+  .album-page__review-form--rating {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .album-page__review-form--rating-options {
+    padding-bottom: 0.5em;
+  }
+
+  .album-page__review-form--rating-options span { 
+    float:right; 
+    position:relative; 
+  }
+
+  .album-page__review-form--rating-options label::after {
+    content: '\2605';
+    font-size: 2.5em;
+    color:#ccc;
+    margin-right:2px;
+  }
+
+  .album-page__review-form--rating-options label:hover {
+    color: #F90;  
+  }
+
+  .album-page__review-form--rating-options span:hover ~ span label::after,
+  .album-page__review-form--rating-options span:hover label::after,
+  .album-page__review-form--rating-options span.checked label::after,
+  .album-page__review-form--rating-options span.checked ~ span label::after {
+    color: #F90;
+  }
+
+  .album-page__review-form--headline {
+    margin-bottom: 1.5em;
+    padding-bottom: 1.6em;
+    border-bottom: 1px solid #d4d6d9;
+  }
+
+  .album-page__review-form--headline-subheading {
+    margin-bottom: 0.6em;
+  }
+
+  .album-page__review-form--headline-input {
+    padding: 0.4em;
+    width: 90%;
+  }
+
+  .album-page__review-form--written-review-subheading {
+    margin-bottom: 0.6em;
+  }
+
+  .album-page__review-form--written-review {
+    margin-bottom: 1.5em;
+    padding-bottom: 1.6em;
+    border-bottom: 1px solid #d4d6d9;
+  }
+
+  .album-page__review-form--written-review-input {
+    padding: 0.45em;
+    width: 90%;
+  }
+
+  .review-form-error {
+    position: absolute;
+    font-size: 0.8em;
+    margin-left: 0.6em;
+    margin-top: 0.6em;
+  }
+
+  .album-page__review-form--rating-error {
+    top: 4.3em;
+  }
+
+  .album-page__review-form--error-icon {
+    color: crimson;
+  }
+
+  .review-form-error-message {
+    color: crimson;
+    margin-left: 0.6em;
+  }
+
+  // .album-page__review-form--rating-container {
+  //   $dir: right;
+  //   $fill: gold;
+  //   $fillbg: rgba(100, 100, 100, 0.15);
+  //   $star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
+  //   $stars: 5;
+  //   $starsize: 3em;
+  //   $symbol: $star;
+  //   --value: 1;
+  //   $w: calc($stars * $starsize);
+  //   $x: calc(100% * (var(--value) / $stars));
+
+  //   .album-page__review-form--rating-input {
+  //     block-size: $starsize;
+  //     inline-size: $w;
+  //     position: relative;
+  //     touch-action: manipulation;
+  //     -webkit-appearance: none;
+  //   }
+
+  //   .album-page__review-form--rating-input::-moz-range-track {
+  //     background: linear-gradient(to $dir, $fill 0 $x, $fillbg 0 $x);
+  //     block-size: 100%;
+  //     mask: repeat left center/$starsize $symbol;
+  //   }
+    
+  //   .album-page__review-form--rating-input::-webkit-slider-runnable-track {
+  //     background: linear-gradient(to $dir, $fill 0 $x, $fillbg 0 $x);
+  //     block-size: 100%;
+  //     mask: repeat left center/$starsize $symbol;
+  //     -webkit-mask: repeat left center/$starsize $symbol;
+  //   }
+
+  //   [dir="rtl"] .album-page__review-form--rating-input {
+  //     $dir: left;
+  //   }
+
+  //   .album-page__review-form--rating-input::-moz-range-thumb {
+  //     height: $starsize;
+  //     opacity: 0;
+  //     width: $starsize;
+  //   }
+    
+  //   .album-page__review-form--rating-input::-webkit-slider-thumb {
+  //     height: $starsize;
+  //     opacity: 0;
+  //     width: $starsize;
+  //     -webkit-appearance: none;
+  //   }
+  // }
 }
 
 .cart-sidebar {
@@ -1235,7 +1501,7 @@ a {
 .payment {
   @include pageStyling();
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  --logo-size: 3em;
+  $logo-size: 3em;
 
   .payment__heading {
     margin-bottom: 1.2em;
@@ -1267,13 +1533,13 @@ a {
   }
 
   .payment__accepted-cards--mastercard {
-    width: var(--logo-size);
+    width: $logo-size;
   }
 
   .payment__accepted-cards--visa {
     background-color: rgb(26, 31, 113);
     color: #fff;
-    width: var(--logo-size);
+    width: $logo-size;
   }
 
   .payment__accepted-cards--amex {
@@ -1282,7 +1548,7 @@ a {
   }
 
   .payment__accepted-cards--maestro {
-    width: var(--logo-size);
+    width: $logo-size;
   }
 
   .payment__form {
@@ -1465,69 +1731,6 @@ a {
   @include pageStyling();
   padding-top: 3.8em;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-  @mixin accountSectionHeadingContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  @mixin accountSectionHeading {
-    margin: 1.2em;
-    font-size: 1.6em;
-  }
-
-  @mixin modal {
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4); 
-  }
-
-  @mixin modalContent {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    width: 80%;
-    max-width: 30em;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s;
-  }
-
-  @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-  }
-  
-  @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-  }
-
-  @mixin messageWrapper {
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    margin-top: 1.2em;
-    padding: 0.8em;
-    width: 80%;
-    max-width: 22.5em;
-    align-items: center;
-    font-size: 0.9em;
-  }
-
-  $icon-font-size: 1.5em;
 
   .account__header {
     background-color: #e1edf2;
@@ -2119,7 +2322,6 @@ a {
       width: 2.5em;
       margin-right: 1.2em;
       font-size: 0.3em;
-
     }
 
     .account__friend-request-modal--main {
