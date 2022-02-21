@@ -1,6 +1,6 @@
 class Service {
   constructor(method, data, token) {
-    this.method = method;
+    this.method = method.toUpperCase();
     this.data = data;
     this.token = token;
     this._options = {

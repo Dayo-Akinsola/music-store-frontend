@@ -4,6 +4,7 @@ import QuantityInput from '../Shared/QuantityInput';
 import RelatedAlbums from './RelatedAlbums';
 import TrackList  from './TrackList';
 import { dataChangeRequest } from '../../sevices/service';
+import AlbumReviews from './AlbumReviews/AlbumsReviews';
 
 const AlbumDetails = ({ 
     getAllAlbums, 
@@ -14,6 +15,7 @@ const AlbumDetails = ({
     incrementQuantity, 
     decrementQuantity,
     user,
+    setNotification,
   }) => {
 
   const [albumDetails, setAlbumDetails] = useState(null);
@@ -221,6 +223,7 @@ const AlbumDetails = ({
           <TrackList albumDetails={albumDetails} togglePlaying={togglePlaying} urlParams={urlParams} setAlbumDetails={setAlbumDetails} pauseTrack={pauseTrack}  />
           <RelatedAlbums albumDetails={albumDetails} urlParams={urlParams} />
         </div>
+        <AlbumReviews user={user} albumDetails={albumDetails} setNotification={setNotification} />
       </div>
     </div>
   );
