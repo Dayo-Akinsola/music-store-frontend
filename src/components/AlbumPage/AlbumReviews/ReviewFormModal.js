@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { dataChangeRequest } from "../../../sevices/service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWindowClose, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
-const ReviewFormModal = ({ user, albumDetails }) => {
+const ReviewFormModal = ({ user, albumDetails, closeModal, setNotification }) => {
 
   const [reviewFormDetails, setReviewFormDetails] = useState({
     rating: 0,
@@ -8,12 +11,18 @@ const ReviewFormModal = ({ user, albumDetails }) => {
     writtenReview: '',
   });
 
+  const [errorMessages, setErrorMessages] = useState({
+    rating: '',
+    headline: '',
+    writtenReview: '',
+  });
+
   const [isChecked, setIsChecked] = useState({
-    rating1: false,
-    rating2: false,
-    rating3: false,
-    rating4: false,
     rating5: false,
+    rating4: false,
+    rating3: false,
+    rating2: false,
+    rating1: false,
   });
 
   const handleInputChange = (event) => {
@@ -25,33 +34,100 @@ const ReviewFormModal = ({ user, albumDetails }) => {
     });
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const resetForm = () => {
+    setReviewFormDetails({
+      rating: '',
+      headline: '',
+      writtenReview: '',
+    });
   }
 
-  const resetRatings = () => {
-    setIsChecked({
-      rating1: false,
-      rating2: false,
-      rating3: false,
-      rating4: false,
-      rating5: false,
-    });
+  const exitModal = () => {
+    resetForm();
+    closeModal();
   }
 
   const ratingClickHandler = (event) => {
     const { name } = event.target;
-    resetRatings();
-    setIsChecked({
-      ...isChecked,
-      [name]: true,
+    const ratingsReset = {
+      rating5: false,
+      rating4: false,
+      rating3: false,
+      rating2: false,
+      rating1: false,
+    }
+    setReviewFormDetails({
+      ...reviewFormDetails,
+      rating: parseInt(event.target.value),
     });
+    setIsChecked(Object.assign(ratingsReset, { [name]: true }));
   }
 
+  const errorChecking = () => {
+    const { rating, headline, writtenReview } = reviewFormDetails;
+    let errorFound = false;
+    let ratingMessage = '';
+    let headlineMessage = '';
+    let writtenReviewMessage = '';
+    if (rating === 0) {
+      errorFound = true;
+      ratingMessage = 'Please give a rating.'
+    }
+
+    if (headline.trim() === '') {
+      errorFound = true;
+      headlineMessage = 'Please write a headline.'
+    }
+
+    if (writtenReview.trim() === '') {
+      errorFound = true;
+      writtenReviewMessage = 'Please write a review.'
+    }
+
+    setErrorMessages({
+      rating: ratingMessage,
+      headline: headlineMessage,
+      writtenReview: writtenReviewMessage,
+    })
+
+    if (!errorFound) {
+      return false;
+    }
+    return true;
+  }
+
+  const postReview = async () => {
+    const reviewData = {
+      albumId: albumDetails.id,
+      rating: reviewFormDetails.rating,
+      headline: reviewFormDetails.headline,
+      reviewText: reviewFormDetails.writtenReview,
+      date: Date.now(),
+      upvotes: 0,
+      downvotes: 0,
+    }
+    return await dataChangeRequest('http://localhost:3001/reviews', reviewData, user.token, 'POST');
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const errorFound = errorChecking();
+
+    if (!errorFound) {
+      const response = await postReview();
+      const data = await response.json();
+      exitModal();
+
+      if (!response.ok) {
+        setNotification(data.error);
+      }
+    }
+  }
 
   return (
     <div className="album-page__review-form-modal">
       <div className="album-page__review-form-modal-content">
+        <FontAwesomeIcon className="album-page__review-form-modal--close" icon={faWindowClose} onClick={exitModal} />
         <div className="album-page__review-form-modal--album">
           <img src={albumDetails.cover_image} alt={albumDetails.albumTitle} className="album-page__review-form-modal--album-img" />
           <span className="album-page__review-form-modal--album-title">{albumDetails.title}</span>
@@ -63,36 +139,24 @@ const ReviewFormModal = ({ user, albumDetails }) => {
           <div className="album-page__review-form--rating-container">
             <h4 className="album-page__review-form--rating-subheading review-form--subheading">Overall Rating</h4>
             <div className="album-page__review-form--rating-options">
-              <span><input 
-                type="radio" 
-                onClick={ratingClickHandler} 
-                className={`album-page__review-form-rating${isChecked.rating1 ? " checked" : ""}`} 
-                name="rating5" 
-                value="5"/><label htmlFor="rating5"></label></span>
-              <span><input 
-                type="radio" 
-                onClick={ratingClickHandler} 
-                className={`album-page__review-form-rating${isChecked.rating2 ? " checked" : ""}`} 
-                name="rating4" 
-                value="4"/><label htmlFor="rating4"></label></span>
-              <span><input 
-                type="radio" 
-                onClick={ratingClickHandler} 
-                className={`album-page__review-form-rating${isChecked.rating3 ? " checked" : ""}`} 
-                name="rating3" 
-                value="3"/><label htmlFor="rating3"></label></span>
-              <span><input 
-                type="radio" 
-                onClick={ratingClickHandler} 
-                className={`album-page__review-form-rating${isChecked.rating4 ? " checked" : ""}`} 
-                name="rating2" 
-                value="2"/><label htmlFor="rating2"></label></span>
-              <span><input 
-                type="radio" 
-                onClick={ratingClickHandler} 
-                className={`album-page__review-form-rating${isChecked.rating5 ? " checked" : ""}`} 
-                name="rating1" 
-                value="1"/><label htmlFor="rating1"></label></span>
+              {
+                Object.keys(isChecked).map((rating, index) => (
+                  <span key={index + 1} className={isChecked[rating] ? "checked" : ""}>
+                    <input 
+                      type="radio" 
+                      onClick={ratingClickHandler} 
+                      className="album-page__review-form--rating" 
+                      name={rating} 
+                      value={rating.substring(rating.length - 1)}
+                    />
+                    <label htmlFor={rating}></label>
+                  </span>
+                ))
+              }
+            </div>
+            <div style={{'display':`${errorMessages.rating === '' ? 'none' : 'block'}`}} className="album-page__review-form--rating-error review-form-error">
+              <FontAwesomeIcon icon={faExclamationCircle} className="album-page__review-form--error-icon" />
+              <span className="album-page__review-form--rating-error-message review-form-error-message">{errorMessages.rating}</span>
             </div>
           </div>
           <div className="album-page__review-form--headline">
@@ -107,6 +171,10 @@ const ReviewFormModal = ({ user, albumDetails }) => {
               value={reviewFormDetails.headline}
               onChange={handleInputChange}
             />
+            <div style={{'display':`${errorMessages.headline === '' ? 'none' : 'block'}`}}  className="album-page__review-form--headline-error review-form-error">
+              <FontAwesomeIcon icon={faExclamationCircle} className="album-page__review-form--error-icon" />
+              <span className="album-page__review-form--headline-error-message review-form-error-message">{errorMessages.headline}</span>
+            </div>
           </div>
           <div className="album-page__review-form--written-review">
             <label htmlFor="wrttenReview" className="album-page__review-form--written-review-label">
@@ -119,6 +187,10 @@ const ReviewFormModal = ({ user, albumDetails }) => {
               onChange={handleInputChange}
             >
             </textarea>
+            <div style={{'display':`${errorMessages.writtenReview === '' ? 'none' : 'block'}`}} className="album-page__review-form--written-reveiw-error review-form-error">
+              <FontAwesomeIcon icon={faExclamationCircle} className="album-page__review-form--error-icon" />
+              <span className="album-page__review-form--written-review-error-message review-form-error-message">{errorMessages.writtenReview}</span>
+            </div>
           </div>
           <button className="album-page__review-form--submit-btn" type='submit' onSubmit={handleSubmit}>Post Review</button>
         </form>
