@@ -21,6 +21,7 @@ import AccountDetails from './components/AccountPage/AccountViews/Details/Accoun
 import AccountFriends from './components/AccountPage/AccountViews/Friends/AccountFriends';
 import AccountFriendList from './components/AccountPage/AccountViews/Friends/Friendlist/AccountFriendList';
 import AccountFriendRequests from './components/AccountPage/AccountViews/Friends/AccountFriendRequests';
+import Notification from './components/Shared/Notification';
 
 const App = () => {
 
@@ -58,6 +59,7 @@ const App = () => {
     phone: '', 
     email: '',
   });
+  const [ notification, setNotification] = useState('');
   
   const getAlbumSet = async (style) => {
     const response = await fetch(`http://localhost:3001/discogs/${style}`, { withCredentials: true, mode: 'cors' });
@@ -372,6 +374,7 @@ const App = () => {
       <Router>
         <ScrollToTop />
         <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} user={user} />
+        <Notification notification={notification} setNotification={setNotification}/>
         <Routes>
           <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
           <Route path='/shop'>
@@ -396,6 +399,7 @@ const App = () => {
               decrementQuantity={decrementQuantity}
               cart={cart}
               user={user}
+              setNotification={setNotification}
             />}></Route>
           </Route>
           <Route 
