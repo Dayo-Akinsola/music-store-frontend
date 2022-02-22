@@ -103,6 +103,22 @@
   font-size: 0.9em;
 }
 
+@mixin profilePicStyling {
+  border: 4px solid #747474;
+  border-radius: 50%;
+  letter-spacing: 0.28rem;
+  margin: auto;
+  text-align: center;
+  text-indent: 0.4rem;
+  vertical-align: middle;
+  width: 2.8em;
+  height: 2.8em;
+  line-height: 2.3em;
+  margin-right: 2.4em;
+  background: #2d2d2d;
+  color: white;
+}
+
 $icon-font-size: 1.5em;
 
 
@@ -815,6 +831,22 @@ a {
     }
   }
 
+  .album-page__reviews {
+    width: 80%;
+    margin: auto;
+    margin-top: 3em;
+    min-width: 20em;
+  }
+
+  .album-page__reviews--header {
+    display: flex;
+  }
+
+  .album-page__reviews--header-heading {
+    margin-right: auto;
+    font-size: 1.55em;
+  }
+
   .album-page__review-form-modal {
     @include modal();
   }
@@ -949,56 +981,207 @@ a {
     margin-left: 0.6em;
   }
 
-  // .album-page__review-form--rating-container {
-  //   $dir: right;
-  //   $fill: gold;
-  //   $fillbg: rgba(100, 100, 100, 0.15);
-  //   $star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
-  //   $stars: 5;
-  //   $starsize: 3em;
-  //   $symbol: $star;
-  //   --value: 1;
-  //   $w: calc($stars * $starsize);
-  //   $x: calc(100% * (var(--value) / $stars));
+  .album-page__reviews--review-percentages {
+    margin: auto;
+    text-align: center;
+    margin-top: 2em;
+  }
 
-  //   .album-page__review-form--rating-input {
-  //     block-size: $starsize;
-  //     inline-size: $w;
-  //     position: relative;
-  //     touch-action: manipulation;
-  //     -webkit-appearance: none;
-  //   }
+  .album-page__review-percentages--total-ratings-wrapper {
+    margin: 0.6em 0;
+    font-size: 0.9em;
+  }
 
-  //   .album-page__review-form--rating-input::-moz-range-track {
-  //     background: linear-gradient(to $dir, $fill 0 $x, $fillbg 0 $x);
-  //     block-size: 100%;
-  //     mask: repeat left center/$starsize $symbol;
-  //   }
-    
-  //   .album-page__review-form--rating-input::-webkit-slider-runnable-track {
-  //     background: linear-gradient(to $dir, $fill 0 $x, $fillbg 0 $x);
-  //     block-size: 100%;
-  //     mask: repeat left center/$starsize $symbol;
-  //     -webkit-mask: repeat left center/$starsize $symbol;
-  //   }
+  .album-page__review-percentages--total-ratings {
+    color: #70757a;
+  }
 
-  //   [dir="rtl"] .album-page__review-form--rating-input {
-  //     $dir: left;
-  //   }
+  .album-page__review-percentages--stars-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 0.3em;
+  }
 
-  //   .album-page__review-form--rating-input::-moz-range-thumb {
-  //     height: $starsize;
-  //     opacity: 0;
-  //     width: $starsize;
-  //   }
-    
-  //   .album-page__review-form--rating-input::-webkit-slider-thumb {
-  //     height: $starsize;
-  //     opacity: 0;
-  //     width: $starsize;
-  //     -webkit-appearance: none;
-  //   }
-  // }
+  .album-page__review-percentages--overall-rating {
+    font-size: 1.2em;
+  }
+
+  .album-page__review-percentages--stars {
+    --star-size: 2em;
+    --star-color: #ccc;
+    --star-background: #F90;
+
+    --percent: calc(var(--rating) / 5 * 100%);
+  
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times; 
+    line-height: 1;
+  
+    &::before {
+      content: '★★★★★';
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .album-page__review-percentages--ratings-histogram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .album-page__review-percentages--histogram-rating-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.9em;
+    align-items: center;
+  }
+
+  .album-page__review-percentages--histogram-rating-label {
+    margin-right: 0.6em;
+  }
+
+  .album-page__review-percentages--histogram-rating-label::after {
+    content: '\2605';
+  }
+
+  .album-page__review-percentages--total-bar {
+    background-color: #ccc;
+    width: 12em;
+    height: 0.9em;
+    border-radius: 8px;
+  }
+
+  .album-page__review-percentages--percentage-bar {
+    width: 0%;
+    background-color: #f90;
+    z-index: 5;
+    height: 0.9em;
+    border-radius: 8px;
+  }
+
+  .album-page__review-percentages--histogram-rating-percentage {
+    width: 2em;
+    margin-left: 0.8em;
+  }
+
+  .album-page__album-reviews {
+    margin-top: 2em;
+  }
+
+  .album-page__review {
+    border-bottom: 1px solid #d4d6d9;
+    padding: 1em;
+  }
+
+  .album-page__review--header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+  }
+
+  .album-page__review--header-profile-pic {
+    @include profilePicStyling();
+    margin: 0;
+    margin-right: 1em;
+  }
+
+  .album-page__review--header-profile-text {
+    display: block;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .album-page__review--header-user-info-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .album-page__review--header-star-rating {
+    --star-size: 1.2em;
+    --star-color: #ccc;
+    --star-background: #F90;
+
+    --percent: calc(var(--rating) / 5 * 100%);
+  
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times; 
+    line-height: 1;
+  
+    &::before {
+      content: '★★★★★';
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .album-page__review-date-wrapper {
+    margin-bottom: 0.3em;
+  }
+
+  .album-page__review-date {
+    font-size: 0.8em;
+    color: #70757a;
+  }
+
+  .album-page__review--headline {
+    font-weight: 600;
+    font-size: 0.9em;
+  }
+
+  .album-page__review--content {
+    font-size: 0.95em;
+  }
+
+  .album-page__review--vote-section {
+    margin-top: 1.2em;
+    margin-left: auto;
+  }
+
+  .album-page__review--vote-question {
+    font-size: 0.95em;
+  }
+
+  .album-page__review--vote-btns {
+    margin-top: 0.2em;
+  }
+
+  .review-vote-btn {
+    border: none;
+    padding: 0.3em;
+    background-color: #eee;
+  }
+
+  .review-vote-btn :hover{
+    background-color: #cfcccc;
+  }
+
+  .album-page__review--upvote-btn {
+    margin-right: 1em;
+    cursor: pointer;
+  }
+
+  .album-page__review--downvote-btn {
+    cursor: pointer;
+  }
+
+  .album-page__review--upvote-btn span {
+    font-weight: 600;
+  }
+
+  .album-page__review--downvote-btn span {
+    font-weight: 600;
+  }
 }
 
 .cart-sidebar {
@@ -1747,19 +1930,12 @@ a {
   }
 
   .account__header--profile-pic {
-    border: 4px solid #747474;
-    border-radius: 50%;
-    letter-spacing: 0.28rem;
-    margin: auto;
-    text-align: center;
-    text-indent: 0.4rem;
-    vertical-align: middle;
+    @include profilePicStyling();
     margin-top: calc((100px / 2) * -1);
     width: 100px;
     height: 100px;
     line-height: 92px;
-    background: #2d2d2d;
-    color: white;
+    margin-right: auto;
   }
 
   .account__header--profile-pic-text-section {
@@ -2418,18 +2594,7 @@ a {
     } 
 
     .account__request--user-profile {
-      border: 4px solid #747474;
-      border-radius: 50%;
-      letter-spacing: 0.28rem;
-      text-align: center;
-      text-indent: 0.4rem;
-      vertical-align: middle;
-      width: 2.8em;
-      height: 2.8em;
-      line-height: 2.3em;
-      background: #2d2d2d;
-      color: white;
-      margin-right: 1.4em;
+      @include profilePicStyling();
     }
 
     .account__request--user-profile-text {
@@ -2529,18 +2694,7 @@ a {
     }
 
     .account__friend-request-modal--result-profile-pic {
-      border: 4px solid #747474;
-      border-radius: 50%;
-      letter-spacing: 0.28rem;
-      text-align: center;
-      text-indent: 0.4rem;
-      vertical-align: middle;
-      width: 2.8em;
-      height: 2.8em;
-      line-height: 2.3em;
-      background: #2d2d2d;
-      color: white;
-      margin-right: 1.4em;
+      @include profilePicStyling();
     }
 
     .account__friend-request-modal--result-profile-text {
@@ -2610,18 +2764,9 @@ a {
     }
 
     .account__friend-list--profile-pic {
-      border: 4px solid #747474;
-      border-radius: 50%;
-      letter-spacing: 0.28rem;
-      text-align: center;
-      text-indent: 0.4rem;
-      vertical-align: middle;
-      width: 2.8em;
-      height: 2.8em;
-      line-height: 2.3em;
-      background: #2d2d2d;
-      color: white;
-      margin-right: 2.4em;
+      @include profilePicStyling();
+      margin: 0;
+      margin-right: 1.8em;
     }
 
     .account__friend-list--profile-pic-text {
