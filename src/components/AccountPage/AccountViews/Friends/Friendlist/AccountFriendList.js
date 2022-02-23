@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getRequest } from '../../../../../sevices/service';
 import AccountFriendListHeader from './AccountFriendListHeader';
 
@@ -6,12 +7,12 @@ const AccountFriendList = ({ user }) => {
 
   const [friends, setFriends] = useState([]);
   useEffect(() => {
-    const getAllFriends = async () => {
+    const getUserFriends = async () => {
       const response = await getRequest('http://localhost:3001/friends/friendlist', user.token);
       const allFriends = await response.json();
       setFriends(allFriends);
     }
-    getAllFriends();
+    getUserFriends();
   }, [user.token]);
 
   return (
@@ -26,7 +27,9 @@ const AccountFriendList = ({ user }) => {
               </div>
               <div className="account__friend-list--details">
                 <span className="account__friend-list--name">{friend.name}</span>
-                <button className="account__friend-list--profile-btn">View Profile</button>
+                <Link to={`/profile/${friend.id}`}>
+                  <button className="account__friend-list--profile-btn">View Profile</button>
+                </Link>
               </div>
             </div>
           ))
