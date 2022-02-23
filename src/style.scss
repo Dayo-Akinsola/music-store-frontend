@@ -119,6 +119,46 @@
   color: white;
 }
 
+@mixin profileTopSection {
+  background-image: url('./assets/images/account-bg-img.jpg');     
+  background-size: cover;
+  padding-top: 30%;
+}
+
+@mixin friendRequestBtn {
+  display: flex;
+  font-size: 1em;
+  align-items: center;
+  border: 1px solid #CCC;
+  border-radius: 30px;
+  padding: 0.5em;
+  color: #007185;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+
+@mixin starRating() {
+  --star-size: 1.2em;
+  --star-color: #ccc;
+  --star-background: #F90;
+
+  --percent: calc(var(--rating) / 5 * 100%);
+
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times; 
+  line-height: 1;
+
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 $icon-font-size: 1.5em;
 
 
@@ -1104,25 +1144,7 @@ a {
   }
 
   .album-page__review--header-star-rating {
-    --star-size: 1.2em;
-    --star-color: #ccc;
-    --star-background: #F90;
-
-    --percent: calc(var(--rating) / 5 * 100%);
-  
-    display: inline-block;
-    font-size: var(--star-size);
-    font-family: Times; 
-    line-height: 1;
-  
-    &::before {
-      content: '★★★★★';
-      letter-spacing: 3px;
-      background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    @include starRating();
   }
 
   .album-page__review-date-wrapper {
@@ -1920,9 +1942,7 @@ a {
   }
 
   .account__header--top-section {
-    background-image: url('./assets/images/account-bg-img.jpg');     
-    background-size: cover;
-    padding-top: 30%;
+    @include profileTopSection();
   }
 
   .account__header--bottom-section {
@@ -2450,15 +2470,7 @@ a {
     }
 
     .account__friend-list--send-request-btn {
-      display: flex;
-      font-size: 1em;
-      align-items: center;
-      border: 1px solid #CCC;
-      border-radius: 30px;
-      padding: 0.5em;
-      color: #007185;
-      cursor: pointer;
-      font-size: 0.95em;
+      @include friendRequestBtn();
     }
 
     .account__friend-list--send-request-btn:hover {
@@ -2803,5 +2815,183 @@ a {
     .account__friend-list--profile-btn:hover {
       background-color: #3d586e;
     }
+  }
+}
+
+.profile-page {
+  @mixin profileSection {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    margin-top: -5em;
+    background-color: white;
+    padding: 1.2em;
+    -webkit-box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px rgb(0 0 0 / 0%); 
+    box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px   rgb(0 0 0 / 0%);
+  }
+
+  @include pageStyling();
+  overflow: auto;
+  padding-top: 3.8em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: #eee;
+
+  .profile-page__header--top-section {
+    @include profileTopSection();
+  }
+
+  .profile-page__header--bottom-section {
+    @include profileSection();
+    border-radius: 8px;
+  }
+
+  .profile-page__header--profile-pic {
+    @include profilePicStyling();
+    width: 6.25em;
+    height: 6.25em;
+    line-height: 5.65em;
+    margin: auto;
+  }
+
+  .profile-page__header--user-info {
+    padding: 1.05em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-page__header--name {
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+
+  .profile-page__header--insights {
+    display: flex;
+  }
+
+  .profile-page__header--votes {
+    display: flex;
+    flex-direction: column;
+    margin-right: 3em;
+  }
+
+  .profile-page__header--review-count {
+    display: flex;
+    flex-direction: column; 
+  }
+
+  .insight-label {
+    font-size: 0.84em;
+  }
+
+  .insight-value {
+    font-size: 1.45em;
+  }
+
+  .profile-page__header--send-request-btn {
+    @include friendRequestBtn();
+    margin-top: 1.8em;
+    margin-right: auto;
+    padding-right: 0.9em;
+  }
+  
+  .profile-page__header--send-request-btn:hover {
+    color: mediumpurple;
+    border-color: mediumpurple;
+  }
+
+  .profile-page__header--send-request-icon {
+    margin-right: 0.3em;
+  }
+
+  .profile-page__header--profile-navbar {
+    margin-top: 1em;
+  }
+
+  .profile-page__header--profile-navbar-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-inline-start: 0;
+  }
+
+  .profile-page__header--profile-nav {
+    padding: 0.6em;
+    font-size: 0.95em;
+    font-weight: 600;
+    border-right: solid 1px #212529;
+  }
+
+  .profile-page__header--profile-nav-link:hover {
+    border-bottom: solid 2px mediumpurple;
+  }
+
+  .profile-page__header--profile-nav-link .active {
+    border-bottom: solid 2px mediumpurple;
+  }
+
+  .profile-page__reviews {
+    @include profileSection();
+    margin-top: 2em;
+    width: 100%;
+  }
+
+  .profile-page__reviews--heading-wrapper {
+    margin-bottom: 0.4em;
+    border-bottom: solid 1px #d4d6d9;
+    padding-bottom: 0.6em;
+  }
+
+  .profile-page__review {
+    border-bottom: 1px solid #d4d6d9;
+    padding: 1em;
+  }
+
+  .profile-page__review--header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+  }
+
+  .profile-page__review--header-profile-pic {
+    @include profilePicStyling();
+    margin: 0;
+    margin-right: 1em;
+  }
+
+  .profile-page__review--header-profile-text {
+    display: block;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;  
+  }
+
+  .profile-page__review--header-user-info-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-page__review--header-star-rating {
+    @include starRating();
+  }
+
+  .profile-page__review-date-wrapper {
+    margin-bottom: 0.3em;
+  }
+
+  .profile-page__review-date {
+    font-size: 0.8em;
+    color: #70757a;
+  }
+
+  .profile-page__review--headline {
+    font-weight: 600;
+    font-size: 0.9em;
+  }
+
+  .profile-page__review--content {
+    font-size: 0.95em;
   }
 }
