@@ -22,6 +22,8 @@ import AccountFriends from './components/AccountPage/AccountViews/Friends/Accoun
 import AccountFriendList from './components/AccountPage/AccountViews/Friends/Friendlist/AccountFriendList';
 import AccountFriendRequests from './components/AccountPage/AccountViews/Friends/AccountFriendRequests';
 import Notification from './components/Shared/Notification';
+import ProfilePage from './components/Profile/ProfilePage';
+import ProfileReviews from './components/Profile/ProfileViews/Reviews/ProfileReviews';
 
 const App = () => {
 
@@ -60,6 +62,13 @@ const App = () => {
     email: '',
   });
   const [ notification, setNotification] = useState('');
+  const [ userInfo, setUserInfo] = useState({
+    friends: '',
+    name: '',
+    reviews: [],
+    votedReviews: [],
+    wishlist: [],
+  });
   
   const getAlbumSet = async (style) => {
     const response = await fetch(`http://localhost:3001/discogs/${style}`, { withCredentials: true, mode: 'cors' });
@@ -456,6 +465,9 @@ const App = () => {
               <Route path='friendlist' element={<AccountFriendList user={user} />}></Route>
               <Route path='requests' element={<AccountFriendRequests user={user} />}></Route>
             </Route>
+          </Route>
+          <Route path='/profile/:userId' element={<ProfilePage user={user} userInfo={userInfo} setUserInfo={setUserInfo}/>}>
+            <Route path='Reviews' element={<ProfileReviews userInfo={userInfo} />}></Route>
           </Route>
         </Routes>
         {
