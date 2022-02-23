@@ -98,7 +98,11 @@ const ReviewFormModal = ({ user, albumDetails, closeModal, setNotification }) =>
 
   const postReview = async () => {
     const reviewData = {
-      albumId: albumDetails.id,
+      album: {
+        id: albumDetails.id,
+        title: albumDetails.albumTitle,
+        thumb: albumDetails.thumb,
+      },
       rating: reviewFormDetails.rating,
       headline: reviewFormDetails.headline,
       reviewText: reviewFormDetails.writtenReview,
