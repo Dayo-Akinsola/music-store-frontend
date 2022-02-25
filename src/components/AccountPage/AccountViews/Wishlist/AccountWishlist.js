@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { getRequest } from '../../../../sevices/service';
-import AccountWishlistAlbums from './AccountWishlistAlbums';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGift } from '@fortawesome/free-solid-svg-icons';
+import WishlistAlbums from '../../../Shared/WishlistAlbums';
 
 const AccountWishlist = ({ user }) => {
   const [ notificationShowing, setNotificationShowing ] = useState(false);
@@ -45,7 +45,7 @@ const AccountWishlist = ({ user }) => {
           :
           null
       }
-      <AccountWishlistAlbums wishlist={wishlist} />
+      <WishlistAlbums wishlist={wishlist} page="account" />
       <Outlet />
     </div>
   )
