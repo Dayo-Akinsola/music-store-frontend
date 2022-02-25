@@ -24,6 +24,9 @@ import AccountFriendRequests from './components/AccountPage/AccountViews/Friends
 import Notification from './components/Shared/Notification';
 import ProfilePage from './components/Profile/ProfilePage';
 import ProfileReviews from './components/Profile/ProfileViews/Reviews/ProfileReviews';
+import ProfileWishlist from './components/Profile/ProfileViews/Wishlist/ProfileWishlist';
+import ProfileWishlistModal from './components/Profile/ProfileViews/Wishlist/ProfileWishlistModal';
+import ProfileFriends from './components/Profile/ProfileViews/ProfileFriends';
 
 const App = () => {
 
@@ -63,7 +66,7 @@ const App = () => {
   });
   const [ notification, setNotification] = useState('');
   const [ userInfo, setUserInfo] = useState({
-    friends: '',
+    friends: [],
     name: '',
     reviews: [],
     votedReviews: [],
@@ -467,7 +470,11 @@ const App = () => {
             </Route>
           </Route>
           <Route path='/profile/:userId' element={<ProfilePage user={user} userInfo={userInfo} setUserInfo={setUserInfo}/>}>
-            <Route path='Reviews' element={<ProfileReviews userInfo={userInfo} />}></Route>
+            <Route path='reviews' element={<ProfileReviews userInfo={userInfo} />}></Route>
+            <Route path='wishlist' element={<ProfileWishlist userInfo={userInfo} />}>
+              <Route path=':albumId' element={<ProfileWishlistModal user={user} addAlbumToCart={addAlbumToCart} />}></Route>
+            </Route>
+            <Route path='friends' element={<ProfileFriends userInfo={userInfo} />}></Route>
           </Route>
         </Routes>
         {
