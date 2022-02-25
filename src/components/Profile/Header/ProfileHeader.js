@@ -46,9 +46,9 @@ const ProfileHeader = ({ userInfo, user }) => {
         }
         <nav className="profile-page__header--profile-navbar">
           <ul className="profile-page__header--profile-navbar-list">
-            <ProfileNav name="Reviews" />
-            <ProfileNav name="Wishlist" />
-            <ProfileNav name="Friends" />
+            <ProfileNav name="reviews" />
+            <ProfileNav name="wishlist" />
+            <ProfileNav name="friends" />
           </ul>
         </nav>
       </div>
