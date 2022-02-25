@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-const AccountWishlistAlbums = ({ wishlist }) => {
+const WishlistAlbums = ({ wishlist, page }) => {
 
   return (
-    <div className="account__wishlist-albums">
-      <div className="account__wishlist-albums--container">
+    <div className={`${page}__wishlist-albums`}>
+      <div className={`${page}__wishlist-albums--container`}>
         {
           wishlist.map((album) => (
             <Link
@@ -13,10 +13,11 @@ const AccountWishlistAlbums = ({ wishlist }) => {
                 album,
               }}
               key={album._id}
+              className={`${page}__wishlist-albums--link`}
             >
-              <div className="account__wishlist-albums--album-bg-img" 
+              <div className={`${page}__wishlist-albums--album-bg-img`} 
                 style={{background: `linear-gradient(#00000065, #00000065), url(${album.image}) center no-repeat`, backgroundSize: 'cover'}} >
-                <span className="account__wishlist-albums--album-title">{album.title}</span>
+                <span className={`${page}__wishlist-albums--album-title`}>{album.title}</span>
             </div>
             </Link>
           ))
@@ -26,4 +27,4 @@ const AccountWishlistAlbums = ({ wishlist }) => {
   )
 }
 
-export default AccountWishlistAlbums;
+export default WishlistAlbums;
