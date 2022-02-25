@@ -1,6 +1,9 @@
 import formatDate from "../../../../helpers/formatDate";
+import ReviewedAlbum from "./ReviewedAlbum";
+
 const ProfileReviews = ({ userInfo }) => {
   const { reviews } = userInfo;
+  
   
   return (
     <div className="profile-page__reviews">
@@ -26,6 +29,7 @@ const ProfileReviews = ({ userInfo }) => {
           <div className="profile-page__review--content-wrapper">
             <span className="profile-page__review--content">{review.reviewText}</span>
           </div>
+          <ReviewedAlbum album={review.album} />
         </div>
       ))}
     </div>
