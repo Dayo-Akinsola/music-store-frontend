@@ -17,14 +17,14 @@
 @mixin btnStyling() {
   font-size: 12px;
   line-height: 12px;
-  font-family: 'Hind', sans-serif;
+  font-family: "Hind", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   padding: 1.295rem 2.36rem;
   display: inline-block;
   color: #fff;
-  background-color: #1D3447;
+  background-color: #1d3447;
   border-style: none;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
@@ -62,8 +62,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4); 
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 @mixin modalContent {
@@ -74,7 +74,7 @@
   width: 80%;
   max-width: 30em;
   border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
@@ -82,13 +82,25 @@
 }
 
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @mixin messageWrapper {
@@ -120,7 +132,7 @@
 }
 
 @mixin profileTopSection {
-  background-image: url('./assets/images/account-bg-img.jpg');     
+  background-image: url("./assets/images/account-bg-img.jpg");
   background-size: cover;
   padding-top: 30%;
 }
@@ -129,7 +141,7 @@
   display: flex;
   font-size: 1em;
   align-items: center;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-radius: 30px;
   padding: 0.5em;
   color: #007185;
@@ -140,19 +152,23 @@
 @mixin starRating() {
   --star-size: 1.2em;
   --star-color: #ccc;
-  --star-background: #F90;
+  --star-background: #f90;
 
   --percent: calc(var(--rating) / 5 * 100%);
 
   display: inline-block;
   font-size: var(--star-size);
-  font-family: Times; 
+  font-family: Times;
   line-height: 1;
 
   &::before {
-    content: '★★★★★';
+    content: "★★★★★";
     letter-spacing: 3px;
-    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    background: linear-gradient(
+      90deg,
+      var(--star-background) var(--percent),
+      var(--star-color) var(--percent)
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -161,8 +177,8 @@
 
 $icon-font-size: 1.5em;
 
-
-html, body {
+html,
+body {
   height: 100%;
   background-color: #fff;
 }
@@ -184,7 +200,9 @@ input::-webkit-inner-spin-button {
   padding: 0;
   margin: 0;
   border: 0;
-  background: #fff url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"50\"><path d=\"M17 25h16M67 25h16M75 17v16\" fill=\"none\" stroke=\"rgb%2859,69,66%29\" stroke-width=\"1.5px\" stroke-linecap=\"round\" stroke-linejoin=\"round\" /></svg>") no-repeat 0 0;
+  background: #fff
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50"><path d="M17 25h16M67 25h16M75 17v16" fill="none" stroke="rgb%2859,69,66%29" stroke-width="1.5px" stroke-linecap="round" stroke-linejoin="round" /></svg>')
+    no-repeat 0 0;
   background-size: 5.6rem 2.8rem;
   overflow: hidden;
   white-space: nowrap;
@@ -197,22 +215,22 @@ input::-webkit-inner-spin-button {
 
 .increment-btn:hover {
   opacity: 1;
-}  
+}
 
 .increment-btn:active {
   box-shadow: inset 0 2px 12px -4px #c5d1d9;
 }
 
 .notification-wrapper {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   border-radius: 8px;
-  box-shadow: 0 2px 15px 0 rgba(0,0,0,.3);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   display: flex;
   min-height: 52px;
   padding: 1em;
   position: fixed;
-  transition: padding .3s;
+  transition: padding 0.3s;
   z-index: 99;
   top: 7em;
   background-color: black;
@@ -258,7 +276,6 @@ input::-webkit-inner-spin-button {
     top: 0.18em;
     font-size: 0.95em;
   }
-
 
   .header__top--cart-icon {
     font-size: 2em;
@@ -306,7 +323,7 @@ input::-webkit-inner-spin-button {
   }
 
   .header__nav-menu--link.active > .header__nav-menu--option {
-    background-color: #212529; 
+    background-color: #212529;
     color: white;
   }
 
@@ -323,7 +340,8 @@ input::-webkit-inner-spin-button {
 
   .home__bg-img {
     width: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('./assets/images/music-symbol.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+      url("./assets/images/music-symbol.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -356,11 +374,10 @@ input::-webkit-inner-spin-button {
     @include btnStyling();
     margin-top: 1.7em;
     border-radius: 3px;
-    
-  } 
+  }
 
   .home__text--shop-btn:hover {
-    color: #1D3447;
+    color: #1d3447;
     background-color: #fff;
   }
 
@@ -373,17 +390,17 @@ input::-webkit-inner-spin-button {
     text-decoration: underline;
     color: #0d6efd;
   }
-  
+
   .img-credit a:hover {
-    color: #b02a37
+    color: #b02a37;
   }
 
   .img-credit a:visited {
-    color: #4B0082;
+    color: #4b0082;
   }
 
   .img-credit a:visited:hover {
-    color: #b02a37
+    color: #b02a37;
   }
 
   .genre-link {
@@ -427,7 +444,7 @@ input::-webkit-inner-spin-button {
     z-index: 1;
     background-color: #f3eee4;
   }
-  
+
   .home__sub-title-wrapper::after {
     content: "";
     position: absolute;
@@ -444,7 +461,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     padding: 0.9em 0.7em;
-    border: 2px solid #1D3447;
+    border: 2px solid #1d3447;
     background-color: #dadadb;
     color: black;
     font-size: 12px;
@@ -453,19 +470,19 @@ input::-webkit-inner-spin-button {
     line-height: 1.6;
     text-align: left;
     text-transform: uppercase;
-    -webkit-tap-highlight-color: rgba(237,6,119,0.5);
+    -webkit-tap-highlight-color: rgba(237, 6, 119, 0.5);
     cursor: pointer;
     width: 12em;
   }
 
   .genre-btn:after {
-    content: '\203A';
+    content: "\203A";
     margin-left: auto;
     font-size: 1.2em;
   }
 
   .genre-btn:hover {
-    background-color: #1D3447;
+    background-color: #1d3447;
     border: 2px solid #dadadb;
     color: #dadadb;
   }
@@ -529,7 +546,8 @@ input::-webkit-inner-spin-button {
     align-items: center;
     position: relative;
     background-color: #e5e5f7;
-    background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+    background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px),
+      radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
     background-size: 20px 20px;
     padding-top: 2em;
     background-position: 0 0, 10px 10px;
@@ -560,7 +578,7 @@ input::-webkit-inner-spin-button {
   .home__popular-albums--btn:hover {
     color: mediumpurple;
     background-color: #141618;
-    border-color: #141618
+    border-color: #141618;
   }
 
   .home__popular-albums--carousel {
@@ -577,7 +595,7 @@ input::-webkit-inner-spin-button {
   .home__popular-albums--img-wrapper {
     width: 17em;
     height: 17em;
-    margin: 0.2em;  
+    margin: 0.2em;
   }
 
   .home__popular-albums--img {
@@ -604,7 +622,6 @@ input::-webkit-inner-spin-button {
     @include homeArrow();
     margin-right: auto;
     margin-left: -9.5em;
-   
   }
 
   .home__popular-albums--right-arrow {
@@ -638,7 +655,7 @@ input::-webkit-inner-spin-button {
 
   .shop__albums {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     margin: auto;
     width: 95%;
   }
@@ -669,7 +686,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
   height: 100%;
   background: whitesmoke;
-  font-family: "object-fit:contain", 'object-fit: contain;';
+  font-family: "object-fit:contain", "object-fit: contain;";
   -o-object-fit: contain;
   object-fit: contain;
   display: block;
@@ -700,7 +717,7 @@ a {
 }
 
 .album-page {
-  font-family: Founders Grotesk,Arial Black,sans-serif;
+  font-family: Founders Grotesk, Arial Black, sans-serif;
   @include pageStyling();
 
   .album-page__details--album-img-wrapper {
@@ -777,7 +794,7 @@ a {
 
   .album-page__extra--related-albums {
     display: flex;
-    min-width: 20em;    
+    min-width: 20em;
   }
 
   .album-page__extra--nav-arrows {
@@ -857,15 +874,15 @@ a {
   .preview-btn {
     box-sizing: border-box;
     background-color: #fff;
-    
+
     border-color: transparent transparent transparent #202020;
     transition: 0.2s ease-in-out;
     will-change: border-width;
     cursor: pointer;
-  
+
     border-style: solid;
-  
-    &.album-page__extra--pause-btn{
+
+    &.album-page__extra--pause-btn {
       border-style: double;
       border-width: 0px 0 0px 15px;
     }
@@ -948,27 +965,27 @@ a {
     padding-bottom: 0.5em;
   }
 
-  .album-page__review-form--rating-options span { 
-    float:right; 
-    position:relative; 
+  .album-page__review-form--rating-options span {
+    float: right;
+    position: relative;
   }
 
   .album-page__review-form--rating-options label::after {
-    content: '\2605';
+    content: "\2605";
     font-size: 2.5em;
-    color:#ccc;
-    margin-right:2px;
+    color: #ccc;
+    margin-right: 2px;
   }
 
   .album-page__review-form--rating-options label:hover {
-    color: #F90;  
+    color: #f90;
   }
 
   .album-page__review-form--rating-options span:hover ~ span label::after,
   .album-page__review-form--rating-options span:hover label::after,
   .album-page__review-form--rating-options span.checked label::after,
   .album-page__review-form--rating-options span.checked ~ span label::after {
-    color: #F90;
+    color: #f90;
   }
 
   .album-page__review-form--headline {
@@ -1050,19 +1067,23 @@ a {
   .album-page__review-percentages--stars {
     --star-size: 2em;
     --star-color: #ccc;
-    --star-background: #F90;
+    --star-background: #f90;
 
     --percent: calc(var(--rating) / 5 * 100%);
-  
+
     display: inline-block;
     font-size: var(--star-size);
-    font-family: Times; 
+    font-family: Times;
     line-height: 1;
-  
+
     &::before {
-      content: '★★★★★';
+      content: "★★★★★";
       letter-spacing: 3px;
-      background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+      background: linear-gradient(
+        90deg,
+        var(--star-background) var(--percent),
+        var(--star-color) var(--percent)
+      );
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1087,7 +1108,7 @@ a {
   }
 
   .album-page__review-percentages--histogram-rating-label::after {
-    content: '\2605';
+    content: "\2605";
   }
 
   .album-page__review-percentages--total-bar {
@@ -1184,7 +1205,7 @@ a {
     background-color: #eee;
   }
 
-  .review-vote-btn :hover{
+  .review-vote-btn :hover {
     background-color: #cfcccc;
   }
 
@@ -1208,14 +1229,14 @@ a {
 
 .cart-sidebar {
   background-color: #fff;
-  font-family: Founders Grotesk,Arial Black,sans-serif;
+  font-family: Founders Grotesk, Arial Black, sans-serif;
   z-index: 10;
   position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
   padding: 1.2em;
-  border-left: 10px solid #1D3447;
+  border-left: 10px solid #1d3447;
   overflow: auto;
 
   .cart-sidebar__header {
@@ -1243,7 +1264,7 @@ a {
   .cart-sidebar__cart-album--img {
     max-width: 6em;
   }
-  
+
   .cart-sidebar__total {
     border-top: 1px solid #d4d6d9;
     padding: 0.8em;
@@ -1255,7 +1276,7 @@ a {
     display: flex;
     flex-direction: column;
     margin-left: 1.5em;
-    font-size: 0.9em
+    font-size: 0.9em;
   }
 
   .cart-sidebar__cart-album--title {
@@ -1274,7 +1295,7 @@ a {
     margin-left: auto;
     cursor: pointer;
     font-size: 1.1em;
-    color: #1D3447;
+    color: #1d3447;
     transition: color 0.3s ease-in-out;
   }
 
@@ -1282,20 +1303,20 @@ a {
     color: crimson;
   }
 
-  .cart-sidebar__proceed-btn{
+  .cart-sidebar__proceed-btn {
     align-items: center;
     appearance: none;
-    background-color: #3EB2FD;
-    background-image: linear-gradient(1deg, #4F58FD, #149BF3 99%);
+    background-color: #3eb2fd;
+    background-image: linear-gradient(1deg, #4f58fd, #149bf3 99%);
     background-size: calc(100% + 20px) calc(100% + 20px);
     border-radius: 100px;
     border-width: 0;
     box-shadow: none;
     box-sizing: border-box;
-    color: #FFFFFF;
+    color: #ffffff;
     cursor: pointer;
     display: inline-flex;
-    font-family: CircularStd,sans-serif;
+    font-family: CircularStd, sans-serif;
     font-size: 1rem;
     height: auto;
     justify-content: center;
@@ -1304,7 +1325,7 @@ a {
     position: relative;
     text-align: center;
     text-decoration: none;
-    transition: background-color .2s,background-position .2s;
+    transition: background-color 0.2s, background-position 0.2s;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
@@ -1324,11 +1345,11 @@ a {
   }
 
   .cart-sidebar__proceed-btn:focus:not(:active) {
-    box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
+    box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 0.125em;
   }
 
   .cart-sidebar__proceed-btn::after {
-    content: '>>';
+    content: ">>";
     position: absolute;
     right: 1em;
   }
@@ -1392,12 +1413,12 @@ a {
 
 .order-summary {
   @include pageStyling();
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
   .order-summary__heading {
     text-align: center;
     font-size: 1.3em;
-    margin-bottom: 2em; 
+    margin-bottom: 2em;
   }
 
   .order-summary__table-container {
@@ -1451,7 +1472,7 @@ a {
   }
 
   .order-summary__table--title a:hover {
-    color: #1D3447;
+    color: #1d3447;
     text-decoration: underline;
   }
 
@@ -1468,7 +1489,7 @@ a {
   }
 
   .order-summary__table--no-albums-btn:hover {
-    color: #1D3447;
+    color: #1d3447;
     background-color: #fff;
   }
 
@@ -1507,9 +1528,9 @@ a {
     @include btnStyling();
     max-width: 30em;
     margin-top: 2em;
-    color: #1D3447;
+    color: #1d3447;
     background-color: white;
-    border: 2px solid #1D3447;
+    border: 2px solid #1d3447;
   }
 
   .order-summary__purchase--order-btn:hover {
@@ -1517,7 +1538,7 @@ a {
   }
 
   .order-summary__purchase--guest-order-btn:hover {
-    background-color: #1D3447;
+    background-color: #1d3447;
     color: white;
     border-color: white;
   }
@@ -1531,7 +1552,7 @@ a {
     margin-left: auto;
     cursor: pointer;
     font-size: 1.4em;
-    color: #1D3447;
+    color: #1d3447;
     transition: color 0.3s ease-in-out;
   }
 
@@ -1542,12 +1563,12 @@ a {
 
 .checkout {
   @include pageStyling();
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
   .checkout__heading {
     text-align: center;
     font-size: 1.3em;
-    margin-bottom: 2em;   
+    margin-bottom: 2em;
   }
 
   .checkout__details--fill-form {
@@ -1705,13 +1726,12 @@ a {
 
 .payment {
   @include pageStyling();
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   $logo-size: 3em;
 
   .payment__heading {
     margin-bottom: 1.2em;
     font-size: 1.4em;
-    
   }
 
   .payment__details {
@@ -1790,7 +1810,7 @@ a {
   .payment__form label::after {
     position: relative;
     color: crimson;
-    content: " *";  
+    content: " *";
   }
 
   .payment-input {
@@ -1849,7 +1869,7 @@ a {
     .payment__form--expiry-security-container {
       flex-direction: column;
     }
-    
+
     .payment__form--security-wrapper {
       margin-left: 0;
     }
@@ -1860,7 +1880,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   @include pageStyling();
 
   .login__form {
@@ -1892,7 +1912,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   @include pageStyling();
 
   .register__form {
@@ -1935,7 +1955,7 @@ a {
 .account {
   @include pageStyling();
   padding-top: 3.8em;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
   .account__header {
     background-color: #e1edf2;
@@ -2019,12 +2039,11 @@ a {
 
   .account__tab:hover {
     background-color: #e1edf2;
-    
+
     .account__tab--name {
       text-decoration: underline;
     }
   }
-
 
   .account__orders--heading-container {
     @include accountSectionHeadingContainer();
@@ -2033,7 +2052,6 @@ a {
   .account__orders--heading {
     @include accountSectionHeading();
   }
-
 
   .account__orders--heading-icon {
     font-size: $icon-font-size;
@@ -2104,7 +2122,8 @@ a {
     margin-top: 0.6em;
     padding-bottom: 0.4em;
     margin-bottom: 0.2em;
-    padding-top: 0.4em;  }
+    padding-top: 0.4em;
+  }
 
   .account__order--album-details {
     display: flex;
@@ -2147,7 +2166,7 @@ a {
   }
 
   .account__order--album-quantity-wrapper {
-    margin-right: 2em
+    margin-right: 2em;
   }
 
   .account__order--footer {
@@ -2175,31 +2194,31 @@ a {
   }
 
   .account__wishlist {
-
     .account__wishlist-albums {
       display: flex;
       flex-direction: column;
       text-align: center;
+      width: 80%;
       align-items: center;
+      margin: auto;
     }
 
     .account__wishlist-albums--heading {
       margin-bottom: 1.3em;
     }
 
-    .account__wishlist-albums--container {
-      width: 100%;
-    }
-
     .account__wishlist-albums--album-bg-img {
-      margin: auto;
-      width: 80%;
+      width: 100%;
       height: 10em;
-      margin-bottom: 1.2em;
       max-width: 22em;
       cursor: pointer;
       border-radius: 8px;
       transition: opacity 0.3s ease-in-out;
+      margin-bottom: 2em;
+    }
+
+    .account__wishlist-albums--album-container {
+      padding: 1em;
     }
 
     .account__wishlist-albums--album-bg-img:hover {
@@ -2226,6 +2245,7 @@ a {
       height: 0;
       padding-bottom: 70%;
       position: relative;
+      border-bottom: 4px solid #212529;
     }
 
     .account__wishlist--notification-wrapper {
@@ -2300,6 +2320,10 @@ a {
       justify-content: space-evenly;
     }
 
+    .account__wishlist--your-album-comment {
+      padding: 0 1em 1em 1em;
+    }
+
     .account__wishlist--add-edit-comment-btn {
       cursor: pointer;
     }
@@ -2344,15 +2368,14 @@ a {
   }
 
   .account__details {
-
     .account__details--heading-container {
       @include accountSectionHeadingContainer();
     }
-  
+
     .account__details--heading {
       @include accountSectionHeading();
     }
-  
+
     .account__details--heading-icon {
       font-size: $icon-font-size;
     }
@@ -2368,40 +2391,40 @@ a {
       flex-direction: column;
       margin-bottom: 1.8em;
     }
-  
+
     .form-section input {
       height: 2.2em;
       font-size: 1em;
       border: 1px solid #d3d6d9;
     }
-  
+
     .form-section label {
       margin-bottom: 0.3em;
       font-size: 0.95em;
     }
-  
+
     .form-section label::after {
       position: relative;
       color: crimson;
       content: " *";
     }
-  
+
     .form-section .error-message {
       color: crimson;
       font-size: 0.8em;
     }
-  
+
     .form__submit-btn-wrapper {
       width: 100%;
       display: flex;
       justify-content: center;
     }
-  
+
     .form__submit-btn {
       @include btnStyling();
       width: 20em;
     }
-  
+
     .form__submit-btn:hover {
       background-color: #0f1e2a;
     }
@@ -2419,7 +2442,7 @@ a {
       color: forestgreen;
     }
   }
-  
+
   .account__friends {
     $body-grey: #f1f1f1;
 
@@ -2456,10 +2479,10 @@ a {
       min-width: 20em;
       max-width: 42em;
     }
- 
+
     .account__friend-list--heading-container {
       display: flex;
-      padding: 1.2em 1.2em 0.9em 1.2em; 
+      padding: 1.2em 1.2em 0.9em 1.2em;
       align-items: center;
       border-bottom: solid 1px #d4d6d9;
     }
@@ -2493,9 +2516,9 @@ a {
 
     .account__friend-request-modal--header {
       padding: 0.8em 0.5em;
-      background-color: #F0F2F2;
-      background: linear-gradient(to bottom,#f7f7f7,#eaeaea);
-      border-bottom: 1px solid #D5D9D9;
+      background-color: #f0f2f2;
+      background: linear-gradient(to bottom, #f7f7f7, #eaeaea);
+      border-bottom: 1px solid #d5d9d9;
       font-weight: 600;
       display: flex;
     }
@@ -2577,7 +2600,7 @@ a {
 
     .account__friends--requests-header {
       display: flex;
-      padding: 1.2em 1.2em 0.9em 1.2em; 
+      padding: 1.2em 1.2em 0.9em 1.2em;
       align-items: center;
       border-bottom: solid 1px #d4d6d9;
     }
@@ -2603,7 +2626,7 @@ a {
 
     .account__friend-requests--request.accepted {
       background-color: #d7f3e1;
-    } 
+    }
 
     .account__request--user-profile {
       @include profilePicStyling();
@@ -2633,7 +2656,7 @@ a {
     .account__request--accept-wrapper {
       cursor: pointer;
       padding: 0.4em;
-      border-radius: 50%; 
+      border-radius: 50%;
       border: solid 4px #d4d6d9;
       color: forestgreen;
     }
@@ -2658,7 +2681,7 @@ a {
     }
 
     .account__request--reject path {
-      fill: crimson; 
+      fill: crimson;
     }
 
     .account__friends--request-response-message {
@@ -2719,7 +2742,6 @@ a {
     .account__friend-request-modal--result-name-wrapper {
       width: 9em;
       overflow-wrap: anywhere;
-  
     }
 
     .account__friend-request-modal--result-name {
@@ -2747,17 +2769,25 @@ a {
       -webkit-animation-name: slidein;
       -webkit-animation-duration: 0.4s;
       animation-name: slidein;
-      animation-duration: 0.4s;    
+      animation-duration: 0.4s;
     }
 
     @-webkit-keyframes slidein {
-      from {transform: translateY(5em)} 
-      to {transform: translateY(0em)}
+      from {
+        transform: translateY(5em);
+      }
+      to {
+        transform: translateY(0em);
+      }
     }
-    
+
     @keyframes slidein {
-      from {transform: translateY(5em)} 
-      to {transform: translateY(0em)}
+      from {
+        transform: translateY(5em);
+      }
+      to {
+        transform: translateY(0em);
+      }
     }
 
     .account__friend-request-modal--sent-request-icon {
@@ -2827,8 +2857,9 @@ a {
     margin-top: -5em;
     background-color: white;
     padding: 1.2em;
-    -webkit-box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px rgb(0 0 0 / 0%); 
-    box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px   rgb(0 0 0 / 0%);
+    -webkit-box-shadow: 0px 10px 13px 1px #00000012,
+      5px 5px 15px 5px rgb(0 0 0 / 0%);
+    box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px rgb(0 0 0 / 0%);
   }
 
   @include pageStyling();
@@ -2878,7 +2909,7 @@ a {
 
   .profile-page__header--review-count {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
   }
 
   .insight-label {
@@ -2895,7 +2926,7 @@ a {
     margin-right: auto;
     padding-right: 0.9em;
   }
-  
+
   .profile-page__header--send-request-btn:hover {
     color: mediumpurple;
     border-color: mediumpurple;
@@ -2939,7 +2970,7 @@ a {
   }
 
   .profile-page__reviews--heading-wrapper {
-    margin-bottom: 0.4em;
+    margin-bottom: 1.6em;
     border-bottom: solid 1px #d4d6d9;
     padding-bottom: 0.6em;
   }
@@ -2965,7 +2996,7 @@ a {
     display: block;
     font-size: 1em;
     font-weight: 600;
-    text-transform: uppercase;  
+    text-transform: uppercase;
   }
 
   .profile-page__review--header-user-info-container {
@@ -2993,5 +3024,240 @@ a {
 
   .profile-page__review--content {
     font-size: 0.95em;
+  }
+
+  .profile-page__review--album {
+    display: flex;
+    padding: 0.4em;
+    border: solid 1px #d4d6d9;
+    align-items: center;
+    margin-top: 1em;
+    border-radius: 8px;
+  }
+
+  .profile-page__review--album-img {
+    width: 3em;
+    height: 3em;
+    margin-right: 3em;
+  }
+
+  .profile-page__review--album-title {
+    font-size: 0.95em;
+    font-weight: 600;
+  }
+
+  .profile-page__review--album-title:hover {
+    border-bottom: solid 1px #212529;
+  }
+
+  .profile-page__wishlist {
+    @include profileSection();
+    margin-top: 2em;
+    width: 100%;
+  }
+
+  .profile-page__wishlist-albums {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    align-items: center;
+    margin: auto;
+  }
+
+  .profile-page__wishlist-albums--container {
+    width: 100%;
+    max-width: 22em;
+  }
+
+  .profile-page__wishlist-albums--album-bg-img {
+    width: 100%;
+    height: 10em;
+    max-width: 22em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: opacity 0.3s ease-in-out;
+    margin-bottom: 2em;
+  }
+
+  .profile-page__wishlist-albums--album-bg-img:hover {
+    opacity: 0.9;
+  }
+
+  .profile-page__wishlist-albums--album-title {
+    font-weight: 600;
+    line-height: 4em;
+    color: #fff;
+    font-size: 1.2em;
+  }
+
+  .profile-page__wishlist-album-modal {
+    @include modal();
+  }
+
+  .profile-page__wishlist-album-modal-content {
+    @include modalContent();
+  }
+
+  .profile-page__wishlist--heading-wrapper {
+    margin-bottom: 1.6em;
+    border-bottom: solid 1px #d4d6d9;
+    padding-bottom: 0.6em;
+  }
+
+  .profile-page__wishlist--album-modal-bg-img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 70%;
+    position: relative;
+    border-bottom: 4px solid #212529;
+  }
+
+  .profile-page__wishlist--close-btn-wrapper {
+    float: right;
+    padding: 0.2em;
+    cursor: pointer;
+    background-color: white;
+    font-size: 1.2em;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .profile-page__wishlist--close-btn-wrapper:hover {
+    background-color: black;
+    color: white;
+  }
+
+  .profile-page__wishlist--main {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-page__wishlist--album-modal-details {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8em;
+    align-items: center;
+  }
+
+  .profile-page__wishlist--album-modal-details {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8em;
+    align-items: center;
+  }
+
+  .profile-page__wishlist--album-modal-title {
+    font-weight: 600;
+    font-size: 1.3em;
+    cursor: pointer;
+  }
+
+  .profile-page__wishlist--album-modal-title:hover {
+    text-decoration: underline;
+  }
+
+  .profile-page__wishlist--album-modal-artist {
+    margin: 0.6em auto;
+    font-size: 1em;
+    font-weight: 500;
+    color: grey;
+  }
+
+  .profile-page__wishlist--album-modal-price {
+    font-weight: 600;
+  }
+
+  .profile-page__wishlist--btns-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 0.4em;
+  }
+
+  .profile-page__wishlist--purchase-btn {
+    margin-bottom: 0.8em;
+    padding: 0.4em;
+    cursor: pointer;
+  }
+
+  .profile-page__wishlist--remove-btn {
+    padding: 0.4em;
+    cursor: pointer;
+  }
+
+  .profile-page__wishlist--album-modal-comment {
+    padding: 0 1em 1em 1em;
+  }
+
+  .profile-page__wishlist--comment-heading {
+    margin-bottom: 0.5em;
+  }
+
+  .profile-page__friends {
+    @include profileSection();
+    margin-top: 2em;
+    width: 100%;
+  }
+
+  .profile-page__friends--heading-wrapper {
+    margin-bottom: 0.6em;
+    border-bottom: solid 1px #d4d6d9;
+    padding-bottom: 0.6em;
+  }
+
+  .profile-page__friends--friend-list {
+    width: 80%;
+    margin: auto;
+    min-width: 20em;
+    max-width: 42em;
+  }
+
+  .profile-page__friend-list--friend {
+    display: flex;
+    align-items: center;
+    padding: 0.7em 0.4em 0.75em 0.4em;
+    border-bottom: solid 1px #d4d6d9;
+  }
+
+  .profile-page__friend-list--profile-pic {
+    @include profilePicStyling();
+    margin: 0 1.8em 0 0;
+  }
+
+  .profile-page__friend-list--profile-pic-text {
+    display: block;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .profile-page__friend-list--details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-page__friend-list--name {
+    margin-bottom: 0.4em;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 0.5em;
+  }
+
+  .profile-page__friend-list--name:hover {
+    text-decoration: underline;
+  }
+
+  .profile-page__friend-list--profile-btn {
+    cursor: pointer;
+    @include btnStyling();
+    padding: 0.6em 0.6em;
+    border-radius: 14px;
+  }
+
+  .profile-page__friend-list--profile-btn:hover {
+    background-color: #3d586e;
   }
 }
