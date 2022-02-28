@@ -1,16 +1,22 @@
 import formatDate from "../../../helpers/formatDate";
 import { dataChangeRequest } from "../../../sevices/service";
 
-const Review = ({ review, user, getAlbumReviews, userVotedReviews, getUserVotedReviews }) => {
+const Review = ({ review, user, getAlbumReviews, userVotedReviews, getUserVotedReviews, setNotification }) => {
 
   const voteReview = async (voteType) => {
     const voteData = {
       reviewId: review._id,
       vote: voteType,
     }
-    await dataChangeRequest('http://localhost:3001/reviews/vote', voteData, user.token, 'PUT');
-    await getAlbumReviews();
-    await getUserVotedReviews();
+    const response = await dataChangeRequest('http://localhost:3001/reviews/vote', voteData, user.token, 'PUT');
+    if (response.ok) {
+      await getAlbumReviews();
+      await  getUserVotedReviews();
+    } else {
+      const data = await response.json();
+      setNotification(data.error);
+    }
+   
   }
 
   /* Variable used to check if the logged in user has voted on this review before */
@@ -53,7 +59,6 @@ const Review = ({ review, user, getAlbumReviews, userVotedReviews, getUserVotedR
           :
           null
         }
-        
       </div>
     </div>
   )

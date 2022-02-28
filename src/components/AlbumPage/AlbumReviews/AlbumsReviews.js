@@ -4,9 +4,10 @@ import ReviewFormModal from "./ReviewFormModal";
 import AlbumReviewPercentages from "./AlbumReviewPercentages";
 import { getRequest } from "../../../sevices/service";
 import Review from "./Review";
+import { useNavigate } from "react-router-dom";
 
 const AlbumReviews = ({ user, albumDetails, setNotification}) => {
-
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [ratingsBreakdown, setRatingsBreakdown] = useState({
@@ -16,7 +17,7 @@ const AlbumReviews = ({ user, albumDetails, setNotification}) => {
     2: 0,
     1: 0,
   });
-  const [userVotedReviews, setUserVotedReviews] = useState([]); 
+  const [userVotedReviews, setUserVotedReviews] = useState([]);
 
   const closeModal = () => {
     setModalOpen(false);
@@ -64,7 +65,7 @@ const AlbumReviews = ({ user, albumDetails, setNotification}) => {
     <div className="album-page__reviews">
       <div className="album-page__reviews--header">
         <h3 className="album-page__reviews--header-heading">Reviews</h3>
-        <button className="album-page__reviews--write-review-btn" onClick={() => setModalOpen(true)}>Write A Review</button>
+        <button className="album-page__reviews--write-review-btn" onClick={() => user.token ? setModalOpen(true) : navigate('/login')}>Write A Review</button>
       </div>
       {
         modalOpen ?
@@ -83,6 +84,7 @@ const AlbumReviews = ({ user, albumDetails, setNotification}) => {
                 getAlbumReviews={getAlbumReviews} 
                 userVotedReviews={userVotedReviews} 
                 getUserVotedReviews={getUserVotedReviews} 
+                setNotification={setNotification}
                 key={review._id}/>
             ))
           }
