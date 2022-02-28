@@ -3,7 +3,7 @@ import RemoveAlbumBtn from '../Shared/RemoveAlbumBtn';
 
 const CartAlbum = ({ cartAlbum, albumQuantityControl, removeCartAlbum }) => {
 
-  const { incrementAlbumQuantity, decrementAlbumQuantity, handleAlbumQuantityChange } = albumQuantityControl; 
+  const { incrementAlbumQuantity, decrementAlbumQuantity, handleAlbumQuantityChange } = albumQuantityControl;
 
   return (
     <div className="cart-sidebar__cart-album">
