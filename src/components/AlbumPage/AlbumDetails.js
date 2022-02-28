@@ -168,7 +168,11 @@ const AlbumDetails = ({
       image: albumDetails.cover_image,
       artist: albumDetails.artist,
     }
-    await dataChangeRequest('http://localhost:3001/wishlist', albumData, token, 'POST');
+    const response = await dataChangeRequest('http://localhost:3001/wishlist', albumData, token, 'POST');
+    if (!response.ok) {
+      const data = await response.json();
+      setNotification(data.error);
+    }
   }
 
   const emptyDivStyle = {
