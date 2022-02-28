@@ -38,7 +38,7 @@ const Genre = ({ genre, bgColor}) => {
       } else if (genre === 'jazz') {
         setAttribution(
           <span>
-            Photo by <a href="https://unsplash.com/@florenciaviadana?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Florencia Viadana</a> on <a href="https://unsplash.com/s/photos/jazz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+            Photo by <a href="https://unsplash.com/@rocinante_11?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mick Haupt</a> on <a href="https://unsplash.com/s/photos/jazz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
           </span>
         )
       }
@@ -53,33 +53,34 @@ const Genre = ({ genre, bgColor}) => {
     alignItems: 'center',
     margin: '1.5em auto',
     marginBottom: '2em',
+    border: 'solid 1px #d4d6d9',
   }
   
   const imagesContainerStyle = {
     margin: 'auto',
     borderColor: `${bgColor}`,
-    backgroundColor: `${bgColor}`,
+    width: '100%',
+    height: '50vh',
+    minWidth: '16em',
   }
   const imageStyle = {
-    width: '14em',
-    height: '14em',
+    width: '100%',
+    height: '100%',
     filter: 'brightness(0.8)',
   }
 
   return (
-  <div className={`home__genres--${genre} genre`} style={genreContainer}  >
-    <Link to={genre === 'hiphop' ? '/shop/hip-hop' : `/shop/${genre}`}>
+    <div className={`home__genres--${genre} genre`} style={genreContainer}  >
+      <Link to={genre === 'hiphop' ? '/shop/hip-hop' : `/shop/${genre}`}>
       <div className={`home__genres--${genre}-imgs genre-imgs`} style={imagesContainerStyle}>
-          <img src={genreImages[`${genre}.jpg`]} alt={genre} className={`home__genres--${genre}-img`} style={imageStyle} />
+        <img src={genreImages[`${genre}.jpg`]} alt={genre} className={`home__genres--${genre}-img genre-img`} style={imageStyle} />
       </div>
-    </Link>
-    <div className={`home__genres--${genre}-btn-container genre-btn-container`} >
-      <Link className={`home__genres--${genre}-link genre-link`} to={genre === 'hiphop' ? '/shop/hip-hop' : `/shop/${genre}`}>
-        <button className={`home__genres--${genre}-btn genre-btn`}>View {genre.toUpperCase()}</button>  
+      <div className={`home__genres--${genre}-btn-container genre-btn-container`} >
+        <span className={`home__genres--${genre}-btn genre-btn`}>{genre.toUpperCase()}</span>  
+      </div>
       </Link>
       <span className={`home__genres--${genre}-img-credit img-credit`}>{attribution}</span>
     </div>
-  </div>
   )
 }
 
