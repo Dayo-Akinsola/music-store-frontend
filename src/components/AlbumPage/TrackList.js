@@ -41,7 +41,7 @@ const TrackList = ({ albumDetails, togglePlaying, setAlbumDetails, pauseTrack })
           {
             track.preview === null 
               ? 
-              <span className="album-page__extra--track-preview-false"> Preview Not Availiable</span> 
+              <span className="album-page__extra--track-preview-false">Preview Not Availiable</span> 
               :
               <>
               <button onClick={(event) => togglePlaying(track.id, event)} className={`preview-btn album-page__extra--${track.isPlaying ? 'pause-btn' : 'play-btn'}`} ></button>

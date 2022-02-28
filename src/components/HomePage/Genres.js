@@ -8,11 +8,11 @@ const Genres = () => {
         <span className="home__genres--title home__sub-title">Genres</span>
       </div>
       <div className="home__genres--content">
-        <Genre genre='pop' bgColor='#fae1dd'  />
-        <Genre genre='rock' bgColor='#cfbaf0' />
-        <Genre genre='hiphop' bgColor='#bbdefb'  />
-        <Genre genre='electronic' bgColor='#fbf8cc'  />
-        <Genre genre='jazz' bgColor='#caffbf' />
+        <Genre genre='pop'  />
+        <Genre genre='rock' />
+        <Genre genre='hiphop'  />
+        <Genre genre='electronic'  />
+        <Genre genre='jazz' />
       </div>
     </div>
   )     

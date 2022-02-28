@@ -19,7 +19,7 @@ const AccountOrderHeader = ({ order }) => {
     <div className="account__order--header">
       <div className="account__order--delivery-status">
         <h4 className="account__order--delivery-status-heading">
-          {isDelivered ? "Your Order has been delivered!" : "we've sent your order!"}  
+          {isDelivered ? "Order Delivered" : "Order Placed"}  
         </h4>
       </div>
       <div className="account__order--order-date-wrapper account__order--wrapper">

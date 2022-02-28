@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const AccountTab = ({ tabName, className, link}) => {
+const AccountTab = ({ tabName, page, link}) => {
   return (
-      <Link className='account__tab--link' to={link}>
-        <div className={`account__tab account__tab--${className}`}>
-          <span className={`account__tab--name account__tab--name${className}`}>{tabName}</span>
+      <NavLink className='account__tab--link' to={link}>
+        <div className={`account__tab account__tab--${page}`}>
+          <span className={`account__tab--name account__tab--name${page}`}>{tabName}</span>
         </div>
-      </Link>
+      </NavLink>
   )
 }
 
