@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import { getRequest } from '../../../../sevices/service';
+import { getRequest } from '../../../../../sevices/service';
 import FriendSearchResult from './FriendSearchResult';
 
 const FriendSearch = ({ user, setModalOpen}) => {
@@ -12,8 +12,8 @@ const FriendSearch = ({ user, setModalOpen}) => {
     const getAllUsers = async () => {
       const response = await getRequest('http://localhost:3001/friends/all', user.token);
       const allUsers = await response.json();
-      const selfRemovedFromUsers = allUsers.filter(searchUser => searchUser.id !== user.id);
-      setUsers(selfRemovedFromUsers.map(userInfo => {
+      const currentUserRemovedFromSearch = allUsers.filter(searchUser => searchUser.id !== user.id);
+      setUsers(currentUserRemovedFromSearch.map(userInfo => {
         const info = {
           ...userInfo,
           shown: false,

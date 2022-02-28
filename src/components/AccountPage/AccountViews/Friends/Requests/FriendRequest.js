@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { dataChangeRequest } from '../../../../sevices/service';
+import { dataChangeRequest } from '../../../../../sevices/service';
 
 const FriendRequest = ({ user, request, getFriendRequests}) => {
   const requestElement = useRef(null);

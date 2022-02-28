@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { getRequest } from "../../../../sevices/service";
+import { getRequest } from "../../../../../sevices/service";
 import FriendRequest from "./FriendRequest";
 
 const AccountFriendRequests = ({ user }) => {

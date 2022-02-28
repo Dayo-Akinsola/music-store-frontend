@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { dataChangeRequest } from '../../../../sevices/service';
+import { dataChangeRequest } from '../../../../../sevices/service';
 
 const FriendSearchResult = ({ user, searchResultUser, users, setUsers }) => {
 
