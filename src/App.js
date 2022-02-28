@@ -20,13 +20,15 @@ import AccountWishlistAlbumModal from './components/AccountPage/AccountViews/Wis
 import AccountDetails from './components/AccountPage/AccountViews/Details/AccountDetails';
 import AccountFriends from './components/AccountPage/AccountViews/Friends/AccountFriends';
 import AccountFriendList from './components/AccountPage/AccountViews/Friends/Friendlist/AccountFriendList';
-import AccountFriendRequests from './components/AccountPage/AccountViews/Friends/AccountFriendRequests';
+import AccountFriendRequests from './components/AccountPage/AccountViews/Friends/Requests/AccountFriendRequests';
+import AccountReviews from './components/AccountPage/AccountViews/Reviews/AccountReviews';
 import Notification from './components/Shared/Notification';
 import ProfilePage from './components/Profile/ProfilePage';
 import ProfileReviews from './components/Profile/ProfileViews/Reviews/ProfileReviews';
 import ProfileWishlist from './components/Profile/ProfileViews/Wishlist/ProfileWishlist';
 import ProfileWishlistModal from './components/Profile/ProfileViews/Wishlist/ProfileWishlistModal';
 import ProfileFriends from './components/Profile/ProfileViews/ProfileFriends';
+import AuthenticatedRoutes from './components/Shared/AuthenticatedRoutes';
 
 const App = () => {
 
@@ -44,9 +46,9 @@ const App = () => {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
-  const [ hidden, setHidden ] = useState(true);
-  const [ user, setUser ] = useState({ token: null, username: null, password: null});
-  const [ deliveryDetails, setDeliveryDetails ] = useState({
+  const [hidden, setHidden] = useState(true);
+  const [user, setUser] = useState({ token: null, username: null, password: null});
+  const [deliveryDetails, setDeliveryDetails] = useState({
     firstName: '', 
     lastName: '', 
     address: '', 
@@ -72,6 +74,99 @@ const App = () => {
     votedReviews: [],
     wishlist: [],
   });
+  const [authentication, setAuthentication] = useState({
+    isLoggedIn: null,
+    isLoading: true,
+  });
+
+  const retriveUserInfoFromLocalStorage = () => {
+    const loggedInUser = window.localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      const userInfoParsed = JSON.parse(loggedInUser);
+      return userInfoParsed;
+    } else {
+      /* If no user is present retrieve guest data from local storage if there is any */
+      const guestCart = window.localStorage.getItem('guest-cart');
+      if (guestCart) {
+        setCart(JSON.parse(guestCart));
+      } else {
+        window.localStorage.setItem('guest-cart', JSON.stringify([]));
+      }
+    }
+    return null;
+  }
+
+  useEffect(() => {
+    async function checkToken () {
+      const userInfo = retriveUserInfoFromLocalStorage();
+      if (!userInfo) {
+        setAuthentication({ isLoggedIn: false, isLoading: false});
+        return;
+      }
+      const response = await getRequest('http://localhost:3001/users/details', userInfo.token);
+      if (response.ok) {
+        setAuthentication({  isLoggedIn: true, isLoading: false });
+      } else {
+        setAuthentication({ isLoggedIn: false, isLoading: false });
+      }
+    }
+    checkToken();
+
+  }, [user.token]);
+
+  useEffect(() => {
+    const setUserFromLocalStorage = () => {
+      const userInfo = retriveUserInfoFromLocalStorage();
+      if (userInfo) {
+        setUser(userInfo);
+        return userInfo;
+      }
+      return null;
+    }
+
+    const setUserCartAlbums = async (userInfo) => {
+      if (userInfo) {
+        const response = await getRequest('http://localhost:3001/users/cart', userInfo.token);
+        const cartItems = await response.json();
+        setCart(cartItems);
+      }
+    }
+
+    const userInfo = setUserFromLocalStorage();
+    setUserCartAlbums(userInfo);
+    
+  }, [user.token]);
+
+  useEffect(() => {
+    getAllAlbums()
+      .then((allAlbums) => {
+        setAlbums(
+          {
+            all: allAlbums.map(album => album),
+            pop: allAlbums.filter(album => album.genre.includes('Pop')),
+            rock: allAlbums.filter(album => album.genre.includes('Rock')),
+            electronic: allAlbums.filter(album => album.genre.includes('Electronic')),
+            hiphop: allAlbums.filter(album => album.genre.includes('Hip Hop')),
+            jazz: allAlbums.filter(album => album.genre.includes('Jazz')),
+          }
+        );
+      });  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const quantityReducer = (previousValue, currentValue) => previousValue + currentValue;
+
+    const getTotalQuantity = () => {
+      const quantities = cart.map(item => item.quantity);
+      const total = cart.length > 0 ? quantities.reduce(quantityReducer) : 0;
+      return total;
+    }
+
+    const total = getTotalQuantity();
+    setTotalQuantity(total);
+  }, [cart]);
+
   
   const getAlbumSet = async (style) => {
     const response = await fetch(`http://localhost:3001/discogs/${style}`, { withCredentials: true, mode: 'cors' });
@@ -151,10 +246,35 @@ const App = () => {
     setShowCart(true);
   }
 
-  const updateCart = async (albumData, token) => {
+  const updateUserCart = async (albumData, token) => {
     const response = await dataChangeRequest('http://localhost:3001/users/cart', albumData, token, 'PUT');
     const cartData = await response.json();
     setCart(cartData);  
+  }
+
+  const updateGuestCart = async (albumData) => {
+    const guestCart = window.localStorage.getItem('guest-cart');
+    const guestCartParsed = JSON.parse(guestCart);
+    let matchingAlbumIndex;
+    const dupeAlbumCheck = guestCartParsed.filter((album , index) => {
+      if (album.id === albumData.id) {
+        matchingAlbumIndex = index;
+        return true;
+      }
+      return false;
+    });
+
+    if (albumData.replace) {
+      guestCartParsed[matchingAlbumIndex].quantity = albumData.quantity;
+    }
+    
+    else if (dupeAlbumCheck.length === 0) {
+      guestCartParsed.push(albumData);
+    } else {
+      guestCartParsed[matchingAlbumIndex].quantity += albumData.quantity;
+    }
+    setCart(guestCartParsed);
+    window.localStorage.setItem('guest-cart', JSON.stringify(guestCartParsed));
   }
 
   const addAlbumToCart = async (album) => {
@@ -166,63 +286,14 @@ const App = () => {
       quantity, 
       replace: false,
     };
-    updateCart(albumData, user.token);
+    if (user.token) {
+      updateUserCart(albumData, user.token);
+    } else {
+      updateGuestCart(albumData);
+    }
     setQuantity(1);
     displayCart();
   }
-
-  useEffect(() => {
-    const retriveUserFromLocalStorage = () => {
-      const loggedInUser = window.localStorage.getItem('loggedInUser');
-      if (loggedInUser) {
-        const userInfoParsed = JSON.parse(loggedInUser);
-        setUser(userInfoParsed);
-        return userInfoParsed;
-      }
-      return null;
-    }
-
-    const getUserCartAlbums = async (userInfo) => {
-      if (userInfo) {
-        const response = await getRequest('http://localhost:3001/users/cart', userInfo.token);
-        const cartItems = await response.json();
-        setCart(cartItems);
-      }
-    }
-    const userInfo = retriveUserFromLocalStorage();
-    getUserCartAlbums(userInfo);
-
-  }, [user.token]);
-
-  useEffect(() => {
-    getAllAlbums()
-      .then((allAlbums) => {
-        setAlbums(
-          {
-            all: allAlbums.map(album => album),
-            pop: allAlbums.filter(album => album.genre.includes('Pop')),
-            rock: allAlbums.filter(album => album.genre.includes('Rock')),
-            electronic: allAlbums.filter(album => album.genre.includes('Electronic')),
-            hiphop: allAlbums.filter(album => album.genre.includes('Hip Hop')),
-            jazz: allAlbums.filter(album => album.genre.includes('Jazz')),
-          }
-        );
-      });  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const quantityReducer = (previousValue, currentValue) => previousValue + currentValue;
-
-    const getTotalQuantity = () => {
-      const quantities = cart.map(item => item.quantity);
-      const total = cart.length > 0 ? quantities.reduce(quantityReducer) : 0;
-      return total;
-    }
-
-    const total = getTotalQuantity();
-    setTotalQuantity(total);
-  }, [cart]);
 
   const toggleNavDisplay = () => setHidden(!hidden);
 
@@ -265,7 +336,11 @@ const App = () => {
       replace: false,
     };
     if (cartAlbum.quantity <= 20) {
-      updateCart(albumData, user.token);
+      if (user.token) {
+        updateUserCart(albumData, user.token);
+      } else {
+        updateGuestCart(albumData);
+      }
     }
   }
 
@@ -279,7 +354,11 @@ const App = () => {
       replace: false,
     };
     if (cartAlbum.quantity > 1) {
-      updateCart(albumData, user.token);
+      if (user.token) {
+        updateUserCart(albumData, user.token);
+      } else {
+        updateGuestCart(albumData);
+      }
     }
   }
 
@@ -294,7 +373,11 @@ const App = () => {
       replace: true,
     };
     if (value && value <= 20) {
-      updateCart(albumData, user.token);
+      if (user.token) {
+        updateUserCart(albumData, user.token);
+      } else {
+        updateGuestCart(albumData);
+      }
     }
   }
 
@@ -305,9 +388,17 @@ const App = () => {
   }
 
   const removeCartAlbum = async (id) => {
-    const response = await dataChangeRequest(`http://localhost:3001/users/cart`, { id }, user.token, 'DELETE');
-    const newCart = await response.json();
-    setCart(newCart);
+    if (user.token) {
+      const response = await dataChangeRequest(`http://localhost:3001/users/cart`, { id }, user.token, 'DELETE');
+      const newCart = await response.json();
+      setCart(newCart);
+    } else {
+      const guestCart = window.localStorage.getItem('guest-cart');
+      const guestCartParsed = JSON.parse(guestCart);
+      const filteredGuestCart = guestCartParsed.filter(album => album.id !== id);
+      setCart(filteredGuestCart);
+      window.localStorage.setItem('guest-cart', JSON.stringify(filteredGuestCart));
+    }
   }
 
   const inputInvalidStyle = {
@@ -380,7 +471,7 @@ const App = () => {
     
     return isFormValid;
   }
-
+  
   return (
     <div className="container" onClick={hideMobileNav}>
       <Router>
@@ -449,24 +540,27 @@ const App = () => {
             </Route>
           <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} user={user} setUser={setUser} />}></Route>
           <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
-          <Route path='account' element={<Account user={user} />}>
-            <Route path='orders' element={<AccountOrders user={user} />}></Route>
-            <Route path='wishlist' element={<AccountWishlist user={user} />}>
-              <Route path=':albumId' element={<AccountWishlistAlbumModal addAlbumToCart={addAlbumToCart} user={user} />}></Route>
-            </Route>
-            <Route path='details' 
-              element={
-              <AccountDetails 
-                user={user} 
-                deliveryDetails={deliveryDetails}
-                formErrorCheck={formErrorCheck}
-                errorMessages={errorMessages}
-                setDeliveryDetails={setDeliveryDetails}
-              />}>
-            </Route>
-            <Route path='friends' element={<AccountFriends user={user} />}>
-              <Route path='friendlist' element={<AccountFriendList user={user} />}></Route>
-              <Route path='requests' element={<AccountFriendRequests user={user} />}></Route>
+          <Route element={<AuthenticatedRoutes authentication={authentication} />}>
+            <Route path='account' element={<Account user={user} />}>
+              <Route path='orders' element={<AccountOrders user={user} />}></Route>
+              <Route path='wishlist' element={<AccountWishlist user={user} />}>
+                <Route path=':albumId' element={<AccountWishlistAlbumModal addAlbumToCart={addAlbumToCart} user={user} />}></Route>
+              </Route>
+              <Route path='details' 
+                element={
+                <AccountDetails 
+                  user={user} 
+                  deliveryDetails={deliveryDetails}
+                  formErrorCheck={formErrorCheck}
+                  errorMessages={errorMessages}
+                  setDeliveryDetails={setDeliveryDetails}
+                />}>
+              </Route>
+              <Route path='friends' element={<AccountFriends user={user} />}>
+                <Route path='friendlist' element={<AccountFriendList user={user} />}></Route>
+                <Route path='requests' element={<AccountFriendRequests user={user} />}></Route>
+              </Route>
+              <Route path='reviews' element={<AccountReviews user={user}/>}></Route>
             </Route>
           </Route>
           <Route path='/profile/:userId' element={<ProfilePage user={user} userInfo={userInfo} setUserInfo={setUserInfo}/>}>
