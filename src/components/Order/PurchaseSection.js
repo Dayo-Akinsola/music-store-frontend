@@ -13,7 +13,9 @@ const PurchaseSection = ({ cart, user }) => {
           (
           <div className="order-summary__purchase--order">
             <div className="order-summary__purchase--order-section">
-              <button className="order-summary__purchase--order-btn">Sign In To Checkout</button>
+              <Link to="/login">
+                <button className="order-summary__purchase--order-btn">Sign In To Checkout</button>
+              </Link>
               <span className="order-summary__purchase--order-info">*Saves details for quicker checkout next order</span>
             </div>
             <Link to="/checkout">

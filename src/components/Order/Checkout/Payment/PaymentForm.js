@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { dataChangeRequest } from '../../../../sevices/service';
+import PaymentConfirmationModal from './PaymentConfirmationModal';
 
 const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, deliveryDetails, user }) => {
 
@@ -11,7 +11,6 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
     name: '',
     security: '',
 	});
-
   const [errorMessages, setErrorMessages] = useState({
     cardNumber: '',
     expiryMonth: '',
@@ -19,10 +18,11 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
     name: '',
     security: '',
   });
-
   const [btnActive, setBtnActive] = useState(false);
+  const [orderTimeRef, setOrderTimeRef] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [loaderActive, setLoaderActive] = useState(false);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const toggleSubmitBtn = () => {
@@ -172,7 +172,7 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
     }
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const inputNames = Object.keys(paymentDetails);
     let errorFound = false;
@@ -183,17 +183,21 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
     });
     if (!errorFound) {
       const dateToday = Date.now();
+      setOrderTimeRef(dateToday);
       const orderData = {
         orderDate: dateToday,
         deliveryAddress: deliveryDetails.address,
         deliveryPostCode: deliveryDetails.postCode,
         albums: cart,
       }
-      await dataChangeRequest('http://localhost:3001/orders/', orderData, user.token, 'POST');
-      await dataChangeRequest('http://localhost:3001/users/cart/clear', null, user.token, 'DELETE');
-      setCart([]);
-      console.log('Thank you for your purchase');
-      navigate('/');
+      setLoaderActive(true);
+      setTimeout(async () => {
+        await dataChangeRequest('http://localhost:3001/orders/', orderData, user.token, 'POST');
+        await dataChangeRequest('http://localhost:3001/users/cart/clear', null, user.token, 'DELETE');
+        setLoaderActive(false);
+        setShowConfirmModal(true);
+      }, 3000)
+    
     }
   }
 
@@ -209,6 +213,7 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
 
 	return (
     <>
+    {showConfirmModal ? <PaymentConfirmationModal orderTimeRef={orderTimeRef} setShowConfirmModal={setShowConfirmModal} setCart={setCart} /> : null}
     <button className="payment__auto-fill" onClick={fillForm}>Auto Fill Form</button>
 		<form className="payment__form" noValidate>
 			<div className="payment__form--card-number-wrapper form-wrapper">
@@ -297,7 +302,10 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
         </div>
       </div>		
       {
-        btnActive ? <button className="payment__form--submit-active" onClick={handleSubmit}>Complete Purchase</button>
+        btnActive ?
+          <button className="payment__form--submit-active" onClick={handleSubmit}>
+            {loaderActive ? <div className="loader">Loading...</div> : 'Complete Purchase'}
+          </button>
           : <button className="payment__form--submit-disabled" onClick={(event) => event.preventDefault()}>Complete Purchase</button>
       }
 		</form>

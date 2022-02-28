@@ -9,7 +9,7 @@ class Service {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `bearer ${this.token}`
+        'Authorization': this.token ? `bearer ${this.token}` : '',
       },
       body: (this.data ? JSON.stringify(this.data) : null),  
     }
