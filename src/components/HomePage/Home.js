@@ -5,8 +5,12 @@ import Genres from './Genres';
 import PopularAlbums from './PopularAlbums';
 
 const Home = ({ getPopularAlbums }) => {
-  const [offsetY, setOffsetY] = useState(0);
   const {bestAlbum, runnersUp} = getPopularAlbums();
+  /* 
+    Implemented parallax scrolling here instead of using background-attachment:fixed
+    in css because it caused performance issues.
+  */
+  const [offsetY, setOffsetY] = useState(0);
   const handleScroll = () => setOffsetY(window.pageYOffset);
 
   useEffect(() => {

@@ -53,6 +53,19 @@
   font-size: 1.6em;
 }
 
+@mixin profileSection {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  margin-top: -5em;
+  background-color: white;
+  padding: 1.2em;
+  -webkit-box-shadow: 0px 10px 13px 1px #00000012,
+    5px 5px 15px 5px rgb(0 0 0 / 0%);
+  box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px rgb(0 0 0 / 0%);
+}
+
 @mixin modal {
   position: fixed;
   z-index: 1;
@@ -176,6 +189,10 @@
 }
 
 $icon-font-size: 1.5em;
+
+:root {
+  --body-color: #f7f8fd;
+}
 
 html,
 body {
@@ -333,20 +350,22 @@ input::-webkit-inner-spin-button {
 }
 
 .home {
-  font-family: Founders Grotesk, Arial Black, sans-serif;
-  overflow-x: hidden;
+  font-family: Poppins, sans-serif;
   @include pageStyling();
   padding-top: 3em;
+
+  .home__bg-img-header {
+    overflow: hidden;
+  }
 
   .home__bg-img {
     width: 100%;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
-      url("./assets/images/music-symbol.jpg");
+      url("./assets/images/player.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 28em;
+    height: 100vh;
     z-index: -1;
     padding-top: 4em;
   }
@@ -357,13 +376,20 @@ input::-webkit-inner-spin-button {
     color: white;
     align-items: center;
     width: 100%;
+    justify-content: center;
     text-align: center;
-    padding-top: 4em;
-    padding-left: 1em;
+    padding-bottom: 7em;
+    height: 100vh;
   }
 
   .home__text--main {
     margin-bottom: 1em;
+    letter-spacing: 2px;
+    font-size: 2.6em;
+  }
+
+  .home__text--sub {
+    font-size: 0.95em;
   }
 
   .home__text--shop-link {
@@ -410,31 +436,34 @@ input::-webkit-inner-spin-button {
   .genre-btn-container {
     display: flex;
     flex-direction: column;
-    width: 14em;
+    width: 100%;
     text-align: center;
-    background-color: #fff;
-    padding: 0.5em 1em;
+    background-color: #2125292b;
+    padding: 1.2em 0;
     align-items: center;
+    transition: background-color 0.3s ease-in-out;
   }
 
   .home__genres {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 4em;
+    margin-top: 4.2em;
   }
 
   .home__genres--content {
     display: flex;
     flex-direction: column;
+    width: 80%;
   }
 
   .home__sub-title-wrapper {
     font-size: 1.65em;
     text-align: center;
     position: relative;
-    width: 11em;
     z-index: 1;
+    width: 11em;
+    font-family: input-sans, Arial, Helvetica, sans-serif;
   }
 
   .home__sub-title {
@@ -442,7 +471,7 @@ input::-webkit-inner-spin-button {
     display: inline-block;
     position: relative;
     z-index: 1;
-    background-color: #f3eee4;
+    background-color: #fff;
   }
 
   .home__sub-title-wrapper::after {
@@ -455,36 +484,36 @@ input::-webkit-inner-spin-button {
     background-color: #141618;
   }
 
+  .genre-imgs {
+    overflow: hidden;
+  }
+
+  .genre-img {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .genre:hover {
+    .genre-img {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+    .genre-btn {
+      color: #777;
+    }
+
+    .genre-btn-container {
+      background-color: #212529;
+    }
+  }
+
   .genre-btn {
-    @include btnStyling();
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.9em 0.7em;
-    border: 2px solid #1d3447;
-    background-color: #dadadb;
-    color: black;
-    font-size: 12px;
+    font-size: 1.7em;
     font-weight: 600;
-    letter-spacing: 1px;
-    line-height: 1.6;
-    text-align: left;
-    text-transform: uppercase;
-    -webkit-tap-highlight-color: rgba(237, 6, 119, 0.5);
-    cursor: pointer;
-    width: 12em;
-  }
-
-  .genre-btn:after {
-    content: "\203A";
-    margin-left: auto;
-    font-size: 1.2em;
-  }
-
-  .genre-btn:hover {
-    background-color: #1d3447;
-    border: 2px solid #dadadb;
-    color: #dadadb;
+    letter-spacing: 8px;
+    color: #fff;
+    width: 100%;
+    background-color: #212529;
+    transition: color 0.3s ease-in-out;
   }
 
   .home__best {
@@ -492,6 +521,8 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     align-items: center;
     margin-top: 4em;
+    padding: 1.6em 0;
+    background-color: #eee;
   }
 
   .home__best--title-wrapper {
@@ -1503,7 +1534,6 @@ a {
   .order-summary__purchase--order-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
   .order-summary__purchase--total-wrapper {
@@ -1516,7 +1546,9 @@ a {
 
   .order-summary__purchase--order {
     text-align: center;
+    margin: auto;
     margin-top: 2.2em;
+    width: 80%;
   }
 
   .order-summary__purchase--order-btn {
@@ -1865,6 +1897,116 @@ a {
     border: solid 1px #212529;
   }
 
+  .payment__confirmation-modal {
+    @include modal();
+  }
+
+  .payment__confirmation-modal-content {
+    @include modalContent();
+    padding: 1.2em;
+    text-align: center;
+  }
+
+  .payment__confirmation-modal--header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2em auto;
+  }
+
+  .payment__confirmation-modal--detail {
+    font-size: 0.95em;
+    margin-bottom: 1em;
+  }
+
+  .payment__confirmation-modal--label {
+    font-weight: 600;
+  }
+
+  .payment__confirmation-modal--heading {
+    margin-left: 0.6em;
+  }
+
+  .payment__confirmation-modal--icon {
+    color: #fff;
+    background-color: #b2dddf;
+    border-radius: 50%;
+    border-style: none;
+    font-size: 2.4em;
+  }
+
+  .payment__confirmation-close-btn {
+    border-style: none;
+    padding: 0.8em;
+    font-size: 1.1em;
+    border-radius: 32px;
+    cursor: pointer;
+    text-transform: uppercase;
+    @include btnStyling();
+    max-width: 20em;
+    margin-top: 1.45em;
+  }
+
+  .payment__confirmation-close-btn:hover {
+    background-color: #212529;
+  }
+
+  .loader,
+  .loader:before,
+  .loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+  }
+  .loader {
+    color: #ea4c89;
+    font-size: 0.6em;
+    margin: 0 auto;
+    position: relative;
+    text-indent: -9999em;
+    top: -2em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+  }
+  .loader:before,
+  .loader:after {
+    content: "";
+    position: absolute;
+    top: 0;
+  }
+  .loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+  .loader:after {
+    left: 3.5em;
+  }
+  @-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+  @keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+
   @media (max-width: 470px) {
     .payment__form--expiry-security-container {
       flex-direction: column;
@@ -1953,12 +2095,19 @@ a {
 }
 
 .account {
+  @mixin accountHeadingWrapper {
+    margin-bottom: 1.6em;
+    border-bottom: solid 1px #d4d6d9;
+    padding-bottom: 0.6em;
+  }
+
   @include pageStyling();
   padding-top: 3.8em;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: #eee;
 
   .account__header {
-    background-color: #e1edf2;
+    background-color: #fff;
   }
 
   .account__header--top-section {
@@ -2023,12 +2172,12 @@ a {
   .account__tab {
     padding: 0.9em;
     cursor: pointer;
-    background-color: white;
+    background-color: #fff;
     width: 100%;
     text-align: center;
     font-weight: 300;
-    border-top: 1px solid #e1edf2;
-    border-bottom: 1px solid #e1edf2;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     font-size: 0.95em;
     transition: background-color 0.2s ease-in-out;
   }
@@ -2037,20 +2186,41 @@ a {
     width: 100%;
   }
 
+  .account__tab--link.active {
+    .account__tab {
+      background-color: #eee;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+    }
+  }
+
   .account__tab:hover {
-    background-color: #e1edf2;
+    background-color: #eee;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
 
     .account__tab--name {
       text-decoration: underline;
     }
   }
 
+  .account__orders {
+    @include profileSection();
+    width: 100%;
+    margin-top: 2em;
+  }
+
   .account__orders--heading-container {
-    @include accountSectionHeadingContainer();
+    @include accountHeadingWrapper();
+    display: flex;
+    align-items: center;
+    padding-left: 2em;
   }
 
   .account__orders--heading {
     @include accountSectionHeading();
+    margin: 0.5em 1em;
+    font-size: 1.6em;
   }
 
   .account__orders--heading-icon {
@@ -2058,11 +2228,16 @@ a {
   }
 
   .account__wishlist--heading-container {
-    @include accountSectionHeadingContainer();
+    @include accountHeadingWrapper();
+    display: flex;
+    align-items: center;
+    padding-left: 2em;
   }
 
   .account__wishlist--heading {
     @include accountSectionHeading();
+    margin: 0.5em 1em;
+    font-size: 1.6em;
   }
 
   .account__wishlist--heading-icon {
@@ -2070,20 +2245,20 @@ a {
   }
 
   .account__order {
-    width: 80%;
+    width: 100%;
     margin: auto;
     margin-top: 0.6em;
     border-radius: 8px;
     max-width: 38em;
     border-radius: 8px;
-    border: 3px solid #e1edf2;
+    border: 1px solid #eee;
+    margin-bottom: 2em;
   }
 
   .account__order--header {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #e1edf2;
+    background-color: #eee;
     padding: 1em;
     border-radius: 8px 8px 0 0;
     font-size: 0.95em;
@@ -2091,13 +2266,13 @@ a {
   }
 
   .account__order--wrapper {
-    display: flex;
     margin-top: 0.5em;
   }
 
   .account__order--delivery-status-heading {
     font-size: 1.1em;
     text-transform: uppercase;
+    letter-spacing: 1.2px;
   }
 
   .account__order--label {
@@ -2127,6 +2302,7 @@ a {
 
   .account__order--album-details {
     display: flex;
+    flex-direction: column;
     margin-right: auto;
     font-size: 0.9em;
     margin: 0.8em auto 0 0.4em;
@@ -2167,6 +2343,7 @@ a {
 
   .account__order--album-quantity-wrapper {
     margin-right: 2em;
+    margin-top: 1em;
   }
 
   .account__order--footer {
@@ -2194,6 +2371,10 @@ a {
   }
 
   .account__wishlist {
+    @include profileSection();
+    margin-top: 2em;
+    width: 100%;
+
     .account__wishlist-albums {
       display: flex;
       flex-direction: column;
@@ -2368,12 +2549,21 @@ a {
   }
 
   .account__details {
+    @include profileSection();
+    width: 100%;
+    margin-top: 2em;
+
     .account__details--heading-container {
-      @include accountSectionHeadingContainer();
+      @include accountHeadingWrapper();
+      display: flex;
+      align-items: center;
+      padding-left: 2em;
     }
 
     .account__details--heading {
       @include accountSectionHeading();
+      margin: 0.5em 1em;
+      font-size: 1.6em;
     }
 
     .account__details--heading-icon {
@@ -2444,10 +2634,12 @@ a {
   }
 
   .account__friends {
-    $body-grey: #f1f1f1;
+    $body-grey: #eee;
+    @include profileSection();
+    width: 100%;
+    margin-top: 2em;
 
     .account__friends--header {
-      background-color: $body-grey;
       padding: 1em;
       display: flex;
       flex-direction: column;
@@ -2846,22 +3038,111 @@ a {
       background-color: #3d586e;
     }
   }
+
+  .account__reviews {
+    @include profileSection();
+    margin-top: 2em;
+    width: 100%;
+
+    .account__reviews--heading-wrapper {
+      @include accountHeadingWrapper();
+      display: flex;
+      align-items: center;
+      padding-left: 2em;
+      margin-bottom: 0;
+    }
+
+    .account__reviews--icon-wrapper {
+      padding: 0.3em;
+      background-color: #212529;
+      border-radius: 50%;
+      color: #fff;
+    }
+
+    .account__reviews--heading {
+      margin: 0.5em 0.9em;
+      font-size: 1.6em;
+    }
+
+    .account__review {
+      border-bottom: 1px solid #d4d6d9;
+      padding: 1em;
+    }
+
+    .account__review--header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+    }
+
+    .account__review--header-profile-pic {
+      @include profilePicStyling();
+      margin: 0;
+      margin-right: 1em;
+    }
+
+    .account__review--header-profile-text {
+      display: block;
+      font-size: 1em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .account__review--header-user-info-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account__review--header-star-rating {
+      @include starRating();
+    }
+
+    .account__review-date-wrapper {
+      margin-bottom: 0.3em;
+    }
+
+    .account__review-date {
+      font-size: 0.8em;
+      color: #70757a;
+    }
+
+    .account__review--headline {
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+
+    .account__review--content {
+      font-size: 0.95em;
+    }
+
+    .account__review--album {
+      display: flex;
+      padding: 0.4em;
+      border: solid 1px #d4d6d9;
+      align-items: center;
+      margin-top: 1em;
+      border-radius: 8px;
+      max-width: 16em;
+    }
+
+    .account__review--album-img {
+      width: 3em;
+      height: 3em;
+      margin-right: 3em;
+    }
+
+    .account__review--album-title {
+      font-size: 0.95em;
+      font-weight: 600;
+    }
+
+    .account__review--album-title:hover {
+      border-bottom: solid 1px #212529;
+    }
+  }
 }
 
 .profile-page {
-  @mixin profileSection {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: auto;
-    margin-top: -5em;
-    background-color: white;
-    padding: 1.2em;
-    -webkit-box-shadow: 0px 10px 13px 1px #00000012,
-      5px 5px 15px 5px rgb(0 0 0 / 0%);
-    box-shadow: 0px 10px 13px 1px #00000012, 5px 5px 15px 5px rgb(0 0 0 / 0%);
-  }
-
   @include pageStyling();
   overflow: auto;
   padding-top: 3.8em;
