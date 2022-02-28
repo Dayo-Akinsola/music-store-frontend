@@ -12,7 +12,9 @@ const DeliveryForm = ({ user, deliveryDetails, setDeliveryDetails, formErrorChec
     const isFormValid = formErrorCheck();
 
     if (isFormValid) {
-      dataChangeRequest('http://localhost:3001/users/details', deliveryDetails, user.token, 'PUT');
+      if (user.token) {
+        dataChangeRequest('http://localhost:3001/users/details', deliveryDetails, user.token, 'PUT');
+      }
       navigate('/payment');
     }
   }
