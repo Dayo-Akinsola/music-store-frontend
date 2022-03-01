@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AlbumOfTheWeek from './AlbumOfTheWeek';
 import Genres from './Genres';
 import PopularAlbums from './PopularAlbums';
+import SignUpSection from './SignUpSection';
 
 const Home = ({ getPopularAlbums }) => {
   const {bestAlbum, runnersUp} = getPopularAlbums();
@@ -29,13 +30,17 @@ const Home = ({ getPopularAlbums }) => {
             <Link className="home__text--shop-link" to='/shop/all'>
               <button className="home__text--shop-btn">Shop Now</button>
             </Link>
+            <Link className="home__text--shop-link" to='/login'>
+              <button className="home__text--login-btn">Log In</button>
+            </Link>
           </div>
         </div>
       </section>
       <div className="home__content">
         <Genres />
         <AlbumOfTheWeek  bestAlbum={bestAlbum}/>
-        <PopularAlbums runnersUp={runnersUp}/>    
+        <PopularAlbums runnersUp={runnersUp}/>  
+        <SignUpSection />  
       </div>
     </div>        
   );
