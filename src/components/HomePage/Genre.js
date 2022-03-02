@@ -62,6 +62,7 @@ const Genre = ({ genre, bgColor}) => {
     width: '100%',
     height: '50vh',
     minWidth: '16em',
+    maxHeight: '20em',
   }
   const imageStyle = {
     width: '100%',
