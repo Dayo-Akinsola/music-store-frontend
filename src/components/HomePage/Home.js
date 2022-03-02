@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import AlbumOfTheWeek from './AlbumOfTheWeek';
+import AlbumOfTheWeek from './AlbumOfTheWeekSection/AlbumOfTheWeek';
 import Genres from './Genres';
 import PopularAlbums from './PopularAlbums';
 import SignUpSection from './SignUpSection';
 
 const Home = ({ getPopularAlbums }) => {
-  const {bestAlbum, runnersUp} = getPopularAlbums();
+  const {bestAlbums, runnersUp} = getPopularAlbums();
   /* 
     Implemented parallax scrolling here instead of using background-attachment:fixed
     in css because it caused performance issues.
@@ -38,7 +38,7 @@ const Home = ({ getPopularAlbums }) => {
       </section>
       <div className="home__content">
         <Genres />
-        <AlbumOfTheWeek  bestAlbum={bestAlbum}/>
+        <AlbumOfTheWeek  bestAlbums={bestAlbums}/>
         <PopularAlbums runnersUp={runnersUp}/>  
         <SignUpSection />  
       </div>
