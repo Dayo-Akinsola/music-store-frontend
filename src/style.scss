@@ -469,6 +469,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     width: 80%;
+    max-width: 91em;
   }
 
   .home__sub-title-wrapper {
@@ -478,6 +479,7 @@ input::-webkit-inner-spin-button {
     z-index: 1;
     width: 11em;
     font-family: input-sans, Arial, Helvetica, sans-serif;
+    max-width: 20em;
   }
 
   .home__sub-title {
@@ -523,9 +525,9 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2em;
+    margin-top: 4em;
     padding: 0 0 1.6em 0;
-    background-color: #f1f1f1;
+    background-color: #d9d9d9;
   }
 
   .home__best--title-wrapper {
@@ -539,13 +541,33 @@ input::-webkit-inner-spin-button {
     padding: 0 0.5em;
   }
 
+  .home__best--albums-section {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+  }
+
+  .home__best--album-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.2em;
+    width: 80%;
+    min-width: 20em;
+    max-width: 30em;
+  }
+
+  .home__best--placing-wrapper {
+    background-image: url("./assets/images//placing-heading-bg.jpg");
+    font-size: 1.4em;
+    width: 90%;
+    text-align: center;
+  }
+
   .home__best--featured-album-wrapper {
     margin: 2em auto;
     display: flex;
-    max-width: 30em;
     flex-direction: column;
-    width: 80%;
-    min-width: 20em;
     padding: 0.4em;
     background-color: #fff;
     border-radius: 0 0 8px 8px;
@@ -557,7 +579,7 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
     margin-right: -12em;
     position: relative;
-    left: -0.65em;
+    left: -0.75em;
     top: -0.9em;
     box-shadow: 0 0 10px rgba(204, 204, 204, 0.795);
   }
@@ -732,6 +754,76 @@ input::-webkit-inner-spin-button {
 
     @media (min-width: 740px) {
       display: block;
+    }
+  }
+
+  .home__genres--content {
+    @media (min-width: 900px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      .genre {
+        width: 80%;
+      }
+
+      .home__genres--jazz {
+        grid-column-start: span 2;
+        width: 40%;
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .home__genres--content {
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .home__genres--electronic {
+      grid-column-start: 3;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      width: 80%;
+      position: relative;
+      right: 10em;
+    }
+
+    .home__genres--jazz {
+      grid-column-start: 1;
+      grid-row-start: 2;
+      width: 80%;
+      position: relative;
+    }
+
+    .home__best--albums-section {
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: baseline;
+      margin-top: 2.5em;
+    }
+
+    .home__best--album-section {
+      width: 27%;
+    }
+
+    .home__best--featured-album-wrapper {
+      height: 45em;
+    }
+
+    .album-1st {
+      order: 2;
+    }
+
+    .album-2nd {
+      order: 1;
+      position: relative;
+      top: 1.2em;
+    }
+
+    .album-3rd {
+      order: 3;
+      position: relative;
+      top: 1.2em;
     }
   }
 }
