@@ -320,8 +320,8 @@ const App = () => {
     });
     const albumsSorted = albumsPopularity.sort((a, b) => b.albumPopularity - a.albumPopularity);
     return {
-      bestAlbum: albumsSorted[0],
-      runnersUp: albumsSorted.slice(1, 11),
+      bestAlbums: albumsSorted.slice(0, 3).map((album, index) => ( { ...album, place: index + 1 } )),
+      runnersUp: albumsSorted.slice(3, 13),
       popularAlbums: albumsSorted.slice(0, 20),
     }
   };
