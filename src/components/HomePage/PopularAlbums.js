@@ -4,30 +4,54 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const PopularAlbums = ({ runnersUp }) => {
-
   const [ counter, setCounter ] = useState(0);
   const [ carouselTransform, setCarouselTransform ] = useState({});
+  /* 
+    The number of slides it takes to get from the start to the end of the carousel.
+    Can be set to any positive int since it will be changed on the first useEffect call.
+  */
+  const [ slideCount, setSlideCount ] = useState(6);
   const carousel = useRef(null);
 
-  const incrementCounter = () => setCounter((counter + 1) % runnersUp.length);
-  const decrementCounter = () =>  setCounter((((counter - 1) % runnersUp.length) + runnersUp.length) % runnersUp.length);
+  const incrementCounter = () => setCounter((counter + 1) % slideCount);
+  const decrementCounter = () =>  setCounter((((counter - 1) % slideCount) + slideCount) % slideCount);
 
   useEffect(() => {
     const slideCarousel = () => {
       if (carousel.current.childNodes[counter] !== undefined) {
         const imageWidth = carousel.current.childNodes[counter].clientWidth;
-        setCarouselTransform({
-          transform:  `translateX( ${-imageWidth * (counter) }px)`,
-        });
+        /* Accounts for the the different carousel lengths at different screen sizes */
+        const breakpoint1300px = window.innerWidth >= 1300 && counter === runnersUp.length - 3;
+        const breakpoint1000px = window.innerWidth >= 1000 && counter === runnersUp.length - 2;
+        const breakpoint800px = window.innerWidth >= 800 && counter === runnersUp.length - 1;
+        if (window.innerWidth >= 1300) {
+          setSlideCount(runnersUp.length - 3);
+        } else if (window.innerWidth >= 1000) {
+          setSlideCount(runnersUp.length - 2) 
+        } else if (window.innerWidth >= 800) {
+          setSlideCount(runnersUp.length - 1)
+        } else {
+          setSlideCount(runnersUp.length);
+        }
+        if (breakpoint1300px || breakpoint1000px || breakpoint800px) {
+          setCarouselTransform({
+            transform: `translateX( ${-imageWidth * (0)}px)`
+          });
+          setCounter(0);
+        } else {
+            setCarouselTransform({
+              transform:  `translateX( ${-imageWidth * (counter) }px)`,
+            });
+        }
       }
     }
     slideCarousel();
-  }, [counter]);
+  }, [counter, runnersUp.length]);
 
   useEffect(() => {
 
     const interval = setInterval(() => {
-      setCounter(counter => (counter + 1) % runnersUp.length);
+      setCounter(counter => (counter + 1) % slideCount);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -37,7 +61,7 @@ const PopularAlbums = ({ runnersUp }) => {
     return (
       <div className="home__popular-albums">
         <div className="home__popular-albums--heading-wrapper">
-          <h4 className="home__popular-albums--heading">Popular Albums</h4>
+          <h4 className="home__popular-albums--heading">Featured Albums</h4>
         </div>
         <div className="home__popular-albums--content">
           <div className="home__popular-albums--carousel-wrapper">
@@ -59,7 +83,7 @@ const PopularAlbums = ({ runnersUp }) => {
           </div>
           <Link to="/shop/popular" className="home__popular-albums--link">
             <div className="home__popular-albums--btn-wrapper">
-              <button className="home__popular-albums--btn">Top Albums</button>
+              <button className="home__popular-albums--btn">Popular Albums</button>
             </div>
           </Link>
           <div className="home__popular-albums--nav-arrows">

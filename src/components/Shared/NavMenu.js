@@ -32,25 +32,25 @@ const NavMenu = ({ hidden, toggleNavDisplay, user }) => {
           <NavLink className="header__nav-menu--link"to='/'>
             <li className="header__nav-menu--option">Home</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/all'>
+          <NavLink className="header__nav-menu--link"to='/shop/all/?page=1'>
             <li className="header__nav-menu--option">Shop All</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/pop'>
+          <NavLink className="header__nav-menu--link"to='/shop/pop/?page=1'>
             <li className="header__nav-menu--option">Pop</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/rock'>
+          <NavLink className="header__nav-menu--link"to='/shop/rock/?page=1'>
             <li className="header__nav-menu--option">Rock</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/hip-hop'>
+          <NavLink className="header__nav-menu--link"to='/shop/hip-hop/?page=1'>
             <li className="header__nav-menu--option">Hip Hop</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/electronic'>
+          <NavLink className="header__nav-menu--link"to='/shop/electronic/?page=1'>
             <li className="header__nav-menu--option">Electronic</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/jazz'>
+          <NavLink className="header__nav-menu--link"to='/shop/jazz/?page=1'>
             <li className="header__nav-menu--option">Jazz</li>
           </NavLink>
-          <NavLink className="header__nav-menu--link"to='/shop/popular'>
+          <NavLink className="header__nav-menu--link"to='/shop/popular/?page=1'>
             <li className="header__nav-menu--option">Popular</li>
           </NavLink>
           <li className="header__nav-menu--option" onClick={scrollToBottom}>About</li>

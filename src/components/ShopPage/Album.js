@@ -1,7 +1,9 @@
+/* eslint-disable eqeqeq */
 import { Link } from 'react-router-dom';
 
-const Album = ({ album }) => {
-  return (
+const Album = ({ album, pageNum, searchParams }) => {
+  if (pageNum == searchParams.get('page')) {
+    return (
       <div className="shop__album" >
         <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/${album.type}/${album.id}`}>
           <div className="album__img-wrapper">
@@ -14,7 +16,10 @@ const Album = ({ album }) => {
           </div>
         </Link>
       </div>
-  );
+    );
+  }
+  return null;
+ 
 }
 
 export default Album;
