@@ -52,7 +52,7 @@ const PopularAlbums = ({ runnersUp }) => {
 
     const interval = setInterval(() => {
       setCounter(counter => (counter + 1) % slideCount);
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(interval);
   })
