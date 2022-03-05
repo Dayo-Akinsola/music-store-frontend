@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
 import Options from "./Options";
+import ShopGenre from "./ShopGenre";
 
-const Shop = ({ albums, genre, getPopularAlbums }) => {
+const Shop = ({ albums, genre, genres, getPopularAlbums}) => {
 
   const { popularAlbums } = getPopularAlbums();
 
@@ -13,33 +14,42 @@ const Shop = ({ albums, genre, getPopularAlbums }) => {
   const [searchParams, setSearchParams] = useSearchParams({});
 
   const paginateAlbums = (albumGroup) => {
-    // const albumGroup = (genre === 'Popular') ? popularAlbums : albumsToPaginate;
     const pageSize = 20;
     const albumsSplitByPages = [];
     for (let i = 0; i < albumGroup.length; i+= pageSize) {
       albumsSplitByPages.push(albumGroup.slice(i, i + pageSize));
     }
-    setPages(albumsSplitByPages);
+    return albumsSplitByPages;
   }
-
+  
+  const albumGroup = (genre === 'Popular') ? popularAlbums : albums;
+  
   useEffect(() => {
-    const albumGroup = (genre === 'Popular') ? popularAlbums : albums;
-    paginateAlbums(albumGroup);
+    const paginatedAlbums = paginateAlbums(albumGroup);
+    setPages(paginatedAlbums);
   }, [albums, genre]);
 
   const SortByPrice = (() => {
+    const albumsCopy = [...albumGroup];
+
     const highToLow = () => {
-      const sortedAlbums = albums.sort((a, b) => parseInt(b.price) - parseInt(a.price));
-      paginateAlbums(sortedAlbums);
+      const ascOrderAlbums = albumsCopy.sort((a, b) => parseInt(b.price) - parseInt(a.price));
+      return paginateAlbums(ascOrderAlbums);
     }
     
     const lowToHigh = () => {
-      return albums.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+      const descOrderAlbums = albumsCopy.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+      return paginateAlbums(descOrderAlbums)
+    }
+
+    const defaultOrder = () => {
+      return paginateAlbums(albumsCopy);
     }
 
     return {
       highToLow,
       lowToHigh,
+      defaultOrder,
     }
   })();
 
@@ -51,7 +61,16 @@ const Shop = ({ albums, genre, getPopularAlbums }) => {
           <div className="shop__current-genre-wrapper">
             <h2 className="shop__current-genre">{genre}</h2>
           </div>
-          <Options SortByPrice={SortByPrice} />
+          <div className="shop__filter-sort">
+            <ul className="shop__genres">
+              {
+                genres.map((genre, index) => (
+                  <ShopGenre key={index} genre={genre} />
+                ))
+              }
+            </ul>
+            <Options SortByPrice={SortByPrice} setPages={setPages} genre={genre} />
+          </div>
           <Albums pages={pages} searchParams={searchParams} />
           <Pagination pages={pages} searchParams={searchParams} />
         </div>
