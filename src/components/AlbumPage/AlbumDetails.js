@@ -106,7 +106,7 @@ const AlbumDetails = ({
           tracklist: tracksInfo.tracklist,
           tracklistOrigin: tracksInfo.tracklistOrigin,
           albumTitle: albumInfo.title,
-          relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0]) && chosenAlbum.id !== album.id).slice(0, 10),        
+          relatedAlbums: albums.filter(album => album.genre.includes(chosenAlbum.genre[0]) && chosenAlbum.id !== album.id).slice(0, 20),        
         }
       );
     }
@@ -185,43 +185,56 @@ const AlbumDetails = ({
 
   return (
     <div className="album-page">
-      <div className="album-page__details">
-        <div className="album-page__details--album-img-wrapper">
-          <img src={albumDetails.cover_image} alt={albumDetails.albumTitle} className="album-page__album-img" />
-        </div>
-        <div className="album-page__details--text">
-          <div className="album-page__details--main-info-wrapper">
-            {
-              albumDetails.albumTitle ? 
-              <h3 className="album-page__details--album-name">{albumDetails.albumTitle}</h3>
-              : <></>
-            }
-            {
-              albumDetails.artist ?
-              <span className="album-page__details--artist-name">{albumDetails.artist}</span>
-              : <></>
-            }
+      <div className="album-page__content">
+        <div className="album-page__details">
+          <div className="album-page__details--album-img-wrapper">
+            <img src={albumDetails.cover_image} alt={albumDetails.albumTitle} className="album-page__album-img" />
           </div>
-          <div className="album-page__details--price-wrapper">
-            <span className="album-page__details--price">£{albumDetails.price}</span>
-          </div>
-          <div className="album-page__details--sub-info-wrapper">
-            <span className="album-page__details--genres"><b>Genres:</b> {albumDetails.genre.map(genre => categoryMap(albumDetails.genre, genre) )}</span>
-            <span className="album-page__details--styles"><b>Styles:</b> {albumDetails.style.map(style => categoryMap(albumDetails.style, style) )}</span>
-          </div>
-          <div className="album-page__details--album-purchase-wrapper">
-            <QuantityInput 
-              quantity={quantity} 
-              incrementQuantity={incrementQuantity} 
-              decrementQuantity={decrementQuantity} 
-              handleQuantityChange={handleQuantityChange} 
-              classNamePrefix='album-page__details'
-            />
-            <div className="album-page__details--album-btns-wrapper">
-              <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">Add To Cart</button>
-              <button onClick={() => addAlbumToWishlist(albumDetails, user.token)} className="album-page__details--wishlist-btn">Add To Wishlist</button>
+          <div className="album-page__details--text">
+            <div className="album-page__details--main-info-wrapper">
+              {
+                albumDetails.albumTitle ? 
+                <h3 className="album-page__details--album-name">{albumDetails.albumTitle}</h3>
+                : <></>
+              }
+              {
+                albumDetails.artist ?
+                <span className="album-page__details--artist-name">{albumDetails.artist}</span>
+                : <></>
+              }
             </div>
-          </div>
+            <div className="album-page__details--price-wrapper">
+              <span className="album-page__details--price">£{albumDetails.price}</span>
+            </div>
+            <div className="album-page__details--sub-info-wrapper">
+              <span className="album-page__details--genres"><b>Genres:</b> {albumDetails.genre.map(genre => categoryMap(albumDetails.genre, genre) )}</span>
+              <span className="album-page__details--styles"><b>Styles:</b> {albumDetails.style.map(style => categoryMap(albumDetails.style, style) )}</span>
+            </div>
+            <div className="album-page__details--prod-info">
+              <span className="album-page__prod-detail">Format: {albumDetails.format[0]}</span>
+              <span className="album-page__prod-detail">Labels: {albumDetails.label.map(labelName => categoryMap(albumDetails.label, labelName) )}</span>
+              <span className="album-page__prod-detail">Barcode: {albumDetails.barcode[0]}</span>
+            </div>
+            <div className="album-page__details--album-purchase-wrapper">
+              <QuantityInput 
+                quantity={quantity} 
+                incrementQuantity={incrementQuantity} 
+                decrementQuantity={decrementQuantity} 
+                handleQuantityChange={handleQuantityChange} 
+                classNamePrefix='album-page__details'
+              />
+              <div className="album-page__details--album-btns-wrapper">
+                <button onClick={(event) => addAlbumToCart(albumDetails, event)} className="album-page__details--purchase-btn">
+                  Add To Cart
+                  <i className="gg-shopping-cart"></i>
+                </button>
+                <button onClick={() => addAlbumToWishlist(albumDetails, user.token)} className="album-page__details--wishlist-btn">
+                  Add To Wishlist
+                  <i className="gg-gift"></i>
+                </button>
+              </div>
+            </div>
+          </div>  
         </div>
         <div className="album-page__extra">
           <TrackList albumDetails={albumDetails} togglePlaying={togglePlaying} urlParams={urlParams} setAlbumDetails={setAlbumDetails} pauseTrack={pauseTrack}  />
