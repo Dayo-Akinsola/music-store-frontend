@@ -27,7 +27,7 @@ const Home = ({ getPopularAlbums }) => {
           <div className="home__text-container" style={{opacity: `${parseFloat(1 - parseFloat((offsetY * 0.155)) / 100)}`}}>
             <h2 className="home__text--main">The latest albums in one place</h2>
             <span className="home__text--sub">Browse and buy from a collection of albums from different genres</span>
-            <Link className="home__text--shop-link" to='/shop/all'>
+            <Link className="home__text--shop-link" to='/shop/all/?page=1'>
               <button className="home__text--shop-btn">Shop Now</button>
             </Link>
             <Link className="home__text--shop-link" to='/login'>
