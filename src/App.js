@@ -481,13 +481,13 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
           <Route path='/shop'>
-            <Route path='all' element={<Shop albums={albums.all} genre='All' getPopularAlbums={getPopularAlbums} />}></Route>
-            <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' getPopularAlbums={getPopularAlbums} />}></Route>
-            <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' getPopularAlbums={getPopularAlbums} />}></Route>
-            <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' getPopularAlbums={getPopularAlbums} />}></Route>
-            <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' getPopularAlbums={getPopularAlbums} />}></Route>
-            <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' getPopularAlbums={getPopularAlbums} />}></Route>
-            <Route path='popular' element={<Shop albums={albums.all} genre='Popular' getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='all' element={<Shop albums={albums.all} genre='All' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+            <Route path='popular' element={<Shop albums={albums.all} genre='Popular' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
             <Route 
               path=':uri/:type/:id' 
               element={<AlbumDetails 
