@@ -574,8 +574,9 @@ const App = () => {
         {
         showCart 
           ? 
-          <CartSidebar 
-            cart={cart} hideCart={hideCart} 
+          <CartSidebar
+            cart={cart} 
+            hideCart={hideCart} 
             totalQuantity={totalQuantity} 
             albumQuantityControl={albumQuantityControl}
             removeCartAlbum={removeCartAlbum}

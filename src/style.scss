@@ -1392,7 +1392,6 @@ a {
   .album-page__reviews--header {
     display: flex;
     align-items: center;
-    // max-width: 33em;
     justify-content: space-between;
   }
 
@@ -1551,6 +1550,7 @@ a {
     margin: auto;
     text-align: center;
     margin-top: 2em;
+    margin-right: 2em;
   }
 
   .album-page__review-percentages--total-ratings-wrapper {
@@ -1809,6 +1809,10 @@ a {
       max-width: 32em;
       margin-top: 0;
     }
+
+    .album-page__album-reviews {
+      width: 72em;
+    }
   }
 
   @media (min-width: 1400px) {
@@ -1829,14 +1833,25 @@ a {
 .cart-sidebar {
   background-color: #fff;
   font-family: Founders Grotesk, Arial Black, sans-serif;
-  z-index: 10;
+  z-index: 11;
   position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
+  right: 0;
   padding: 1.2em;
   border-left: 10px solid #1d3447;
   overflow: auto;
+  animation: 0.6s slideCart;
+
+  @keyframes slideCart {
+    from {
+      transform: translate3d(100%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
 
   .cart-sidebar__header {
     display: flex;
@@ -1952,6 +1967,21 @@ a {
     position: absolute;
     right: 1em;
   }
+
+  @media (min-width: 600px) {
+    max-width: 32em;
+  }
+}
+
+.page-shade {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 10;
 }
 
 .footer {
@@ -2012,12 +2042,17 @@ a {
 
 .order-summary {
   @include pageStyling();
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: Poppins, sans-serif;
 
   .order-summary__heading {
     text-align: center;
-    font-size: 1.3em;
+    font-size: 1.7em;
     margin-bottom: 2em;
+    border-bottom: solid 1px var(--light-blue);
+    width: 10em;
+    margin: auto;
+    font-weight: 600;
+    margin-bottom: 1.6em;
   }
 
   .order-summary__table-container {
@@ -2026,6 +2061,7 @@ a {
     color: black;
     font-weight: 100;
     text-align: center;
+    max-width: 80em;
   }
 
   .order-summary__table {
@@ -2036,15 +2072,18 @@ a {
   }
 
   .order-summary__table--head {
-    background-color: var(--main-black);
+    background-color: var(--main-blue);
     color: white;
   }
 
   .table-head {
     padding: 0.5em;
     border-color: var(--main-black);
-    border-style: solid;
     font-weight: 100;
+  }
+
+  .table-head-quantity {
+    display: none;
   }
 
   .order-summary__table--albums {
@@ -2059,7 +2098,7 @@ a {
 
   .order-summary__table--album td {
     padding: 0.5em;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .order-summary__table--album-img {
@@ -2073,6 +2112,10 @@ a {
   .order-summary__table--title a:hover {
     color: #1d3447;
     text-decoration: underline;
+  }
+
+  .order-summary__table--quantity {
+    display: none;
   }
 
   .order-summary__table--no-albums {
@@ -2099,6 +2142,11 @@ a {
     width: 100%;
   }
 
+  .order-summary__purchase {
+    max-width: 90em;
+    margin: auto;
+  }
+
   .order-summary__purchase--order-section {
     display: flex;
     flex-direction: column;
@@ -2112,11 +2160,17 @@ a {
     border-right: none;
   }
 
+  .order-summary__purchase--total {
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+
   .order-summary__purchase--order {
     text-align: center;
     margin: auto;
     margin-top: 2.2em;
     width: 80%;
+    max-width: 21em;
   }
 
   .order-summary__purchase--order-btn {
@@ -2159,6 +2213,23 @@ a {
   .order-summary__table--remove:hover {
     color: crimson;
   }
+
+  @media (max-width: 400px) {
+    .order-summary__table--album-img {
+      width: 4em;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .table-head-quantity {
+      display: inline-block;
+    }
+
+    .order-summary__table--quantity {
+      display: inline-block;
+      margin-top: 1.5em;
+    }
+  }
 }
 
 .checkout {
@@ -2167,8 +2238,17 @@ a {
 
   .checkout__heading {
     text-align: center;
-    font-size: 1.3em;
+    font-size: 2.1em;
     margin-bottom: 2em;
+    border-bottom: solid 1px var(--light-blue);
+    width: 7em;
+    margin: auto;
+    font-weight: 600;
+    margin-bottom: 1.6em;
+  }
+
+  .checkout__content {
+    overflow: auto;
   }
 
   .checkout__details--fill-form {
@@ -2234,6 +2314,33 @@ a {
   .form__submit-btn:hover {
     background-color: #0f1e2a;
   }
+
+  @media (min-width: 900px) {
+    .checkout__content {
+      display: flex;
+      width: 90%;
+      margin: auto;
+      max-width: 70em;
+      justify-content: space-evenly;
+    }
+
+    .checkout__details {
+      width: 90%;
+      padding: 1em;
+      max-width: 40em;
+    }
+
+    .checkout__summary {
+      margin: auto;
+      padding: 1.2em;
+      margin-top: 3em;
+      width: 86%;
+      background-color: #f1f1f1;
+      flex-grow: 1;
+      max-width: 26em;
+      margin-right: 1em;
+    }
+  }
 }
 
 .checkout__summary {
@@ -2243,12 +2350,13 @@ a {
   width: 80%;
   min-width: 21em;
   background-color: #f1f1f1;
+  border-top: 8px solid var(--main-blue);
 }
 
 .checkout__summary--heading {
   margin-left: 0.8em;
-  font-size: 1.2em;
-  margin-bottom: 2em;
+  font-size: 1.4em;
+  margin-bottom: 1em;
 }
 
 .checkout__summary--album-product {
@@ -2324,29 +2432,47 @@ a {
   margin-right: 7.4em;
 }
 
+.checkout__summary--total-value {
+  font-size: 1.2em;
+}
+
 .payment {
   @include pageStyling();
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   $logo-size: 3em;
 
-  .payment__heading {
-    margin-bottom: 1.2em;
-    font-size: 1.4em;
-  }
-
   .payment__details {
     padding: 0.8em;
+    width: 80%;
+    display: flex;
     margin: auto;
+    flex-direction: column;
+    max-width: 37em;
+    align-items: center;
   }
 
   .payment__details--accepted-cards {
     display: flex;
     align-items: center;
+    margin-right: auto;
+    margin-bottom: 1.5em;
   }
 
   .payment__accepted-cards--label {
     font-size: 0.9em;
     font-weight: 600;
+    margin-right: 1em;
+  }
+
+  .payment__auto-fill {
+    margin-right: auto;
+    @include btnStyling();
+    width: 17.5em;
+    padding: 0.7rem 1.36rem;
+  }
+
+  .payment__auto-fill:hover {
+    background-color: var(--main-black);
   }
 
   .payment__accepted-cards--logos {
@@ -2378,8 +2504,7 @@ a {
 
   .payment__form {
     margin-top: 0.8em;
-    width: 95%;
-    max-width: 23em;
+    width: 100%;
   }
 
   .form-wrapper {
@@ -2531,7 +2656,7 @@ a {
     animation: load7 1.8s infinite ease-in-out;
   }
   .loader {
-    color: #ea4c89;
+    color: var(--light-blue);
     font-size: 0.6em;
     margin: 0 auto;
     position: relative;
@@ -2582,6 +2707,18 @@ a {
 
     .payment__form--security-wrapper {
       margin-left: 0;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    max-width: 79em;
+
+    .checkout__summary {
+      width: 100%;
     }
   }
 }
