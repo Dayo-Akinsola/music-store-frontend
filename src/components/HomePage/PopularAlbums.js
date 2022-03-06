@@ -73,7 +73,7 @@ const PopularAlbums = ({ runnersUp }) => {
                       <img src={album.image} alt={album.title} className="home__popular-albums--img" />
                     </div>
                     <div className="home__popular-albums--info">
-                      <h5 className="home__popular-albums--title">{album.title}</h5>
+                      <h5 className="home__popular-albums--title">{album.title.split('-')[1]}</h5>
                       <span className="home__popular-albums--artist">{album.artist}</span>
                     </div>
                   </div>

@@ -5,8 +5,10 @@ const CheckoutPage = ({ cart, user, deliveryDetails, setDeliveryDetails, formErr
   return (
     <div className="checkout">
       <h3 className="checkout__heading">Checkout</h3>
-      <DeliveryForm user={user} deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails} formErrorCheck={formErrorCheck} errorMessages={errorMessages}/>
-      <CheckoutSummary cart={cart} />
+      <div className="checkout__content">
+        <DeliveryForm user={user} deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails} formErrorCheck={formErrorCheck} errorMessages={errorMessages}/>
+        <CheckoutSummary cart={cart} />
+      </div>
     </div>
   )
 }

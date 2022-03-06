@@ -16,7 +16,7 @@ const OrderSummary = ({ cart, albumQuantityControl, removeCartAlbum, totalQuanti
                 <tr className="order-summary__table--head">
                   <th colSpan={3} className="order-summary__table--album-row table-head" >Album</th>
                   <th className="order-summary__table--price-row table-head">Price</th>
-                  <th className="order-summary__table--quantity-row table-head">Quantity</th>
+                  <th className="order-summary__table--quantity-row table-head table-head-quantity">Quantity</th>
                   <th className="order-summary__table--subtotal-row table-head">Subtotal</th>
                 </tr>
               </thead> 

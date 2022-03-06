@@ -27,7 +27,7 @@ const AlbumSection = ({ bestAlbum }) => {
           <Link 
             className="home__best--featured-album-link" 
             to={`/shop/${encodeURIComponent(bestAlbum.fullTitle).replaceAll('%20', '-').replace('---', '-')}/${bestAlbum.type}/${bestAlbum.id}`}>
-            <h4 className="home__best--featured-album-title">{bestAlbum.title}</h4>
+            <h4 className="home__best--featured-album-title">{bestAlbum.title.split('-')[1]}</h4>
             <span className="home__best--featured-album-artist">{bestAlbum.artist}</span>
           </Link>
           <p className="home__best--features-album--description">{bestAlbum.description}</p>

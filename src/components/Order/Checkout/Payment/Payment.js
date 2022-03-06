@@ -10,7 +10,6 @@ const Payment = ({ cart, setCart, inputInvalidStyle, inputValidStyle, deliveryDe
   return (
     <div className="payment">
       <div className="payment__details">
-        <h3 className="payment__heading">Payment</h3>
         <div className="payment__details--accepted-cards">
           <span className="payment__accepted-cards--label">We Accept</span>
           <div className="payment__accepted-cards--logos">
