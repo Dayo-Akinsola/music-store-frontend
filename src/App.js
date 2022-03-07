@@ -6,7 +6,7 @@ import AlbumDetails from './components/AlbumPage/AlbumDetails';
 import CartSidebar from './components/CartSidebar/CartSidebar';
 import OrderSummary from './components/Order/OrderSummary';
 import ScrollToTop from './components/Shared/ScrollToTop';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CheckoutPage from './components/Order/Checkout/CheckoutPage';
 import Payment from './components/Order/Checkout/Payment/Payment';
@@ -32,6 +32,8 @@ import AuthenticatedRoutes from './components/Shared/AuthenticatedRoutes';
 
 const App = () => {
 
+  const UserContext = createContext();
+  const [user, setUser] = useState({ token: null, username: null, password: null});
   const [albums, setAlbums] = useState(
     {
       all: [],
@@ -47,7 +49,6 @@ const App = () => {
   const [showCart, setShowCart] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [hidden, setHidden] = useState(true);
-  const [user, setUser] = useState({ token: null, username: null, password: null});
   const [deliveryDetails, setDeliveryDetails] = useState({
     firstName: '', 
     lastName: '', 
@@ -115,6 +116,22 @@ const App = () => {
   }, [user.token]);
 
   useEffect(() => {
+    const setAlbumCollections = async () => {
+      const allAlbums = await getAllAlbums();
+      setAlbums({
+        all: allAlbums.map(album => album),
+        pop: allAlbums.filter(album => album.genre.includes('Pop')),
+        rock: allAlbums.filter(album => album.genre.includes('Rock')),
+        electronic: allAlbums.filter(album => album.genre.includes('Electronic')),
+        hiphop: allAlbums.filter(album => album.genre.includes('Hip Hop')),
+        jazz: allAlbums.filter(album => album.genre.includes('Jazz')),
+      });
+    }
+    setAlbumCollections();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const setUserFromLocalStorage = () => {
       const userInfo = retriveUserInfoFromLocalStorage();
       if (userInfo) {
@@ -137,22 +154,6 @@ const App = () => {
     
   }, [user.token]);
 
-  useEffect(() => {
-    getAllAlbums()
-      .then((allAlbums) => {
-        setAlbums(
-          {
-            all: allAlbums.map(album => album),
-            pop: allAlbums.filter(album => album.genre.includes('Pop')),
-            rock: allAlbums.filter(album => album.genre.includes('Rock')),
-            electronic: allAlbums.filter(album => album.genre.includes('Electronic')),
-            hiphop: allAlbums.filter(album => album.genre.includes('Hip Hop')),
-            jazz: allAlbums.filter(album => album.genre.includes('Jazz')),
-          }
-        );
-      });  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const quantityReducer = (previousValue, currentValue) => previousValue + currentValue;
@@ -580,6 +581,7 @@ const App = () => {
             totalQuantity={totalQuantity} 
             albumQuantityControl={albumQuantityControl}
             removeCartAlbum={removeCartAlbum}
+            user={user}
           /> 
           : 
           <></>
