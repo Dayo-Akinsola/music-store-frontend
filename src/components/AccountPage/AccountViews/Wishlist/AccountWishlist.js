@@ -45,7 +45,7 @@ const AccountWishlist = ({ user }) => {
           :
           null
       }
-      <WishlistAlbums wishlist={wishlist} page="account" />
+      <WishlistAlbums wishlist={wishlist} page="account" user={user} />
       <Outlet />
     </div>
   )

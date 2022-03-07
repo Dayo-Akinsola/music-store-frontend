@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { dataChangeRequest } from "../../../../sevices/service";
 
-const AccountOrderAlbum = ({ album }) => {
+const AccountOrderAlbum = ({ album, order, user}) => {
+
+  const updateOrderAlbumThumb = async (event) => {
+    const response = await dataChangeRequest('http://localhost:3001/orders/thumb', { albumId: album.id, orderId: order._id},  user.token, 'PUT');
+    const updatedThumb = await response.json();
+    // event.target.src = updatedThumb;
+  }
+
   return (
     <div className="account__order--album">
       <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/releases/${album.id}`}>

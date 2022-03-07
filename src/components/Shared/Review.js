@@ -1,7 +1,19 @@
+import { useParams } from "react-router-dom";
 import formatDate from "../../helpers/formatDate";
+import { dataChangeRequest } from "../../sevices/service";
 import ReviewedAlbum from "./ReviewedAlbum";
 
 const Review = ({ review, userInfo, page }) => {
+  const params = useParams();
+  
+  const updateReviewdAlbumThumb = async (event) => {
+    const response = await dataChangeRequest('http://localhost:3001/reviews/thumb', 
+      {reviewId: review._id, userId: params.userId ? params.userId : userInfo.id}, null, 'PUT'
+    );
+    const updatedThumb = await response.json();
+    event.target.src = updatedThumb;
+  }
+
   return (
     <div className={`${page}__review`} >
       <div className={`${page}__review--header`}>
@@ -21,7 +33,7 @@ const Review = ({ review, userInfo, page }) => {
       <div className={`${page}__review--content-wrapper`}>
         <span className={`${page}__review--content`}>{review.reviewText}</span>
       </div>
-      <ReviewedAlbum album={review.album} page={page} />
+      <ReviewedAlbum album={review.album} page={page} updateReviewdAlbumThumb={updateReviewdAlbumThumb} />
     </div>
   )
 }

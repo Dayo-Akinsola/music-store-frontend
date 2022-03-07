@@ -1,6 +1,6 @@
 import CartAlbum from "./CartAlbum";
 
-const CartAlbums = ({ cart, albumQuantityControl, removeCartAlbum }) => {
+const CartAlbums = ({ cart, albumQuantityControl, removeCartAlbum, user }) => {
   if (cart.length === 0) {
     return (
       <div className="cart-sidebar__cart-albums--empty">
@@ -11,7 +11,7 @@ const CartAlbums = ({ cart, albumQuantityControl, removeCartAlbum }) => {
 
   return (
     <div className="cart-sidebar__cart-albums">
-      {cart.map(album => <CartAlbum cartAlbum={album} cart={cart} albumQuantityControl={albumQuantityControl} removeCartAlbum={removeCartAlbum} key={album.id} />)}
+      {cart.map(album => <CartAlbum cartAlbum={album} cart={cart} albumQuantityControl={albumQuantityControl} removeCartAlbum={removeCartAlbum} user={user} key={album.id} />)}
     </div> 
   )
 }

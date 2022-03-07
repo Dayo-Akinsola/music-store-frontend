@@ -1,6 +1,8 @@
 import AccountOrderAlbum from "./AcccountOrderAlbum";
 
-const AccountOrderMain = ({ albums }) => {
+const AccountOrderMain = ({ order }) => {
+  const { albums } = order;
+  
   return (
     <div className="account__order--main">
       {

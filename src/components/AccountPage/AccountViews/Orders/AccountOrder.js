@@ -6,7 +6,7 @@ const AccountOrder = ({ order }) => {
   return (
     <div className="account__order">
       <AccountOrderHeader order={order} />
-      <AccountOrderMain albums={order.albums} />
+      <AccountOrderMain order={order} />
       <AccountOrderFooter order={order} />
     </div>
   )
