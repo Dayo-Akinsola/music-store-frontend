@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { dataChangeRequest } from "../../../sevices/service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "../../../App";
 
-const ReviewFormModal = ({ user, albumDetails, closeModal, setNotification }) => {
+const ReviewFormModal = ({ albumDetails, closeModal, setNotification }) => {
 
+  const user = useContext(UserContext);
   const [reviewFormDetails, setReviewFormDetails] = useState({
     rating: 0,
     headline: '',

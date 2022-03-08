@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { dataChangeRequest } from '../../sevices/service';
+import { UserContext } from '../../App';
 
-const WishlistAlbum = ({ album, page, user}) => {
+const WishlistAlbum = ({ album, page }) => {
+  const user = useContext(UserContext);
   const params = useParams();
-  console.log(params.userId);
 
   let  backgroundStyle = {
     background: `linear-gradient(#00000065, #00000065), url(${album.image}) center no-repeat`, backgroundSize: 'cover',

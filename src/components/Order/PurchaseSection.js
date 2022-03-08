@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
 
-const PurchaseSection = ({ cart, user }) => {
+const PurchaseSection = ({ cart }) => {
+  const user = useContext(UserContext);
   const reducer = (previousValue, currentValue) => (previousValue + currentValue);
   const subtotals = cart.map(album => album.price * album.quantity);
   return (

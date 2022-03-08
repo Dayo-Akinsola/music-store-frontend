@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import Album from '../ShopPage/Album';
 
-const RelatedAlbums = ({  albumDetails }) => {
+const RelatedAlbums = ({ albumDetails }) => {
 
   const [slidePageCount, setSlidePageCount] = useState(7);
   const [slidePage, setSlidePage] = useState(0);

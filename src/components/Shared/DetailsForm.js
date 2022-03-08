@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { getRequest } from '../../sevices/service';
 import FormSection from './FormSection';
+import { UserContext } from '../../App';
 
-const DetailsForm = ({ user, deliveryDetails, setDeliveryDetails, handleSubmit, errorMessages, formName, btnText }) => {
-
+const DetailsForm = ({ deliveryDetails, setDeliveryDetails, handleSubmit, errorMessages, formName, btnText }) => {
+  const user = useContext(UserContext);
   useEffect(() => {
     const setStoredDetails = async () => {
       const { token } = user;

@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getRequest } from "../../../../../sevices/service";
 import FriendRequest from "./FriendRequest";
+import { UserContext } from "../../../../../App";
 
-const AccountFriendRequests = ({ user }) => {
+const AccountFriendRequests = () => {
+  const user = useContext(UserContext);
   const [requests, setRequests] = useState([]);
 
   const getFriendRequests = async () => {
@@ -24,7 +26,7 @@ const AccountFriendRequests = ({ user }) => {
       <div className="account__friends--received-requests">
         {
           requests.map((request) => (
-            <FriendRequest request={request} user={user} getFriendRequests={getFriendRequests} key={request.id} />
+            <FriendRequest request={request} getFriendRequests={getFriendRequests} key={request.id} />
           ))
         }
       </div>

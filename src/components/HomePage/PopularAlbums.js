@@ -49,13 +49,11 @@ const PopularAlbums = ({ runnersUp }) => {
   }, [counter, runnersUp.length]);
 
   useEffect(() => {
-
     const interval = setInterval(() => {
       setCounter(counter => (counter + 1) % slideCount);
     }, 3000);
-
     return () => clearInterval(interval);
-  })
+  }, [slideCount]);
 
   if (runnersUp) {
     return (

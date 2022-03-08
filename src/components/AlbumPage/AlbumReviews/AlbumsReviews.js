@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ReviewFormModal from "./ReviewFormModal";
 import AlbumReviewPercentages from "./AlbumReviewPercentages";
 import { getRequest } from "../../../sevices/service";
 import Review from "./Review";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../App";
 
-const AlbumReviews = ({ user, albumDetails, setNotification}) => {
+const AlbumReviews = ({ albumDetails, setNotification}) => {
+  const user = useContext(UserContext);
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -69,7 +71,7 @@ const AlbumReviews = ({ user, albumDetails, setNotification}) => {
       </div>
       {
         modalOpen ?
-          <ReviewFormModal user={user} albumDetails={albumDetails} closeModal={closeModal} setNotification={setNotification}/>
+          <ReviewFormModal albumDetails={albumDetails} closeModal={closeModal} setNotification={setNotification}/>
           :
           null
       }
@@ -80,7 +82,6 @@ const AlbumReviews = ({ user, albumDetails, setNotification}) => {
             reviews.map(review => (
               <Review 
                 review={review} 
-                user={user} 
                 getAlbumReviews={getAlbumReviews} 
                 userVotedReviews={userVotedReviews} 
                 getUserVotedReviews={getUserVotedReviews} 

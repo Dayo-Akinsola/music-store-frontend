@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import FriendSearch from "../Requests/FriendRequestModal";
 
-const AccountFriendListHeader = ({ user }) => {
+const AccountFriendListHeader = () => {
 
   const [ modalOpen, setModalOpen ] = useState(false);
 
@@ -18,7 +18,7 @@ const AccountFriendListHeader = ({ user }) => {
       </div>
       {
         modalOpen ?
-          <FriendSearch user={user} setModalOpen={setModalOpen} />
+          <FriendSearch setModalOpen={setModalOpen} />
           :
           null
       }

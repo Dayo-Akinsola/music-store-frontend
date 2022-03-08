@@ -1,9 +1,12 @@
-import { useNavigate ,Link } from "react-router-dom";
+import { useContext } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import { dataChangeRequest } from '../../sevices/service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../../App';
 
-const AccountWishlistAlbumModal = ({ addAlbumToCart, user, location, classNamePrefix }) => {
+const AccountWishlistAlbumModal = ({ addAlbumToCart, location, classNamePrefix }) => {
+  const user = useContext(UserContext);
   const navigate = useNavigate();
   const album = location.state.album;
 

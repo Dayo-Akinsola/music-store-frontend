@@ -4,7 +4,6 @@ import Review from "../../../Shared/Review";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-
 const AccountReviews = ({ user }) => {
   const [reviews, setReviews] = useState([]);
 

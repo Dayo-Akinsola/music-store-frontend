@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {  dataChangeRequest } from '../../../sevices/service';
 import DetailsForm from '../../Shared/DetailsForm';
+import { UserContext } from '../../../App';
 
-const DeliveryForm = ({ user, deliveryDetails, setDeliveryDetails, formErrorCheck, errorMessages }) => {
-
+const DeliveryForm = ({ deliveryDetails, setDeliveryDetails, formErrorCheck, errorMessages }) => {
+  const user = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -37,7 +39,6 @@ const DeliveryForm = ({ user, deliveryDetails, setDeliveryDetails, formErrorChec
         <button className="checkout__details--fill-form-btn" onClick={autoFillForm}>Fill Form</button>
       </div>
       <DetailsForm 
-        user={user} 
         deliveryDetails={deliveryDetails} 
         setDeliveryDetails={setDeliveryDetails} 
         handleSubmit={handleSubmit} 

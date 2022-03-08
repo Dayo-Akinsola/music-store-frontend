@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import QuantityInput from '../Shared/QuantityInput';
 import RelatedAlbums from './RelatedAlbums';
 import TrackList  from './TrackList';
 import { dataChangeRequest } from '../../sevices/service';
 import AlbumReviews from './AlbumReviews/AlbumsReviews';
+import { UserContext } from '../../App';
 
 const AlbumDetails = ({ 
     getAllAlbums, 
@@ -14,10 +15,10 @@ const AlbumDetails = ({
     addAlbumToCart, 
     incrementQuantity, 
     decrementQuantity,
-    user,
     setNotification,
   }) => {
 
+  const user = useContext(UserContext)
   const [albumDetails, setAlbumDetails] = useState(null);
   const urlParams = useParams();
 
@@ -240,7 +241,7 @@ const AlbumDetails = ({
           <TrackList albumDetails={albumDetails} togglePlaying={togglePlaying} urlParams={urlParams} setAlbumDetails={setAlbumDetails} pauseTrack={pauseTrack}  />
           <RelatedAlbums albumDetails={albumDetails} urlParams={urlParams} />
         </div>
-        <AlbumReviews user={user} albumDetails={albumDetails} setNotification={setNotification} />
+        <AlbumReviews albumDetails={albumDetails} setNotification={setNotification} />
       </div>
     </div>
   );

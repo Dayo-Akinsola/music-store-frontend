@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getRequest } from '../../../../../sevices/service';
 import AccountFriendListHeader from './AccountFriendListHeader';
 import Friend from '../../../../Shared/Friend';
+import { UserContext } from '../../../../../App';
 
-const AccountFriendList = ({ user }) => {
-
+const AccountFriendList = () => {
+  const user = useContext(UserContext);
   const [friends, setFriends] = useState([]);
   useEffect(() => {
     const getUserFriends = async () => {
@@ -17,7 +18,7 @@ const AccountFriendList = ({ user }) => {
 
   return (
     <div className="account__friends--friend-list-container">
-      <AccountFriendListHeader user={user} />
+      <AccountFriendListHeader />
       <div className="account__friends--friend-list">
         {
           friends.map(friendInfo => (

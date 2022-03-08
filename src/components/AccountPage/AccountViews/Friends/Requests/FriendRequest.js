@@ -1,9 +1,11 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { dataChangeRequest } from '../../../../../sevices/service';
+import { UserContext } from '../../../../../App';
 
-const FriendRequest = ({ user, request, getFriendRequests}) => {
+const FriendRequest = ({ request, getFriendRequests}) => {
+  const user = useContext(UserContext);
   const requestElement = useRef(null);
 
   const requestResponse = async (accept) => {

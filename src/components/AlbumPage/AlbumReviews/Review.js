@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import formatDate from "../../../helpers/formatDate";
 import { dataChangeRequest } from "../../../sevices/service";
+import { UserContext } from '../../../App';
 
-const Review = ({ review, user, getAlbumReviews, userVotedReviews, getUserVotedReviews, setNotification }) => {
+const Review = ({ review, getAlbumReviews, userVotedReviews, getUserVotedReviews, setNotification }) => {
 
+  const user = useContext(UserContext);
   const voteReview = async (voteType) => {
     const voteData = {
       reviewId: review._id,

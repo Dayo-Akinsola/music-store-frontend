@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import { getRequest } from "../../../sevices/service";
 import ProfileNav from "./ProfileNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-const ProfileHeader = ({ userInfo, user }) => {
+import { UserContext } from "../../../App";
+const ProfileHeader = ({ userInfo }) => {
+  const user = useContext(UserContext);
   const userUpvotes = userInfo.reviews.map(review => review.upvotes);
 
   const isLoggedInUsersFriend = async () => {

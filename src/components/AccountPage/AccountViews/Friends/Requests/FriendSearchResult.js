@@ -1,9 +1,12 @@
+import { useContext } from 'react/cjs/react.production.min';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { dataChangeRequest } from '../../../../../sevices/service';
+import { UserContext } from '../../../../../App';
 
-const FriendSearchResult = ({ user, searchResultUser, users, setUsers }) => {
+const FriendSearchResult = ({ searchResultUser, users, setUsers }) => {
 
+  const user = useContext(UserContext);
   const checkUser = () => {
     const allUsers = users.map(user => {
       if (user.id === searchResultUser.id) {

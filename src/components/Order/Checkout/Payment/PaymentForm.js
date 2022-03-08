@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { dataChangeRequest } from '../../../../sevices/service';
 import PaymentConfirmationModal from './PaymentConfirmationModal';
+import { UserContext } from '../../../../App';
 
-const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, deliveryDetails, user }) => {
-
+const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, deliveryDetails }) => {
+  const user = useContext(UserContext);
 	const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: '',
     expiryMonth: '',

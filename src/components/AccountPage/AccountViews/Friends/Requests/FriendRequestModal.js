@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getRequest } from '../../../../../sevices/service';
 import FriendSearchResult from './FriendSearchResult';
+import { UserContext } from '../../../../../App';
 
-const FriendSearch = ({ user, setModalOpen}) => {
+const FriendSearch = ({ setModalOpen }) => {
 
+  const user = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const [searchText, setSearchText] = useState('');
 
@@ -73,7 +75,7 @@ const FriendSearch = ({ user, setModalOpen}) => {
                 users.map((searchResultUser) => {
                   if (searchResultUser.shown) {
                     return (
-                      <FriendSearchResult key={searchResultUser.id} user={user} searchResultUser={searchResultUser} users={users} setUsers={setUsers} />
+                      <FriendSearchResult key={searchResultUser.id} searchResultUser={searchResultUser} users={users} setUsers={setUsers} />
                     )
                   }
                   return null;

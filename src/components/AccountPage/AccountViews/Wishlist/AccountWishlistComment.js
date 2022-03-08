@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
 import { dataChangeRequest, getRequest } from "../../../../sevices/service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "../../../../App";
 
-const AccountWishlistComment = ({ album, user}) => {
-  
+const AccountWishlistComment = ({ album }) => {
+  const user = useContext(UserContext);
   const [ editMode, setEditMode ] = useState(false);
   const [ comment, setComment ] = useState(album.comment);
 

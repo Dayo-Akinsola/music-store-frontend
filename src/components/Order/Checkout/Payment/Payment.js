@@ -6,7 +6,7 @@ import { faCcAmex } from "@fortawesome/free-brands-svg-icons"
 import PaymentForm from './PaymentForm';
 import CheckoutSummary from '../CheckoutSummary';
 
-const Payment = ({ cart, setCart, inputInvalidStyle, inputValidStyle, deliveryDetails, user }) => {
+const Payment = ({ cart, setCart, inputInvalidStyle, inputValidStyle, deliveryDetails }) => {
   return (
     <div className="payment">
       <div className="payment__details">
@@ -25,7 +25,6 @@ const Payment = ({ cart, setCart, inputInvalidStyle, inputValidStyle, deliveryDe
           cart={cart} 
           setCart={setCart} 
           deliveryDetails={deliveryDetails} 
-          user={user} 
         />
       </div>
       <div className="payment__order-summary">

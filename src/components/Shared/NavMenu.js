@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../../App';
 
-const NavMenu = ({ hidden, toggleNavDisplay, user }) => {
-
+const NavMenu = ({ hidden, toggleNavDisplay }) => {
+  const user = useContext(UserContext);
   const navDisplay = {
     display: `${hidden ? 'none' : 'block'}`,
   }

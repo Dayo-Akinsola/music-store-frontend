@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
 import DetailsForm from '../../../Shared/DetailsForm';
 import { dataChangeRequest } from '../../../../sevices/service';
+import { UserContext } from '../../../../App';
 
-const AccountDetails = ({ user, deliveryDetails, formErrorCheck, errorMessages, setDeliveryDetails }) => {
+const AccountDetails = ({ deliveryDetails, formErrorCheck, errorMessages, setDeliveryDetails }) => {
 
+  const user = useContext(UserContext);
   const [ showConfirmation, setShowConfirmation ] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -28,7 +30,6 @@ const AccountDetails = ({ user, deliveryDetails, formErrorCheck, errorMessages, 
         <h2 className="account__details--heading">My Details</h2>
       </div>
       <DetailsForm 
-        user={user} 
         deliveryDetails={deliveryDetails} 
         errorMessages={errorMessages} 
         setDeliveryDetails={setDeliveryDetails} 

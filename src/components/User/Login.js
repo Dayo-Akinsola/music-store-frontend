@@ -81,7 +81,7 @@ const Login = ({ inputInvalidStyle, inputValidStyle, setUser }) => {
       }
       <span className="login__register-redirect">
         Don't have an account? <Link to="/register">Sign Up Here</Link>
-        </span>
+      </span>
     </div>
   )
 }
