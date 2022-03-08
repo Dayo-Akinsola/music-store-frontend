@@ -1,6 +1,12 @@
-const AccountHeader = ({ user }) => {
+import { useContext } from 'react';
+import { UserContext } from "../../App";
+const AccountHeader = ({ showMobileNavigation}) => {
+
+  const user = useContext(UserContext);
+
   return (
-    <div className="account__header">
+    <>
+    <div className="account__header" style={{display: showMobileNavigation ? 'block' : 'none'}}>
       <div className="account__header--top-section"></div>
       <div className="account__header--bottom-section">
         <div className="account__header--profile-pic">
@@ -15,6 +21,7 @@ const AccountHeader = ({ user }) => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

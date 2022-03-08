@@ -8,7 +8,7 @@ const AccountOrderFooter = ({ order }) => {
     <div className="account__order--footer">
       <div className="account__order--total">
         <span className="account__order--total-label account__order--footer-label">Total</span>
-        <span className="account__order--total-value account__order--footer-value">£ {albumTotals.reduce(reducer)}</span>
+        <span className="account__order--total-value account__order--footer-value">£ {albumTotals.reduce(reducer).toFixed(2)}</span>
       </div>
       <div className="account__order--order-num">
         <span className="account__order--order-num-label account__order--footer-label">Order No</span>

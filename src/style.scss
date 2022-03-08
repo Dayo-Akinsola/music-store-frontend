@@ -13,6 +13,7 @@
   --main-blue: #1d3447;
   --main-black: #212529;
   --light-blue: #609dcf;
+  --alice-blue: #f3f5f7;
 }
 
 @mixin pageStyling() {
@@ -2808,8 +2809,8 @@ a {
 
   @include pageStyling();
   padding-top: 3.8em;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  background-color: #eee;
+  font-family: Poppins, ans-serif;
+  background-color: #f3f5f7;
 
   .account__header {
     background-color: #fff;
@@ -2879,10 +2880,9 @@ a {
     cursor: pointer;
     background-color: #fff;
     width: 100%;
-    text-align: center;
     font-weight: 300;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid #f3f5f7;
+    border-bottom: 1px solid #f3f5f7;
     font-size: 0.95em;
     transition: background-color 0.2s ease-in-out;
   }
@@ -2893,20 +2893,44 @@ a {
 
   .account__tab--link.active {
     .account__tab {
-      background-color: #eee;
+      background-color: #f3f5f7;
       border-top: 1px solid #fff;
       border-bottom: 1px solid #fff;
     }
   }
 
   .account__tab:hover {
-    background-color: #eee;
+    background-color: #f3f5f7;
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
 
     .account__tab--name {
       text-decoration: underline;
     }
+  }
+
+  .account__return {
+    display: flex;
+    background-color: #fff;
+    margin-top: 1em;
+    padding: 1em;
+    align-items: center;
+  }
+
+  .account__return--title {
+    width: 80%;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+
+  .account__return--link {
+    display: flex;
+  }
+
+  .account__return--arrow {
+    font-size: 1.1em;
+    margin-right: 0.4em;
   }
 
   .account__orders {
@@ -2963,7 +2987,7 @@ a {
   .account__order--header {
     display: flex;
     flex-direction: column;
-    background-color: #eee;
+    background-color: #f3f5f7;
     padding: 1em;
     border-radius: 8px 8px 0 0;
     font-size: 0.95em;
@@ -2993,16 +3017,19 @@ a {
   }
 
   .account__order--main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     padding: 0.8em;
+    grid-gap: 1em;
   }
 
   .account__order--album {
-    display: flex;
     border-bottom: 1px solid #c9d6db;
     margin-top: 0.6em;
     padding-bottom: 0.4em;
     margin-bottom: 0.2em;
     padding-top: 0.4em;
+    width: 7em;
   }
 
   .account__order--album-details {
@@ -3010,25 +3037,25 @@ a {
     flex-direction: column;
     margin-right: auto;
     font-size: 0.9em;
-    margin: 0.8em auto 0 0.4em;
+    margin: 0em auto 0 0.4em;
     font-weight: 600;
     width: 100%;
   }
 
-  .account__order--album-name-price {
-    display: flex;
-    flex-direction: column;
-    margin-right: auto;
-    width: 11.5em;
+  .account__order--album-name {
+    font-weight: 500;
+  }
+
+  .account__order--album-price {
+    font-weight: 400;
+  }
+
+  .account__order--album-quantity {
+    font-weight: 400;
   }
 
   .account__order--album-name:hover {
     text-decoration: underline;
-  }
-
-  .account__order--album-name {
-    margin-bottom: 1em;
-    cursor: pointer;
   }
 
   .account__order--album-img-wrapper {
@@ -3055,7 +3082,10 @@ a {
     display: flex;
     font-size: 0.9em;
     justify-content: space-around;
-    padding-bottom: 1.4em;
+    padding-bottom: 0.8em;
+    border-top: 1px solid #c9d6db;
+    margin-top: 2em;
+    padding-top: 1em;
   }
 
   .account__order--total {
