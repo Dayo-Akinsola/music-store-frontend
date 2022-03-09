@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AlbumOfTheWeek from './AlbumOfTheWeekSection/AlbumOfTheWeek';
 import Genres from './Genres';
 import PopularAlbums from './PopularAlbums';
 import SignUpSection from './SignUpSection';
+import { UserContext } from '../../App';
 
 const Home = ({ getPopularAlbums }) => {
+  const user = useContext(UserContext);
   const {bestAlbums, runnersUp} = getPopularAlbums();
   /* 
     Implemented parallax scrolling here instead of using background-attachment:fixed
@@ -30,9 +32,14 @@ const Home = ({ getPopularAlbums }) => {
             <Link className="home__text--shop-link" to='/shop/all/?page=1'>
               <button className="home__text--shop-btn">Shop Now</button>
             </Link>
-            <Link className="home__text--shop-link" to='/login'>
-              <button className="home__text--login-btn">Log In</button>
-            </Link>
+            {
+            user.token ?
+              null
+              :
+              <Link className="home__text--shop-link" to='/login'>
+                <button className="home__text--login-btn">Log In</button>
+              </Link>
+            }
           </div>
         </div>
       </section>

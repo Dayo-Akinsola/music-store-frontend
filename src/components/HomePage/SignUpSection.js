@@ -1,8 +1,10 @@
+import { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { UserContext } from '../../App';
 import Highlight from "./Highlight";
-// import {  } from "@fortawesome/free-brands-svg-icons";
 
 const SignUpSection = () => {
+  const user = useContext(UserContext);
   const highlightSections = [
     {
       text: 'Keep track of when you made an order and when it will be delivered',
@@ -29,12 +31,17 @@ const SignUpSection = () => {
 
   return  (
     <div className="home__sign-up">
-      <div className="home__sign-up--heading-wrapper">
-        <h4 className="home__sign-up--heading">Don't have an account?</h4>
-        <Link className="home__sign-up--link" to="/register">
-          <button className="home__sign-up--btn">Sign Up Here</button>
-        </Link>
-      </div>
+      {
+        user.token ?
+          null
+          :
+          <div className="home__sign-up--heading-wrapper">
+            <h4 className="home__sign-up--heading">Don't have an account?</h4>
+            <Link className="home__sign-up--link" to="/register">
+              <button className="home__sign-up--btn">Sign Up Here</button>
+            </Link>
+          </div>
+      }
       <div className="home__sign-up--highlights">
         <span className="home__sign-up--highlights-info">An account lets you...</span>
         {
