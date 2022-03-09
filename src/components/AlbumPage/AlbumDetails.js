@@ -36,7 +36,7 @@ const AlbumDetails = ({
   }
 
   const getAlbumTracks = async (albumInfo) => {
-    let tracksInfo; 
+    let tracksInfo;
     const response = await fetch(`http://localhost:3001/spotify/${albumInfo.title}`, {mode: 'cors'});
     const data = await response.json();
     const { items } = data.albums;
@@ -178,12 +178,12 @@ const AlbumDetails = ({
     }
   }
 
-  const emptyDivStyle = {
-    height: '100em',
-  }
-
   if (!albumDetails) {
-    return <div style={emptyDivStyle} className="empty-div"></div>
+    return (
+      <div className="album-page">
+        <div className="loader"></div>
+      </div>
+    )
   }
 
   return (
