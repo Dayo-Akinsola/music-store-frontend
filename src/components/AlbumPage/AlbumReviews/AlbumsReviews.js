@@ -75,22 +75,29 @@ const AlbumReviews = ({ albumDetails, setNotification}) => {
           :
           null
       }
-      <div className="album-page__album-reviews-section">
-        <AlbumReviewPercentages ratingsBreakdown={ratingsBreakdown} totalReviews={reviews.length} />
-        <div className="album-page__album-reviews">
-          {
-            reviews.map(review => (
-              <Review 
-                review={review} 
-                getAlbumReviews={getAlbumReviews} 
-                userVotedReviews={userVotedReviews} 
-                getUserVotedReviews={getUserVotedReviews} 
-                setNotification={setNotification}
-                key={review._id}/>
-            ))
-          }
-        </div>
-      </div>
+      {
+        reviews.length === 0 ?
+          <div className="album-page__reviews--no-reviews-wrapper">
+            <span className="album-page__reviews--no-reviews"><b>{albumDetails.albumTitle}</b> has not been reviewed yet</span>
+          </div>
+          :
+          <div className="album-page__album-reviews-section">
+            <AlbumReviewPercentages ratingsBreakdown={ratingsBreakdown} totalReviews={reviews.length} />
+            <div className="album-page__album-reviews">
+              {
+                reviews.map(review => (
+                  <Review 
+                    review={review} 
+                    getAlbumReviews={getAlbumReviews} 
+                    userVotedReviews={userVotedReviews} 
+                    getUserVotedReviews={getUserVotedReviews} 
+                    setNotification={setNotification}
+                    key={review._id}/>
+                ))
+              }
+            </div>
+          </div>
+      }
     </div>
   )
 }
