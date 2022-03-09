@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faMusic } from '@fortawesome/free-solid-svg-icons'
 import MobileNavMenu from './MobileNavMenu';
 import NavMenu from './NavMenu';
 
@@ -17,7 +17,8 @@ const Header = ({ displayCart, totalQuantity, hidden, toggleNavDisplay }) => {
       <MobileNavMenu hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
       <Link to="/">
         <div className="header--heading-wrapper">
-          <h2 className="header--heading">Album Store</h2>
+          <FontAwesomeIcon className="header--heading-icon" icon={faMusic} />
+          <h2 className="header--heading">Albumphoria</h2>
         </div>
       </Link>
       <NavMenu />

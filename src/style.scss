@@ -271,11 +271,20 @@ input::-webkit-inner-spin-button {
   z-index: 10;
   padding: 1.2em 1.2em 0.6em;
 
+  .header--heading-wrapper {
+    text-align: center;
+    color: var(--light-blue);
+    margin-left: 1em;
+  }
+
   .header--heading {
     font-weight: 400;
     font-size: 1.3em;
     margin: auto;
-    color: #fff;
+  }
+
+  .header--heading-icon {
+    font-size: 1.3em;
   }
 
   .header--cart-icon-container {
@@ -372,10 +381,6 @@ input::-webkit-inner-spin-button {
   .header__nav-menu--link.active > .header__nav-menu--option {
     background-color: var(--main-black);
     color: white;
-  }
-
-  .header__nav-menu--option.login-option {
-    // border-top: 1px solid mediumpurple;
   }
 
   @media (min-width: 800px) {
@@ -1128,6 +1133,36 @@ a {
   font-family: Poppins, sans-serif;
   @include pageStyling();
   -webkit-font-smoothing: antialiased;
+  padding-bottom: 35em;
+
+  .loader {
+    border: 1em solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 1em solid var(--light-blue);
+    width: 8em;
+    height: 8em;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    margin-top: 9em;
+  }
+
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
   .album-page__details {
     background-color: #f2f3f2;
@@ -2076,7 +2111,7 @@ a {
   }
 
   .footer__contact--github:hover {
-    color: mediumpurple;
+    color: var(--light-blue);
     transition: color 0.2s ease-in-out;
   }
 
