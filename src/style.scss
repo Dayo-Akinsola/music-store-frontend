@@ -261,52 +261,78 @@ input::-webkit-inner-spin-button {
 
 .header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   color: white;
   background-color: var(--main-black);
-  font-family: Founders Grotesk, Arial Black, sans-serif;
+  font-family: Poppins, sans-serif;
   position: fixed;
   width: 100%;
   z-index: 10;
   padding: 1.2em 1.2em 0.6em;
 
-  .header__top {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
-
-  .header__top--heading {
+  .header--heading {
     font-weight: 400;
     font-size: 1.3em;
     margin: auto;
+    color: #fff;
   }
 
-  .header__top--cart-icon-container {
+  .header--cart-icon-container {
     cursor: pointer;
     position: relative;
   }
 
-  .header__top--cart-count {
+  .header--cart-count {
     position: absolute;
     color: black;
     font-weight: 600;
     right: 0.7em;
     top: 0.18em;
     font-size: 0.95em;
+    font-family: Founders Grotesk, Arial Black, sans-serif;
   }
 
-  .header__top--cart-icon {
+  .header--cart-icon {
     font-size: 2em;
   }
 
   .header__nav-menu {
+    display: none;
+  }
+
+  .header__nav-menu-options {
+    list-style: none;
+    display: flex;
+
+    .header__nav-menu--option {
+      color: #fff;
+    }
+
+    .header__nav-menu--link.active {
+      border-bottom: solid 2px var(--light-blue);
+
+      .header__nav-menu--option {
+        color: var(--light-blue);
+      }
+    }
+
+    .header__nav-menu--link:hover {
+      .header__nav-menu--option {
+        color: var(--light-blue);
+      }
+    }
+
+    .header__nav-menu--option:hover {
+      color: var(--light-blue);
+    }
+  }
+
+  .header__mobile-nav-menu {
     position: relative;
   }
 
-  .header__nav-menu--btn {
+  .header__mobile-nav-menu--btn {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0);
     border: none;
@@ -314,11 +340,11 @@ input::-webkit-inner-spin-button {
     font-size: 1.3em;
   }
 
-  .header__nav-menu--btn.active {
+  .header__mobile-nav-menu--btn.active {
     color: #6c757d;
   }
 
-  .header__nav-menu--options {
+  .header__mobile-nav-menu--options {
     display: none;
     list-style: none;
     position: absolute;
@@ -349,7 +375,17 @@ input::-webkit-inner-spin-button {
   }
 
   .header__nav-menu--option.login-option {
-    border-top: 1px solid mediumpurple;
+    // border-top: 1px solid mediumpurple;
+  }
+
+  @media (min-width: 800px) {
+    .header__mobile-nav-menu {
+      display: none;
+    }
+
+    .header__nav-menu {
+      display: block;
+    }
   }
 }
 
@@ -1413,6 +1449,14 @@ a {
     background-color: #609dcfad;
   }
 
+  .album-page__reviews--no-reviews-wrapper {
+    padding: 1em;
+    border-top: 1px solid var(--main-blue);
+    border-bottom: 1px solid var(--main-blue);
+    margin-top: 2em;
+    font-size: 1.15em;
+  }
+
   .album-page__review-form-modal {
     @include modal();
   }
@@ -2323,12 +2367,14 @@ a {
       margin: auto;
       max-width: 70em;
       justify-content: space-evenly;
+      align-items: flex-start;
     }
 
     .checkout__details {
       width: 90%;
       padding: 1em;
       max-width: 40em;
+      margin: 0;
     }
 
     .checkout__summary {
@@ -2446,7 +2492,7 @@ a {
     padding: 0.8em;
     width: 80%;
     display: flex;
-    margin: auto;
+    margin: 0 auto;
     flex-direction: column;
     max-width: 37em;
     align-items: center;
@@ -2713,7 +2759,7 @@ a {
 
   @media (min-width: 1000px) {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     width: 90%;
     margin: auto;
     max-width: 79em;
@@ -2728,17 +2774,27 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: Poppins, sans-serif;
   @include pageStyling();
-
-  .login__form {
-    margin-top: 2em;
-  }
+  padding-bottom: 33.8em;
 
   .form-wrapper {
     width: 100%;
     position: relative;
     border-radius: 3px;
+  }
+
+  .login__form-wrapper {
+    margin-top: 3.5em;
+  }
+
+  .login__form--submit-btn {
+    @include btnStyling();
+    margin-bottom: 1.4em;
+  }
+
+  .login__form--submit-btn:hover {
+    background-color: var(--main-black);
   }
 
   .login-input {
@@ -2754,13 +2810,19 @@ a {
     border-style: none;
     font-weight: 600;
   }
+
+  .login__register-redirect--link {
+    color: var(--light-blue);
+    font-weight: 600;
+    text-decoration: underline;
+  }
 }
 
 .register {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: Poppins, sans-serif;
   @include pageStyling();
 
   .register__form {
@@ -2772,6 +2834,15 @@ a {
     position: relative;
     border-radius: 3px;
     margin-bottom: 2.5em;
+  }
+
+  .register__form--submit-btn {
+    @include btnStyling();
+    margin-bottom: 1.4em;
+  }
+
+  .register__form--submit-btn:hover {
+    background-color: var(--main-black);
   }
 
   .register-input {
@@ -2798,6 +2869,12 @@ a {
     color: crimson;
     font-size: 0.8em;
   }
+
+  .register__login-redirect--link {
+    color: var(--light-blue);
+    font-weight: 600;
+    text-decoration: underline;
+  }
 }
 
 .account {
@@ -2812,8 +2889,12 @@ a {
   font-family: Poppins, ans-serif;
   background-color: #f3f5f7;
 
-  .account__header {
+  .account__header.shown {
     background-color: #fff;
+  }
+
+  .account__header.hidden {
+    display: none;
   }
 
   .account__header--top-section {
@@ -2868,11 +2949,19 @@ a {
     font-weight: 600;
   }
 
-  .account__tabs {
+  .account__desktop-header--bottom-section {
+    background-color: #fff;
+  }
+
+  .account__tabs.shown {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 0.1em;
+  }
+
+  .account__tabs.hidden {
+    display: none;
   }
 
   .account__tab {
@@ -2896,6 +2985,7 @@ a {
       background-color: #f3f5f7;
       border-top: 1px solid #fff;
       border-bottom: 1px solid #fff;
+      border-left: 3.5px solid var(--light-blue);
     }
   }
 
@@ -2909,12 +2999,24 @@ a {
     }
   }
 
-  .account__return {
+  .account__desktop-header {
+    display: none;
+  }
+
+  .account__desktop-tabs {
+    display: none;
+  }
+
+  .account__return.shown {
     display: flex;
     background-color: #fff;
     margin-top: 1em;
     padding: 1em;
     align-items: center;
+  }
+
+  .account__return.hidden {
+    display: none;
   }
 
   .account__return--title {
@@ -2931,6 +3033,36 @@ a {
   .account__return--arrow {
     font-size: 1.1em;
     margin-right: 0.4em;
+  }
+
+  .account__overview {
+    display: none;
+    height: 55em;
+  }
+
+  .account--overview--bg-img {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+      url("./assets/images/listen-bg.jpg");
+    height: 64%;
+  }
+
+  .account__overview--heading-wrapper {
+    background-color: #181a2036;
+    height: 5em;
+    color: #fff;
+    text-align: center;
+    padding-top: 1.5em;
+  }
+
+  .account__overview--heading {
+    border-bottom: solid 2px white;
+    width: 55%;
+    margin: auto;
+    margin-bottom: 0em;
   }
 
   .account__orders {
@@ -2978,10 +3110,10 @@ a {
     margin: auto;
     margin-top: 0.6em;
     border-radius: 8px;
-    max-width: 38em;
     border-radius: 8px;
     border: 1px solid #eee;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    max-width: 35em;
   }
 
   .account__order--header {
@@ -3071,6 +3203,7 @@ a {
   .account__order--album-img {
     width: 100%;
     border-radius: 9%;
+    height: 7em;
   }
 
   .account__order--album-quantity-wrapper {
@@ -3105,6 +3238,10 @@ a {
     margin-bottom: 0.4em;
   }
 
+  .account__order--footer-value {
+    font-weight: 600;
+  }
+
   .account__wishlist {
     @include profileSection();
     margin-top: 2em;
@@ -3114,7 +3251,7 @@ a {
       display: flex;
       flex-direction: column;
       text-align: center;
-      width: 80%;
+      width: 100%;
       align-items: center;
       margin: auto;
     }
@@ -3218,14 +3355,25 @@ a {
     }
 
     .account__wishlist--purchase-btn {
+      @include btnStyling();
       margin-bottom: 0.8em;
-      padding: 0.4em;
+      padding: 1em;
       cursor: pointer;
     }
 
+    .account__wishlist--purchase-btn:hover {
+      background-color: var(--main-black);
+    }
+
     .account__wishlist--remove-btn {
-      padding: 0.4em;
+      @include btnStyling();
+      padding: 1em;
       cursor: pointer;
+      background-color: crimson;
+    }
+
+    .account__wishlist--remove-btn:hover {
+      background-color: rgb(153, 13, 41);
     }
 
     .account__wishlist--your-album-comment-wrapper {
@@ -3241,7 +3389,12 @@ a {
     }
 
     .account__wishlist--add-edit-comment-btn {
+      color: var(--main-blue);
       cursor: pointer;
+    }
+
+    .account__wishlist--add-edit-comment-btn:hover {
+      color: var(--main-black);
     }
 
     .account__wishlist--your-alblum-comment-header {
@@ -3875,6 +4028,61 @@ a {
       border-bottom: solid 1px var(--main-black);
     }
   }
+
+  @media (min-width: 600px) {
+    .account__order--main {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .account__wishlist-albums--container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1em;
+    }
+  }
+
+  @media (min-width: 800px) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    .account__header.shown {
+      display: none;
+    }
+
+    .account__tabs.shown {
+      display: none;
+    }
+
+    .account__overview {
+      display: block;
+    }
+
+    .account__return.shown {
+      display: none;
+    }
+
+    .account__desktop-header {
+      display: block;
+    }
+
+    .account__desktop-tabs {
+      display: block;
+    }
+
+    .account__navigation {
+      width: 34%;
+      margin-top: 2em;
+      margin-left: 0.6em;
+      max-width: 21em;
+    }
+
+    .account__view {
+      width: 60%;
+      margin: 2em 1em 0 1em;
+      max-width: 54em;
+    }
+  }
 }
 
 .profile-page {
@@ -3883,6 +4091,7 @@ a {
   padding-top: 3.8em;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   background-color: #eee;
+  padding-bottom: 36em;
 
   .profile-page__header--top-section {
     @include profileTopSection();
@@ -3891,6 +4100,8 @@ a {
   .profile-page__header--bottom-section {
     @include profileSection();
     border-radius: 8px;
+    max-width: 34em;
+    padding-bottom: 0;
   }
 
   .profile-page__header--profile-pic {
@@ -3965,24 +4176,25 @@ a {
   }
 
   .profile-page__header--profile-nav {
-    padding: 0.6em;
-    font-size: 0.95em;
+    font-size: 1.05em;
     font-weight: 600;
-    border-right: solid 1px var(--main-black);
+    border-bottom: solid 4px #80808059;
+    transition: border-color 0.3s ease-in-out;
   }
 
-  .profile-page__header--profile-nav-link:hover {
-    border-bottom: solid 2px mediumpurple;
+  .profile-page__header--profile-nav:hover {
+    border-color: var(--light-blue);
   }
 
-  .profile-page__header--profile-nav-link .active {
-    border-bottom: solid 2px mediumpurple;
+  .profile-page__header--profile-nav .active {
+    border-color: var(--light-blue);
   }
 
   .profile-page__reviews {
     @include profileSection();
     margin-top: 2em;
     width: 100%;
+    max-width: 79em;
   }
 
   .profile-page__reviews--heading-wrapper {
@@ -4070,26 +4282,27 @@ a {
     @include profileSection();
     margin-top: 2em;
     width: 100%;
+    max-width: 79em;
   }
 
   .profile-page__wishlist-albums {
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 80%;
+    width: 100%;
     align-items: center;
     margin: auto;
   }
 
   .profile-page__wishlist-albums--container {
-    width: 100%;
-    max-width: 22em;
+    width: 80%;
   }
 
   .profile-page__wishlist-albums--album-bg-img {
     width: 100%;
     height: 10em;
     max-width: 22em;
+    margin: auto;
     cursor: pointer;
     border-radius: 8px;
     transition: opacity 0.3s ease-in-out;
@@ -4193,9 +4406,14 @@ a {
   }
 
   .profile-page__wishlist--purchase-btn {
+    @include btnStyling();
     margin-bottom: 0.8em;
-    padding: 0.4em;
+    padding: 1em;
     cursor: pointer;
+  }
+
+  .profile-page__wishlist--purchase-btn:hover {
+    background-color: var(--main-black);
   }
 
   .profile-page__wishlist--remove-btn {
@@ -4215,6 +4433,7 @@ a {
     @include profileSection();
     margin-top: 2em;
     width: 100%;
+    max-width: 79em;
   }
 
   .profile-page__friends--heading-wrapper {
@@ -4275,5 +4494,31 @@ a {
 
   .profile-page__friend-list--profile-btn:hover {
     background-color: #3d586e;
+  }
+
+  @media (min-width: 600px) {
+    .profile-page__wishlist-albums--container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1em;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .profile-page__header--top-section {
+      padding-top: 20%;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .profile-page__wishlist-albums--container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .profile-page__header--top-section {
+      padding-top: 10%;
+    }
   }
 }
