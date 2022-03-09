@@ -29,12 +29,14 @@ import ProfileWishlist from './components/Profile/ProfileViews/Wishlist/ProfileW
 import ProfileWishlistModal from './components/Profile/ProfileViews/Wishlist/ProfileWishlistModal';
 import ProfileFriends from './components/Profile/ProfileViews/ProfileFriends';
 import AuthenticatedRoutes from './components/Shared/AuthenticatedRoutes';
+import AccountOverview from './components/AccountPage/AccountViews/AccountOverview';
   
 export const UserContext = createContext();
+export const setUserContext = createContext();
 
 const App = () => {
 
-  const [user, setUser] = useState({ token: null, username: null, password: null});
+  const [user, setUser] = useState({ token: null, username: null, name: null, id: null});
   const [albums, setAlbums] = useState(
     {
       all: [],
@@ -99,7 +101,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    async function checkToken () {
+    const checkToken = async () => {
       const userInfo = retriveUserInfoFromLocalStorage();
       if (!userInfo) {
         setAuthentication({ isLoggedIn: false, isLoading: false});
@@ -107,13 +109,12 @@ const App = () => {
       }
       const response = await getRequest('http://localhost:3001/users/details', userInfo.token);
       if (response.ok) {
-        setAuthentication({  isLoggedIn: true, isLoading: false });
+        setAuthentication({ isLoggedIn: true, isLoading: false });
       } else {
         setAuthentication({ isLoggedIn: false, isLoading: false });
       }
     }
     checkToken();
-
   }, [user.token]);
 
   useEffect(() => {
@@ -477,113 +478,116 @@ const App = () => {
   return (
     <div className="container" onClick={hideMobileNav}>
       <UserContext.Provider value={user} >
-        <Router>
-          <ScrollToTop />
-          <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
-          <Notification notification={notification} setNotification={setNotification}/>
-          <Routes>
-            <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
-            <Route path='/shop'>
-              <Route path='all' element={<Shop albums={albums.all} genre='All' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route path='popular' element={<Shop albums={albums.all} genre='Popular' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
-              <Route 
-                path=':uri/:type/:id' 
-                element={<AlbumDetails 
-                totalQuantity={totalQuantity}
-                displayCart={displayCart}
-                getAllAlbums={getAllAlbums} 
-                quantity={quantity}
-                setQuantity={setQuantity}
-                handleQuantityChange={handleQuantityChange}
-                addAlbumToCart={addAlbumToCart}
-                incrementQuantity={incrementQuantity}
-                decrementQuantity={decrementQuantity}
-                cart={cart}
-                setNotification={setNotification}
-              />}></Route>
-            </Route>
-            <Route 
-              path='/order' 
-              element={<OrderSummary 
-              cart={cart} 
-              albumQuantityControl={albumQuantityControl} 
-              removeCartAlbum={removeCartAlbum} 
-              totalQuantity={totalQuantity} 
-              />}
-            >
-            </Route>
-            <Route path='/checkout' 
-              element={
-              <CheckoutPage 
-              cart={cart} 
-              deliveryDetails={deliveryDetails} 
-              formErrorCheck={formErrorCheck} 
-              errorMessages={errorMessages}
-              setDeliveryDetails={setDeliveryDetails}
-            />}></Route>
-            <Route
-              path='/payment' 
-              element={
-                <Payment 
+        <setUserContext.Provider value={setUser} > 
+          <Router>
+            <ScrollToTop />
+            <Header totalQuantity={totalQuantity} displayCart={displayCart} hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
+            <Notification notification={notification} setNotification={setNotification}/>
+            <Routes>
+              <Route path='/' element={<Home getPopularAlbums={getPopularAlbums} totalQuantity={totalQuantity} displayCart={displayCart} albums={albums} />}></Route>
+              <Route path='/shop'>
+                <Route path='all' element={<Shop albums={albums.all} genre='All' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route path='pop' element={<Shop albums={albums.pop} genre='Pop' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route path='rock' element={<Shop albums={albums.rock} genre='Rock' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route path='electronic' element={<Shop albums={albums.electronic} genre='Electronic' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route path='hip-hop' element={<Shop albums={albums.hiphop} genre='Hip Hop' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route path='jazz' element={<Shop albums={albums.jazz} genre='Jazz' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route path='popular' element={<Shop albums={albums.all} genre='Popular' genres={Object.keys(albums)} getPopularAlbums={getPopularAlbums} />}></Route>
+                <Route 
+                  path=':uri/:type/:id' 
+                  element={<AlbumDetails 
+                  totalQuantity={totalQuantity}
+                  displayCart={displayCart}
+                  getAllAlbums={getAllAlbums} 
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  handleQuantityChange={handleQuantityChange}
+                  addAlbumToCart={addAlbumToCart}
+                  incrementQuantity={incrementQuantity}
+                  decrementQuantity={decrementQuantity}
                   cart={cart}
-                  setCart={setCart}
-                  inputInvalidStyle={inputInvalidStyle} 
-                  inputValidStyle={inputValidStyle} 
-                  deliveryDetails={deliveryDetails}
-                />}>
+                  setNotification={setNotification}
+                />}></Route>
               </Route>
-            <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} setUser={setUser} />}></Route>
-            <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
-            <Route element={<AuthenticatedRoutes authentication={authentication} />}>
-              <Route path='account' element={<Account />}>
-                <Route path='orders' element={<AccountOrders user={user} />}></Route>
-                <Route path='wishlist' element={<AccountWishlist user={user} />}>
-                  <Route path=':albumId' element={<AccountWishlistAlbumModal addAlbumToCart={addAlbumToCart} />}></Route>
-                </Route>
-                <Route path='details' 
-                  element={
-                  <AccountDetails 
+              <Route 
+                path='/order' 
+                element={<OrderSummary 
+                cart={cart} 
+                albumQuantityControl={albumQuantityControl} 
+                removeCartAlbum={removeCartAlbum} 
+                totalQuantity={totalQuantity} 
+                />}
+              >
+              </Route>
+              <Route path='/checkout' 
+                element={
+                <CheckoutPage 
+                cart={cart} 
+                deliveryDetails={deliveryDetails} 
+                formErrorCheck={formErrorCheck} 
+                errorMessages={errorMessages}
+                setDeliveryDetails={setDeliveryDetails}
+              />}></Route>
+              <Route
+                path='/payment' 
+                element={
+                  <Payment 
+                    cart={cart}
+                    setCart={setCart}
+                    inputInvalidStyle={inputInvalidStyle} 
+                    inputValidStyle={inputValidStyle} 
                     deliveryDetails={deliveryDetails}
-                    formErrorCheck={formErrorCheck}
-                    errorMessages={errorMessages}
-                    setDeliveryDetails={setDeliveryDetails}
                   />}>
                 </Route>
-                <Route path='friends' element={<AccountFriends />}>
-                  <Route path='friendlist' element={<AccountFriendList />}></Route>
-                  <Route path='requests' element={<AccountFriendRequests />}></Route>
+              <Route path='/login' element={<Login inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} setUser={setUser} />}></Route>
+              <Route path='/register' element={<Register inputInvalidStyle={inputInvalidStyle} inputValidStyle={inputValidStyle} />}></Route>
+              <Route element={<AuthenticatedRoutes authentication={authentication} />}>
+                <Route path='account' element={<Account />}>
+                  <Route path='' element={<AccountOverview />}></Route>
+                  <Route path='orders' element={<AccountOrders user={user} />}></Route>
+                  <Route path='wishlist' element={<AccountWishlist user={user} />}>
+                    <Route path=':albumId' element={<AccountWishlistAlbumModal addAlbumToCart={addAlbumToCart} />}></Route>
+                  </Route>
+                  <Route path='details' 
+                    element={
+                    <AccountDetails 
+                      deliveryDetails={deliveryDetails}
+                      formErrorCheck={formErrorCheck}
+                      errorMessages={errorMessages}
+                      setDeliveryDetails={setDeliveryDetails}
+                    />}>
+                  </Route>
+                  <Route path='friends' element={<AccountFriends />}>
+                    <Route path='friendlist' element={<AccountFriendList />}></Route>
+                    <Route path='requests' element={<AccountFriendRequests />}></Route>
+                  </Route>
+                  <Route path='reviews' element={<AccountReviews user={user}/>}></Route>
                 </Route>
-                <Route path='reviews' element={<AccountReviews user={user}/>}></Route>
               </Route>
-            </Route>
-            <Route path='/profile/:userId' element={<ProfilePage userInfo={userInfo} setUserInfo={setUserInfo}/>}>
-              <Route path='reviews' element={<ProfileReviews userInfo={userInfo} />}></Route>
-              <Route path='wishlist' element={<ProfileWishlist userInfo={userInfo} />}>
-                <Route path=':albumId' element={<ProfileWishlistModal addAlbumToCart={addAlbumToCart} />}></Route>
+              <Route path='/profile/:userId' element={<ProfilePage userInfo={userInfo} setUserInfo={setUserInfo}/>}>
+                <Route path='reviews' element={<ProfileReviews userInfo={userInfo} />}></Route>
+                <Route path='wishlist' element={<ProfileWishlist userInfo={userInfo} />}>
+                  <Route path=':albumId' element={<ProfileWishlistModal addAlbumToCart={addAlbumToCart} />}></Route>
+                </Route>
+                <Route path='friends' element={<ProfileFriends userInfo={userInfo} />}></Route>
               </Route>
-              <Route path='friends' element={<ProfileFriends userInfo={userInfo} />}></Route>
-            </Route>
-          </Routes>
-          {
-          showCart 
-            ? 
-            <CartSidebar
-              cart={cart} 
-              hideCart={hideCart} 
-              totalQuantity={totalQuantity} 
-              albumQuantityControl={albumQuantityControl}
-              removeCartAlbum={removeCartAlbum}
-              user={user}
-            /> 
-            : 
-            <></>
-          }
-        </Router>
+            </Routes>
+            {
+            showCart 
+              ? 
+              <CartSidebar
+                cart={cart} 
+                hideCart={hideCart} 
+                totalQuantity={totalQuantity} 
+                albumQuantityControl={albumQuantityControl}
+                removeCartAlbum={removeCartAlbum}
+                user={user}
+              /> 
+              : 
+              <></>
+            }
+          </Router>
+        </setUserContext.Provider>
         <Footer />
       </UserContext.Provider>
     </div>
