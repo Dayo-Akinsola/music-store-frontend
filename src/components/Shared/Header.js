@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import MobileNavMenu from './MobileNavMenu';
 import NavMenu from './NavMenu';
 
 const Header = ({ displayCart, totalQuantity, hidden, toggleNavDisplay }) => {
@@ -12,14 +14,17 @@ const Header = ({ displayCart, totalQuantity, hidden, toggleNavDisplay }) => {
 
   return (
     <div className="header">
-      <NavMenu hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
-      <div className="header__top">
-        <h2 className="header__top--heading">Album Store</h2>
-        <div onClick={displayCart} className="header__top--cart-icon-container">
-          <span className="header__top--cart-count" style={totalQuantity >= 10 ? doubleDigitPosition : singleDigitPosition}>{totalQuantity}</span>
-          <FontAwesomeIcon className="header__top--cart-icon" icon={faShoppingCart} />
+      <MobileNavMenu hidden={hidden} toggleNavDisplay={toggleNavDisplay} />
+      <Link to="/">
+        <div className="header--heading-wrapper">
+          <h2 className="header--heading">Album Store</h2>
         </div>
-      </div> 
+      </Link>
+      <NavMenu />
+      <div onClick={displayCart} className="header--cart-icon-container">
+        <span className="header--cart-count" style={totalQuantity >= 10 ? doubleDigitPosition : singleDigitPosition}>{totalQuantity}</span>  
+        <FontAwesomeIcon className="header--cart-icon" icon={faShoppingCart} />
+      </div>
     </div>
   )
 }
