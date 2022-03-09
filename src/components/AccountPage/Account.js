@@ -24,12 +24,13 @@ const Account = () => {
 
   if (user.token) {
     return (
+      <>
       <div className="account">
         <div className="account__navigation">
           <AccountHeader showMobileNavigation={showMobileNavigation} />
-          <AccountTabs showMobileNavigation={showMobileNavigation} />
+          <AccountTabs showMobileNavigation={showMobileNavigation} match={match} />
         </div>
-        <div className="account__return" style={{display: showMobileNavigation ? 'none' : 'flex'}}>
+        <div className={`account__return ${showMobileNavigation ? 'hidden' : 'shown'}`}>
           <Link to="/account" className="account__return--link">
             <FontAwesomeIcon className="account__return--arrow" icon={faChevronLeft} />
             <i className="gg-profile"></i>
@@ -38,6 +39,8 @@ const Account = () => {
         </div>
         <Outlet />
       </div>
+      </>
+
     )
   }
   return null;
