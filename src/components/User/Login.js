@@ -18,7 +18,7 @@ const Login = ({ inputInvalidStyle, inputValidStyle, setUser }) => {
     setCredentials({...credentials, [name] : value});
   }
 
-  const removeInputErrorStyling = (event) => {
+  const removeInputErrorStyling = () => {
     setErrorMessage('');
   }
 
@@ -80,7 +80,7 @@ const Login = ({ inputInvalidStyle, inputValidStyle, setUser }) => {
         )
       }
       <span className="login__register-redirect">
-        Don't have an account? <Link to="/register">Sign Up Here</Link>
+        Don't have an account? <Link className="login__register-redirect--link" to="/register">Sign Up Here</Link>
       </span>
     </div>
   )

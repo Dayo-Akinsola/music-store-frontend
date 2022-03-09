@@ -24,7 +24,7 @@ const AccountDetails = ({ deliveryDetails, formErrorCheck, errorMessages, setDel
   }
 
   return (
-    <div className="account__details">
+    <div className="account__details account__view">
       <div className="account__details--heading-container">
         <FontAwesomeIcon className='account__details--heading-icon' icon={faUserEdit} />
         <h2 className="account__details--heading">My Details</h2>

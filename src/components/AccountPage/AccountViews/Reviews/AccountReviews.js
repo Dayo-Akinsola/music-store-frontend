@@ -17,7 +17,7 @@ const AccountReviews = ({ user }) => {
   }, [user.token]);
 
   return (
-    <div className="account__reviews">
+    <div className="account__reviews account__view">
       <div className="account__reviews--heading-wrapper">
         <div className="account__reviews--icon-wrapper">
           <FontAwesomeIcon icon={faStar} className="account__reviews--icon" />

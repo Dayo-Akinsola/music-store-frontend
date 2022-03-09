@@ -173,6 +173,8 @@ const AlbumDetails = ({
     if (!response.ok) {
       const data = await response.json();
       setNotification(data.error);
+    } else {
+      setNotification(`${albumData.title} has been added to your wishlist`)
     }
   }
 

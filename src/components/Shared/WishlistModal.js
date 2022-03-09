@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../App';
 
-const AccountWishlistAlbumModal = ({ addAlbumToCart, location, classNamePrefix }) => {
+const AccountWishlistAlbumModal = ({ addAlbumToCart, location, page }) => {
   const user = useContext(UserContext);
   const navigate = useNavigate();
   const album = location.state.album;
@@ -30,25 +30,25 @@ const AccountWishlistAlbumModal = ({ addAlbumToCart, location, classNamePrefix }
   
   return (
     <>
-      <div style={headerBackgroundStyle} className={`${classNamePrefix}__wishlist--album-modal-bg-img`}>
-        <div className={`${classNamePrefix}__wishlist--close-btn-wrapper`} onClick={closeModal}>
-          <FontAwesomeIcon className={`${classNamePrefix}__wishlist--close-btn`} icon={faWindowClose}  />
+      <div style={headerBackgroundStyle} className={`${page}__wishlist--album-modal-bg-img`}>
+        <div className={`${page}__wishlist--close-btn-wrapper`} onClick={closeModal}>
+          <FontAwesomeIcon className={`${page}__wishlist--close-btn`} icon={faWindowClose}  />
         </div>
       </div>
-      <div className={`${classNamePrefix}__wishlist--main`}>
-        <div className={`${classNamePrefix}__wishlist--album-modal-details`}>
+      <div className={`${page}__wishlist--main`}>
+        <div className={`${page}__wishlist--album-modal-details`}>
           <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/releases/${album.albumId}`}>
-            <span className={`${classNamePrefix}__wishlist--album-modal-title`}>{album.title}</span>
+            <span className={`${page}__wishlist--album-modal-title`}>{album.title}</span>
           </Link>
-          <span className={`${classNamePrefix}__wishlist--album-modal-artist`}>{album.artist}</span>
-          <span className={`${classNamePrefix}__wishlist--album-modal-price`}>£ {album.price}</span>
+          <span className={`${page}__wishlist--album-modal-artist`}>{album.artist}</span>
+          <span className={`${page}__wishlist--album-modal-price`}>£ {album.price.toFixed(2)}</span>
         </div>
-        <div className={`${classNamePrefix}__wishlist--btns-container`}>
-          <button className={`${classNamePrefix}__wishlist--purchase-btn`} onClick={() => addAlbumToCart(album)}>Add To Cart</button>
+        <div className={`${page}__wishlist--btns-container`}>
+          <button className={`${page}__wishlist--purchase-btn`} onClick={() => addAlbumToCart(album)}>Add To Cart</button>
           {
             location.pathname.includes('profile') ? null 
             :
-            <button className={`${classNamePrefix}__wishlist--remove-btn`} onClick={removeAlbumFromWishlist}>Remove From Wishlist</button>
+            <button className={`${page}__wishlist--remove-btn`} onClick={removeAlbumFromWishlist}>Remove From Wishlist</button>
           }
         </div>
       </div>

@@ -6,7 +6,7 @@ const Notification = ({ notification, setNotification}) => {
     const resetNotification = () => {
       setTimeout(() => {
         setNotification('');
-      }, 10000)
+      }, 7400)
     }
 
     resetNotification();

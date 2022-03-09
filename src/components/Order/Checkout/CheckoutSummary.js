@@ -19,7 +19,6 @@ const CheckoutSummary = ({ cart }) => {
   if (cart.length === 0) {
     return null;
   }
-  
   return (
     <div className="checkout__summary">
       <h4 className="checkout__summary--heading">Order Summary</h4>
@@ -29,7 +28,7 @@ const CheckoutSummary = ({ cart }) => {
       <div className="checkout__summary--total-wrapper">
         <span className="checkout__summary--total-label">Total:</span>
         <span className="checkout__summary--total-value">
-          £{(cart.length === 1 ? subtotals[0].price + subtotals[0].quantity : subtotals.reduce(reducer)).toFixed(2)}
+          £{(cart.length === 1 ? subtotals[0] : subtotals.reduce(reducer)).toFixed(2)}
         </span>
       </div>
     </div>

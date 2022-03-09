@@ -8,7 +8,7 @@ const ProfileWishlistModal = ({ addAlbumToCart }) => {
   return (
     <div className="profile-page__wishlist-album-modal">
       <div className="profile-page__wishlist-album-modal-content">
-        <WishlistModal addAlbumToCart={addAlbumToCart} location={location} classNamePrefix='profile-page'/>
+        <WishlistModal addAlbumToCart={addAlbumToCart} location={location} page='profile-page'/>
         <ProfileWishlistComment comment={location.state.album.comment} />
       </div>
     </div>

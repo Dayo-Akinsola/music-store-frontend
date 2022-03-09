@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const AccountFriends = () => {
   return (
-    <div className="account__friends">
+    <div className="account__friends account__view">
       <div className="account__friends--header">
         <h3 className="account__friends--heading">My Friends</h3>
         <nav className="account__friends--nav-bar">

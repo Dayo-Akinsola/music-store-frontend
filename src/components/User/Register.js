@@ -189,7 +189,7 @@ const Register = ({ inputInvalidStyle, inputValidStyle}) => {
         </form>
       </div>
       <span className="register__login-redirect">
-        Already have an account? <Link to="/login">Log In Here</Link>
+        Already have an account? <Link className="register__login-redirect--link" to="/login">Log In Here</Link>
         </span>
     </div>
   )  

@@ -9,7 +9,7 @@ const PurchaseSection = ({ cart }) => {
   return (
     <div className="order-summary__purchase">
       <div className="order-summary__purchase--total-wrapper">
-        <span className="order-summary__purchase--total"><b>Total:</b> £{cart.length === 1 ? subtotals[0] : subtotals.reduce(reducer).toFixed(2)}</span>
+        <span className="order-summary__purchase--total"><b>Total:</b> £{(cart.length === 1 ? subtotals[0] : subtotals.reduce(reducer)).toFixed(2)}</span>
       </div>
       {
         !user.token ? 

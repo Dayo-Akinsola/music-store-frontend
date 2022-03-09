@@ -19,7 +19,7 @@ const AccountOrders = ({ user }) => {
 
   }, [user.token]);
   return (
-    <div className="account__orders">
+    <div className="account__orders account__view">
       <div className="account__orders--heading-container">
         <FontAwesomeIcon className='account__orders--heading-icon' icon={faShoppingBag} />
         <h3 className="account__orders--heading">My Orders</h3> 

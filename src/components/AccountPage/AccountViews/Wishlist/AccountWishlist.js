@@ -32,7 +32,7 @@ const AccountWishlist = ({ user }) => {
   });
 
   return (
-    <div className="account__wishlist">
+    <div className="account__wishlist account__view">
       <div className="account__wishlist--heading-container">
         <FontAwesomeIcon className='account__wishlist--heading-icon' icon={faGift} />
         <h2 className="account__wishlist--heading">My Wishlist</h2>

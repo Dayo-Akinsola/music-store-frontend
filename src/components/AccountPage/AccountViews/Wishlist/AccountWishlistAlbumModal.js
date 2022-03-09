@@ -8,7 +8,7 @@ const AccountWishlistAlbumModal = ({ addAlbumToCart }) => {
    return (    
     <div className="account__wishlist--album-modal">
       <div className="account__wishlist--album-modal-content">
-        <WishlistModal location={location} addAlbumToCart={addAlbumToCart} classNamePrefix='account'  />
+        <WishlistModal location={location} addAlbumToCart={addAlbumToCart} page='account'  />
         <AccountWishlistComment album={location.state.album} />
       </div>
     </div>
