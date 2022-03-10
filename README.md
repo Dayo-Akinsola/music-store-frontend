@@ -25,8 +25,9 @@ Albumphoria is an app I made that gives the experience of an album ecommerce sto
 
 ## How It's Made:
 
-**Frontend Tech:** React, React-router, HTML, Sass.
-**Backend Tech:** Node.js, Express, MongoDB, Mongoose, node-cache, user authentication with jwt, Tested with jest and supertest.
+**Frontend Tech:** React (useState, useEffect, useContext, useReducer hooks), React-router, HTML, Sass.
+
+**Backend Tech:** Node.js, Express, MongoDB, Mongoose, node-cache, user authentication with jwt, tested with jest and supertest.
 
 On the frontend, the app was built with React and React-router to give it a dynamic user interface and the feeling of a multi-page app. Over 200 albums in the store which are retrived from the discogs api. More detailed track information and track previews are collected by cleaning the string for an album's title and finding a match using the spotify api. If no match is found then more detailed track information will be collected from the discogs api.The collection of albums is loaded from the backend into frontend so to avoid unnecessary calls to the apis I used node-cache to cache responses from the discogs and spotify apis. The cache is reset every hour.
 
