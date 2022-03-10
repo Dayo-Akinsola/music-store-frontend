@@ -6,7 +6,7 @@ Albumphoria is an app I made that gives the experience of an album ecommerce sto
 
 **Link to backend repo:** https://github.com/Dayo-Akinsola/music-store-backend
 
-![alt tag](http://placecorgi.com/1200/650)
+<img src="https://i.imgur.com/JEoaWsQ.png" alt="shop-page"/>
 
 ## Features:
 
