@@ -7,30 +7,12 @@ const AccountOrderAlbum = ({ album, order }) => {
   const user = useContext(UserContext);
 
   const updateOrderAlbumThumb = async (event) => {
-    const response = await dataChangeRequest('http://localhost:3001/orders/thumb', { albumId: album.id, orderId: order.id},  user.token, 'PUT');
+    const response = await dataChangeRequest('https://albumphoria.herokuapp.com/orders/thumb', { albumId: album.id, orderId: order.id},  user.token, 'PUT');
     const updatedThumb = await response.json();
     event.target.src = updatedThumb;
   }
 
   return (
-    // <div className="account__order--album">
-    //   <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/releases/${album.id}`}>
-    //     <div className="account__order--album-img-wrapper">
-    //       <img src={album.thumb} alt={album.title} onError={updateOrderAlbumThumb} className="account__order--album-img" />
-    //     </div>
-    //   </Link>
-    //   <div className="account__order--album-details">
-    //     <div className="account__order--album-name-price">
-    //       <Link className="account__order--album-name" to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/releases/${album.id}`}>
-    //         <span >{album.title}</span>
-    //       </Link>
-    //       <span className="account__order--album-price">£ {album.price}</span>
-    //     </div>
-    //     <div className="account__order--album-quantity-wrapper">
-    //       <span className="account__order--album-quantity">Qty: {album.quantity}</span>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="account__order--album">
       <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/releases/${album.id}`}>
         <div className="account__order--album-img-wrapper">
