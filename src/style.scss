@@ -2823,12 +2823,29 @@ a {
     margin-top: 3.5em;
   }
 
+  .login__form {
+    width: 21em;
+  }
+
   .login__form--submit-btn {
     @include btnStyling();
     margin-bottom: 1.4em;
   }
 
+  .login__form--test-btn {
+    @include btnStyling();
+    margin-bottom: 1.4em;
+  }
+
+  .login__error--message {
+    color: crimson;
+  }
+
   .login__form--submit-btn:hover {
+    background-color: var(--main-black);
+  }
+
+  .login__form--test-btn:hover {
     background-color: var(--main-black);
   }
 
@@ -2862,6 +2879,7 @@ a {
 
   .register__form {
     margin-top: 2em;
+    width: 21em;
   }
 
   .form-wrapper {
@@ -3303,6 +3321,10 @@ a {
       border-radius: 8px;
       transition: opacity 0.3s ease-in-out;
       margin-bottom: 2em;
+    }
+
+    .account__wishlist-albums--container {
+      width: 80%;
     }
 
     .account__wishlist-albums--album-container {
