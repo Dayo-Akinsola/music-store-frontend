@@ -2,7 +2,6 @@
 import { Link } from 'react-router-dom';
 
 const Album = ({ album, pageNum, searchParams }) => {
-
   if (!searchParams || pageNum == searchParams.get('page')) {
     return (
       <div className="shop__album" >

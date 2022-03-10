@@ -11,7 +11,7 @@ const Shop = ({ albums, genre, genres, getPopularAlbums}) => {
   const { popularAlbums } = getPopularAlbums();
 
   const [pages, setPages] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams({});
+  const [ searchParams ] = useSearchParams({});
 
   const paginateAlbums = (albumGroup) => {
     const pageSize = 20;

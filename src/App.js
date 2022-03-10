@@ -210,7 +210,11 @@ const App = () => {
   const setAlbumPrices = async (albums) => {
     return albums.map((album) => {
       const price = ((album.community.want + album.community.have) * 0.25).toFixed(2);
-      album['price'] = price;
+      if (price === '0.00') {
+        album['price'] = '2.50';
+      } else {
+        album['price'] = price;
+      }
       return album;
     });
   }
