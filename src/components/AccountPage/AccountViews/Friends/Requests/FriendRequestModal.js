@@ -12,7 +12,7 @@ const FriendSearch = ({ setModalOpen }) => {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const response = await getRequest('http://localhost:3001/friends/all', user.token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/friends/all', user.token);
       const allUsers = await response.json();
       const currentUserRemovedFromSearch = allUsers.filter(searchUser => searchUser.id !== user.id);
       setUsers(currentUserRemovedFromSearch.map(userInfo => {

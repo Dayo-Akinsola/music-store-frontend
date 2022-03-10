@@ -193,8 +193,8 @@ const PaymentForm = ({ inputInvalidStyle, inputValidStyle, cart, setCart, delive
       }
       setLoaderActive(true);
       setTimeout(async () => {
-        await dataChangeRequest('http://localhost:3001/orders/', orderData, user.token, 'POST');
-        await dataChangeRequest('http://localhost:3001/users/cart/clear', null, user.token, 'DELETE');
+        await dataChangeRequest('https://albumphoria.herokuapp.com/orders/', orderData, user.token, 'POST');
+        await dataChangeRequest('https://albumphoria.herokuapp.com/users/cart/clear', null, user.token, 'DELETE');
         setLoaderActive(false);
         setShowConfirmModal(true);
       }, 3000)

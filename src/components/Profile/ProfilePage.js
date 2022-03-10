@@ -8,7 +8,7 @@ const ProfilePage = ({ userInfo, setUserInfo }) => {
   const urlParams = useParams();
   useEffect(() => {
     const getUserInfo = async () => {
-      const response = await getRequest(`http://localhost:3001/users/user/${urlParams.userId}`);
+      const response = await getRequest(`https://albumphoria.herokuapp.com/users/user/${urlParams.userId}`);
       const user = await response.json();
       setUserInfo(user);
     }

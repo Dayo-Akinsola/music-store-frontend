@@ -11,7 +11,7 @@ const PaymentConfirmationModal = ({ orderTimeRef, setShowConfirmModal, setCart }
 
   useEffect(() => {
     const getCurrentOrder = async () => {
-      const response = await getRequest(`http://localhost:3001/orders/${orderTimeRef}`);
+      const response = await getRequest(`https://albumphoria.herokuapp.com/orders/${orderTimeRef}`);
       const order = await response.json();
       console.log(order);
       setDeliveryDate(formatDate(order.orderDate + 432000000));

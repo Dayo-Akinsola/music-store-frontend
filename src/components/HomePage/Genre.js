@@ -72,7 +72,7 @@ const Genre = ({ genre, bgColor}) => {
 
   return (
     <div className={`home__genres--${genre} genre`} style={genreContainer}  >
-      <Link to={genre === 'hiphop' ? '/shop/hip-hop' : `/shop/${genre}`}>
+      <Link to={genre === 'hiphop' ? '/shop/hip-hop/?page=1' : `/shop/${genre}/?page=1`}>
       <div className={`home__genres--${genre}-imgs genre-imgs`} style={imagesContainerStyle}>
         <img src={genreImages[`${genre}.jpg`]} alt={genre} className={`home__genres--${genre}-img genre-img`} style={imageStyle} />
       </div>

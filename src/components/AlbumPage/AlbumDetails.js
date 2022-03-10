@@ -37,7 +37,7 @@ const AlbumDetails = ({
 
   const getAlbumTracks = async (albumInfo) => {
     let tracksInfo;
-    const response = await fetch(`http://localhost:3001/spotify/${albumInfo.title}`, {mode: 'cors'});
+    const response = await fetch(`https://albumphoria.herokuapp.com/spotify/${albumInfo.title}`, {mode: 'cors'});
     const data = await response.json();
     const { items } = data.albums;
     const matchingAlbum = items.filter((album) => {
@@ -69,7 +69,7 @@ const AlbumDetails = ({
       return tracksInfo;
     } else {
       const albumSpotifyId = matchingAlbum[0].id
-      const tracklistResponse = await fetch(`http://localhost:3001/spotify/${albumSpotifyId}/tracks`, {mode: 'cors'});
+      const tracklistResponse = await fetch(`https://albumphoria.herokuapp.com/spotify/${albumSpotifyId}/tracks`, {mode: 'cors'});
       const tracklistData = await tracklistResponse.json();
       tracksInfo = {
         tracklist: tracklistData.items.map((track) => {
@@ -97,7 +97,7 @@ const AlbumDetails = ({
     const setInitialAlbumDetails = async () => {
       const albums = await getAllAlbums();
       const chosenAlbum = albums.filter(album => album.id === parseInt(urlParams.id))[0];
-      const response = await fetch(`http://localhost:3001/discogs/${chosenAlbum.type}s/${chosenAlbum.id}`, { mode: 'cors'});
+      const response = await fetch(`https://albumphoria.herokuapp.com/discogs/${chosenAlbum.type}s/${chosenAlbum.id}`, { mode: 'cors'});
       const albumInfo = await response.json();
       const tracksInfo = await getAlbumTracks(albumInfo);
       setAlbumDetails(
@@ -169,7 +169,7 @@ const AlbumDetails = ({
       image: albumDetails.cover_image,
       artist: albumDetails.artist,
     }
-    const response = await dataChangeRequest('http://localhost:3001/wishlist', albumData, token, 'POST');
+    const response = await dataChangeRequest('https://albumphoria.herokuapp.com/wishlist', albumData, token, 'POST');
     if (!response.ok) {
       const data = await response.json();
       setNotification(data.error);

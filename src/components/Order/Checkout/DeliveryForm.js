@@ -15,7 +15,7 @@ const DeliveryForm = ({ deliveryDetails, setDeliveryDetails, formErrorCheck, err
 
     if (isFormValid) {
       if (user.token) {
-        dataChangeRequest('http://localhost:3001/users/details', deliveryDetails, user.token, 'PUT');
+        dataChangeRequest('https://albumphoria.herokuapp.com/users/details', deliveryDetails, user.token, 'PUT');
       }
       navigate('/payment');
     }

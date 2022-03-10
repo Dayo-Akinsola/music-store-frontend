@@ -9,7 +9,7 @@ const AccountReviews = ({ user }) => {
 
   useEffect(() => {
     const getUserReviews = async () => {
-      const response = await getRequest('http://localhost:3001/reviews/userReviews', user.token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/reviews/userReviews', user.token);
       const userReviews = await response.json();
       setReviews(userReviews);
     }

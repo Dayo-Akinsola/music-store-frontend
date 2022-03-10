@@ -7,7 +7,7 @@ const CartAlbum = ({ cartAlbum, albumQuantityControl, removeCartAlbum, user }) =
   const { incrementAlbumQuantity, decrementAlbumQuantity, handleAlbumQuantityChange } = albumQuantityControl;
 
   const updateThumb = async (event) => {
-    const response = await dataChangeRequest('http://localhost:3001/users/cart/thumb', {albumId: cartAlbum.id}, user.token, 'PUT');
+    const response = await dataChangeRequest('https://albumphoria.herokuapp.com/users/cart/thumb', {albumId: cartAlbum.id}, user.token, 'PUT');
     const updatedThumb = await response.json();
     event.target.src = updatedThumb;
   }

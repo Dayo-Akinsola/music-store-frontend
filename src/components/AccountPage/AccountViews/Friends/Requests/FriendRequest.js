@@ -20,7 +20,7 @@ const FriendRequest = ({ request, getFriendRequests}) => {
     } else {
       requestElement.current.classList.add('rejected');
     }
-    await dataChangeRequest('http://localhost:3001/friends/request/response', responseData, user.token, 'POST');
+    await dataChangeRequest('https://albumphoria.herokuapp.com/friends/request/response', responseData, user.token, 'POST');
     await getFriendRequests();
   }
 

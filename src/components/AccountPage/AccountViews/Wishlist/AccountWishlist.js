@@ -11,7 +11,7 @@ const AccountWishlist = ({ user }) => {
   const [ wishlist, setWishlist ] = useState([]);
   useEffect(() => {
     const getUserWishlist = async (token) => {
-      const response = await getRequest('http://localhost:3001/wishlist', token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/wishlist', token);
       const userWishlist = await response.json();
       setWishlist(userWishlist);
     }

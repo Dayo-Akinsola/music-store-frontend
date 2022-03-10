@@ -1,4 +1,4 @@
-import { useContext } from 'react/cjs/react.production.min';
+import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { dataChangeRequest } from '../../../../../sevices/service';
@@ -18,7 +18,7 @@ const FriendSearchResult = ({ searchResultUser, users, setUsers }) => {
   }
 
   const sendFriendRequest = async (id) => {
-    await dataChangeRequest('http://localhost:3001/friends/request', {id}, user.token, 'POST');
+    await dataChangeRequest('https://albumphoria.herokuapp.com/friends/request', {id}, user.token, 'POST');
   }
 
   const clickHandler = async () => {

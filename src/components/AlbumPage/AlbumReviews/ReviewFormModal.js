@@ -112,7 +112,7 @@ const ReviewFormModal = ({ albumDetails, closeModal, setNotification }) => {
       upvotes: 0,
       downvotes: 0,
     }
-    return await dataChangeRequest('http://localhost:3001/reviews', reviewData, user.token, 'POST');
+    return await dataChangeRequest('https://albumphoria.herokuapp.com/reviews', reviewData, user.token, 'POST');
   }
 
   const handleSubmit = async (event) => {

@@ -107,7 +107,7 @@ const App = () => {
         setAuthentication({ isLoggedIn: false, isLoading: false});
         return;
       }
-      const response = await getRequest('http://localhost:3001/users/details', userInfo.token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/users/details', userInfo.token);
       if (response.ok) {
         setAuthentication({ isLoggedIn: true, isLoading: false });
       } else {
@@ -145,7 +145,7 @@ const App = () => {
 
     const setUserCartAlbums = async (userInfo) => {
       if (userInfo) {
-        const response = await getRequest('http://localhost:3001/users/cart', userInfo.token);
+        const response = await getRequest('https://albumphoria.herokuapp.com/users/cart', userInfo.token);
         const cartItems = await response.json();
         setCart(cartItems);
       }
@@ -172,7 +172,7 @@ const App = () => {
 
   
   const getAlbumSet = async (style) => {
-    const response = await fetch(`http://localhost:3001/discogs/${style}`, { withCredentials: true, mode: 'cors' });
+    const response = await fetch(`https://albumphoria.herokuapp.com/discogs/${style}`, { withCredentials: true, mode: 'cors' });
     const data = await response.json()
     const albums = data.results; 
     return albums;
@@ -254,7 +254,7 @@ const App = () => {
   }
 
   const updateUserCart = async (albumData, token) => {
-    const response = await dataChangeRequest('http://localhost:3001/users/cart', albumData, token, 'PUT');
+    const response = await dataChangeRequest('https://albumphoria.herokuapp.com/users/cart', albumData, token, 'PUT');
     const cartData = await response.json();
     setCart(cartData);  
   }
@@ -396,7 +396,7 @@ const App = () => {
 
   const removeCartAlbum = async (id) => {
     if (user.token) {
-      const response = await dataChangeRequest(`http://localhost:3001/users/cart`, { id }, user.token, 'DELETE');
+      const response = await dataChangeRequest(`https://albumphoria.herokuapp.com/users/cart`, { id }, user.token, 'DELETE');
       const newCart = await response.json();
       setCart(newCart);
     } else {

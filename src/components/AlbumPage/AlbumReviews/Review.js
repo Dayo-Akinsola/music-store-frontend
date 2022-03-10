@@ -11,7 +11,7 @@ const Review = ({ review, getAlbumReviews, userVotedReviews, getUserVotedReviews
       reviewId: review._id,
       vote: voteType,
     }
-    const response = await dataChangeRequest('http://localhost:3001/reviews/vote', voteData, user.token, 'PUT');
+    const response = await dataChangeRequest('https://albumphoria.herokuapp.com/reviews/vote', voteData, user.token, 'PUT');
     if (response.ok) {
       await getAlbumReviews();
       await  getUserVotedReviews();

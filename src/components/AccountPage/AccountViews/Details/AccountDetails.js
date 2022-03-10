@@ -15,7 +15,7 @@ const AccountDetails = ({ deliveryDetails, formErrorCheck, errorMessages, setDel
     const isFormValid = formErrorCheck();
 
     if (isFormValid) {
-      await dataChangeRequest('http://localhost:3001/users/details', deliveryDetails, user.token, 'PUT');
+      await dataChangeRequest('https://albumphoria.herokuapp.com/users/details', deliveryDetails, user.token, 'PUT');
       setShowConfirmation(true);
       setTimeout(() => {
         setShowConfirmation(false);

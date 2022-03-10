@@ -26,7 +26,7 @@ const AlbumReviews = ({ albumDetails, setNotification}) => {
   }
 
   const getAlbumReviews = async () => {
-    const response = await getRequest(`http://localhost:3001/reviews/${albumDetails.id}`, null);
+    const response = await getRequest(`https://albumphoria.herokuapp.com/reviews/${albumDetails.id}`, null);
     const allReviews = await response.json();
     setReviews(allReviews);
     return allReviews;
@@ -34,7 +34,7 @@ const AlbumReviews = ({ albumDetails, setNotification}) => {
 
   /* Gets reviews that the current logged in user has upvoted or downvoted */
   const getUserVotedReviews = async () => {
-    const response = await getRequest('http://localhost:3001/reviews/votedReviews', user.token);
+    const response = await getRequest('https://albumphoria.herokuapp.com/reviews/votedReviews', user.token);
     const votedReviews = await response.json();
     setUserVotedReviews(votedReviews);
   }

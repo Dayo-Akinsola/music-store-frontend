@@ -14,15 +14,15 @@ const AccountWishlistComment = ({ album }) => {
       albumId: album.albumId,
       comment,
     }
-    await dataChangeRequest('http://localhost:3001/wishlist', newAlbumComment, user.token, 'PUT');
-    const response = await getRequest(`http://localhost:3001/wishlist/${album._id.toString()}`, user.token);
+    await dataChangeRequest('https://albumphoria.herokuapp.com/wishlist', newAlbumComment, user.token, 'PUT');
+    const response = await getRequest(`https://albumphoria.herokuapp.com/wishlist/${album._id.toString()}`, user.token);
     const editedAlbum = await response.json();
     setComment(editedAlbum.comment);
     setEditMode(false);
   }
 
   const cancelEdit = async () => {
-    const response = await getRequest(`http://localhost:3001/wishlist/${album._id.toString()}`, user.token);
+    const response = await getRequest(`https://albumphoria.herokuapp.com/wishlist/${album._id.toString()}`, user.token);
     const currentAlbum = await response.json();
     setComment(currentAlbum.comment);
     setEditMode(false);

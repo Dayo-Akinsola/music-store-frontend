@@ -17,7 +17,7 @@ const WishlistAlbum = ({ album, page }) => {
       const image = new Image();
       image.addEventListener('error', async () => {
         const userId = user ? user.id : params.userId;
-        const response = await dataChangeRequest('http://localhost:3001/wishlist/image', { albumId: album.albumId, userId}, null, 'PUT');
+        const response = await dataChangeRequest('https://albumphoria.herokuapp.com/wishlist/image', { albumId: album.albumId, userId}, null, 'PUT');
         if (response.ok) {
           const updatedImage = await response.json();
           backgroundStyle = {

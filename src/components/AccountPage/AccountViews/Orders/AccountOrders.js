@@ -9,7 +9,7 @@ const AccountOrders = ({ user }) => {
 
   useEffect(() => {
     const getUserOrders = async () => {
-      const response = await getRequest('http://localhost:3001/orders', user.token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/orders', user.token);
       const orders = await response.json();
       setAccountOrders(orders);
       return orders;

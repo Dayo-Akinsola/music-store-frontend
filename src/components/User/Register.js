@@ -103,7 +103,7 @@ const Register = ({ inputInvalidStyle, inputValidStyle}) => {
 
     if (!errorFound){
         const { name, username, password } = credentials;
-        const response = await userAuth('http://localhost:3001/users/register', {name, username, password});
+        const response = await userAuth('https://albumphoria.herokuapp.com/users/register', {name, username, password});
         if (response.ok) {
           navigate('/login');
         } else {

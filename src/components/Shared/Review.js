@@ -7,7 +7,7 @@ const Review = ({ review, userInfo, page }) => {
   const params = useParams();
   
   const updateReviewdAlbumThumb = async (event) => {
-    const response = await dataChangeRequest('http://localhost:3001/reviews/thumb', 
+    const response = await dataChangeRequest('https://albumphoria.herokuapp.com/reviews/thumb', 
       {reviewId: review._id, userId: params.userId ? params.userId : userInfo.id}, null, 'PUT'
     );
     const updatedThumb = await response.json();

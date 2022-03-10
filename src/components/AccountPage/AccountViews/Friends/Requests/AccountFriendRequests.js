@@ -9,7 +9,7 @@ const AccountFriendRequests = () => {
   const [requests, setRequests] = useState([]);
 
   const getFriendRequests = async () => {
-    const response = await getRequest('http://localhost:3001/friends/request/received', user.token);
+    const response = await getRequest('https://albumphoria.herokuapp.com/friends/request/received', user.token);
     const receivedRequests = await response.json();
     setRequests(receivedRequests.map(request => request));
   }

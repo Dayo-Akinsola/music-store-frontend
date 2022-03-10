@@ -16,7 +16,7 @@ const AccountWishlistAlbumModal = ({ addAlbumToCart, location, page }) => {
   }
 
   const removeAlbumFromWishlist = async () => {
-    await dataChangeRequest('http://localhost:3001/wishlist', {albumId: album.albumId}, user.token, 'DELETE');
+    await dataChangeRequest('https://albumphoria.herokuapp.com/wishlist', {albumId: album.albumId}, user.token, 'DELETE');
     navigate('/account/wishlist', {
       state: {
         message: `${album.title} has been removed from your wishlist`,

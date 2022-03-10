@@ -24,7 +24,7 @@ const Login = ({ inputInvalidStyle, inputValidStyle, setUser }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await userAuth('http://localhost:3001/users/login', {...credentials});
+    const response = await userAuth('https://albumphoria.herokuapp.com/users/login', {...credentials});
     if (response.ok) {
       setErrorMessage('');
       const user = await response.json();
@@ -36,6 +36,13 @@ const Login = ({ inputInvalidStyle, inputValidStyle, setUser }) => {
       const serverErrorMessage = errorObj.error;
       setErrorMessage(serverErrorMessage);
     }
+  }
+
+  const fillTestCredentials = () => {
+    setCredentials({
+      username: 'Test01',
+      password: 'Test111',
+    });
   }
  
   return (
@@ -68,6 +75,7 @@ const Login = ({ inputInvalidStyle, inputValidStyle, setUser }) => {
             />
           </div>
           <button className="login__form--submit-btn">Login</button>
+          <button className="login__form--test-btn" onClick={fillTestCredentials}>Guest Account</button>
         </form>
       </div>
       {

@@ -10,7 +10,7 @@ const ProfileHeader = ({ userInfo }) => {
 
   const isLoggedInUsersFriend = async () => {
     if (user.token) {
-      const response = await getRequest('http://localhost:3001/friends/friendlist', user.token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/friendlist', user.token);
       const userFriends = await response.json();
       const userMatch = userFriends.filter(friend => friend.id === userInfo.id);
       return userMatch.length === 0 ? false : true;

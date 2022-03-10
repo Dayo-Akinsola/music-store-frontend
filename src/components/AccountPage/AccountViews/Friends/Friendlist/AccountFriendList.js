@@ -9,7 +9,7 @@ const AccountFriendList = () => {
   const [friends, setFriends] = useState([]);
   useEffect(() => {
     const getUserFriends = async () => {
-      const response = await getRequest('http://localhost:3001/friends/friendlist', user.token);
+      const response = await getRequest('https://albumphoria.herokuapp.com/friends/friendlist', user.token);
       const allFriends = await response.json();
       setFriends(allFriends);
     }

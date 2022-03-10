@@ -10,7 +10,7 @@ const DetailsForm = ({ deliveryDetails, setDeliveryDetails, handleSubmit, errorM
     const setStoredDetails = async () => {
       const { token } = user;
       if (token) {
-        const response = await getRequest('http://localhost:3001/users/details', token);
+        const response = await getRequest('https://albumphoria.herokuapp.com/users/details', token);
         const userDetails = await response.json();
         setDeliveryDetails(userDetails);
       }
