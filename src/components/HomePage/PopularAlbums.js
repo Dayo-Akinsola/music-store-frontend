@@ -79,7 +79,7 @@ const PopularAlbums = ({ runnersUp }) => {
               ))}
             </div>
           </div>
-          <Link to="/shop/popular" className="home__popular-albums--link">
+          <Link to="/shop/popular/?page=1" className="home__popular-albums--link">
             <div className="home__popular-albums--btn-wrapper">
               <button className="home__popular-albums--btn">Popular Albums</button>
             </div>
