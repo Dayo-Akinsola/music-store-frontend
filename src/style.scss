@@ -1626,6 +1626,14 @@ a {
     margin-left: 0.6em;
   }
 
+  .album-page__review-form--submit-btn {
+    @include btnStyling();
+  }
+
+  .album-page__review-form--submit-btn:hover {
+    background-color: var(--main-black);
+  }
+
   .album-page__reviews--review-percentages {
     margin: auto;
     text-align: center;
@@ -2811,7 +2819,7 @@ a {
   align-items: center;
   font-family: Poppins, sans-serif;
   @include pageStyling();
-  padding-bottom: 33.8em;
+  padding-bottom: 29.5em;
 
   .form-wrapper {
     width: 100%;
