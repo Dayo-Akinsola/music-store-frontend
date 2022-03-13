@@ -1,6 +1,6 @@
 # Albumphoria
 
-Albumphoria is an app I made that gives the experience of an album ecommerce store. You can view browse, listen to and 'purchase' albums using the app and users who have an account have additional features such as, the ability to review an album, a wishlist, and friends.
+Albumphoria is an app I made that gives the experience of an album ecommerce store. You can view, browse, listen to and simulate the purchase of a collection of albums using the app and users who have an account have additional features such as the ability to review an album, a wishlist, and friends.
 
 **Link to project:** https://albumphoria.netlify.app/
 
