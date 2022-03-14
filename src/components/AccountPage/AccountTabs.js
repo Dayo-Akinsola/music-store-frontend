@@ -36,7 +36,7 @@ const AccountTabs = ({ showMobileNavigation, match }) => {
       <AccountTab tabName="My Details" page='details' link='details' />  
       <AccountTab tabName="My Friends" page='friends' link='friends/friendlist' /> 
       <AccountTab tabName="My Reviews" page='reviews' link='reviews' />
-      <div className={'account__tab account__tab--logout'}>
+      <div onClick={logOut} className={'account__tab account__tab--logout'}>
         <span className='account__tab--name account__tab--logout'>Log Out</span>
       </div>
     </div>
