@@ -1,14 +1,20 @@
 import CartAlbums from "./CartAlbums";
 import PriceDisplay from "./PriceDisplay";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CartSidebar = ({ cart, hideCart, totalQuantity, albumQuantityControl, removeCartAlbum, user }) => {
-  
+  const navigate = useNavigate();
+
   const btnHidden = {
     display: 'none',
   }
   const btnShown = {
     display: 'block',
+  }
+
+  const proceedToCheckout = () => {
+    hideCart();
+    navigate('/order');
   }
 
   return (
@@ -22,9 +28,7 @@ const CartSidebar = ({ cart, hideCart, totalQuantity, albumQuantityControl, remo
         </div>
         <CartAlbums cart={cart} albumQuantityControl={albumQuantityControl} removeCartAlbum={removeCartAlbum} user={user} />
         <PriceDisplay cart={cart} totalQuantity={totalQuantity} />
-        <Link to="/order">
-          <button style={cart.length > 0 ? btnShown : btnHidden} className="cart-sidebar__proceed-btn">Proceed</button>
-        </Link>
+          <button onClick={proceedToCheckout} style={cart.length > 0 ? btnShown : btnHidden} className="cart-sidebar__proceed-btn">Proceed</button>
         <i className="fas fa-shopping-cart"></i>
       </div>
       <div className="page-shade"></div>
