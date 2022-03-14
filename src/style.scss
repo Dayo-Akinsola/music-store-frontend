@@ -2131,6 +2131,7 @@ a {
 .order-summary {
   @include pageStyling();
   font-family: Poppins, sans-serif;
+  padding-bottom: 25em;
 
   .order-summary__heading {
     text-align: center;
