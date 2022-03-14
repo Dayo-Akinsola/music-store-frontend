@@ -97,7 +97,7 @@ const AlbumDetails = ({
     const setInitialAlbumDetails = async () => {
       const albums = await getAllAlbums();
       const chosenAlbum = albums.filter(album => album.id === parseInt(urlParams.id))[0];
-      const response = await fetch(`https://albumphoria.herokuapp.com/discogs/${chosenAlbum.type}s/${chosenAlbum.id}`, { mode: 'cors'});
+      const response = await fetch(`https://albumphoria.herokuapp.com/discogs/releases/${chosenAlbum.id}`, { mode: 'cors'});
       const albumInfo = await response.json();
       const tracksInfo = await getAlbumTracks(albumInfo);
       setAlbumDetails(

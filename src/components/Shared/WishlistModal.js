@@ -37,9 +37,7 @@ const AccountWishlistAlbumModal = ({ addAlbumToCart, location, page }) => {
       </div>
       <div className={`${page}__wishlist--main`}>
         <div className={`${page}__wishlist--album-modal-details`}>
-          <Link to={`/shop/${encodeURIComponent(album.title).replaceAll('%20', '-').replace('---', '-')}/releases/${album.albumId}`}>
-            <span className={`${page}__wishlist--album-modal-title`}>{album.title}</span>
-          </Link>
+          <span className={`${page}__wishlist--album-modal-title`}>{album.title}</span>
           <span className={`${page}__wishlist--album-modal-artist`}>{album.artist}</span>
           <span className={`${page}__wishlist--album-modal-price`}>£ {album.price.toFixed(2)}</span>
         </div>
